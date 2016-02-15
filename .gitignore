@@ -3,3 +3,6 @@ npm-debug.log
 coverage
 lib
 build
+src/**/*.js
+src/*/*.map
+src/*/*.d.ts
