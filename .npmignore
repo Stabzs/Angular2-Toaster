@@ -4,3 +4,8 @@ coverage
 *.ts
 !*.d.ts
 tests
+main.js
+main.ts
+main.d.ts
+index.html
+bs-config.js

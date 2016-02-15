@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser'
-import {BodyOutputType, Toast, ToasterConfig, ToasterService, ToasterContainerComponent} from 'angular2-toaster/angular2-toaster';
+import {BodyOutputType, Toast, ToasterConfig, ToasterService, ToasterContainerComponent} from './angular2-toaster';
 
 // import {BodyOutputType} from './src/bodyOutputType';
 // import {ToasterContainerComponent} from './src/toaster-container.component';
