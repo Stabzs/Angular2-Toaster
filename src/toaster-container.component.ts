@@ -20,7 +20,8 @@ import {Toast} from './toast';
                 </div>
             </div>
         </div>
-        `
+        `,
+    styleUrls: ['toaster.css']
 })
 
 

@@ -2,7 +2,7 @@
 
 **angular2-toaster** is an asynchronous, non-blocking Angular2 Toaster Notification library largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
-### Current Version 0.0.1-alpha
+### Current Version 0.0.1-alpha.2
 
 ## Installation:
 
@@ -10,16 +10,11 @@
 npm install angular2-toaster
 ```
 
-## Link CSS
-```html
-<link rel="stylesheet" type="text/css" href="toaster.css" />
-```
-
 ## Getting Started with Default Configuration:
 
 ```typescript
 import {Component} from 'angular2/core';
-import {ToasterContainerComponent, ToasterService} from 'angular2-toaster';
+import {ToasterContainerComponent, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 @Component({
     selector: 'root',
@@ -50,7 +45,7 @@ bootstrap(Root);
 
 ```typescript
 import {Component} from 'angular2/core';
-import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster';
+import {ToasterContainerComponent, ToasterService, ToasterConfig, Toaster} from 'angular2-toaster/angular2-toaster';
 
 @Component({
     selector: 'root',
@@ -190,6 +185,7 @@ Animations are currently not released in Angular 2 beta and are not yet included
 
 ## Credits
 Rewritten from https://github.com/jirikavi/AngularJS-Toaster
+
 Inspired by http://codeseven.github.io/toastr/demo.html.
 
 ## Copyright

@@ -1,14 +1,11 @@
 {
   "name": "angular2-toaster",
-  "version": "0.0.1-alpha",
+  "version": "0.0.1-alpha.2",
   "description": "An Angular 2 Toaster Notification library based on AngularJS-Toaster",
   "main": "angular2-toaster.ts",
   "scripts": {
-    "prepublish": "tsc",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "lite": "lite-server",
-    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" "
+    "watch": "tsc -p src -w",
+    "build": "tsc -p src"
   },
   "keywords": [
       "angular",
@@ -27,16 +24,9 @@
   "typings": "./angular2-toaster.d.ts",
   "dependencies": {
     "angular2": "^2.0.0-beta.3",
-    "systemjs": "^0.19.20",
-    "es6-promise": "^3.0.2",
-    "es6-shim": "^0.33.3",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.0",
-    "zone.js": "^0.5.11"
+    "rxjs": "5.0.0-beta.0"
   },
   "devDependencies": {
-    "concurrently": "^1.0.0",
-    "lite-server": "^2.0.1",
     "typescript": "^1.7.5"
   }
 }
