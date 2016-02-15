@@ -9,7 +9,8 @@
     "removeComments": false,
     "noImplicitAny": false,
     "declaration": true,
-    "outDir": "../lib"
+    "outDir": "../lib",
+    "sourceRoot": "/"
   },
   "exclude": [
     "node_modules"

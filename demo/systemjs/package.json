@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "angular2": "^2.0.0-beta.6",
-    "angular2-toaster": "0.0.1-alpha.5",
+    "angular2-toaster": "0.0.1-alpha.6",
     "es6-shim": "0.33.3",
     "http-server": "^0.8.5",
     "reflect-metadata": "0.1.2",
