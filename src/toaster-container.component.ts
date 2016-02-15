@@ -20,8 +20,10 @@ import {Toast} from './toast';
                 </div>
             </div>
         </div>
-        `,
-    styleUrls: ['toaster.css']
+        `//,
+    // TODO: use styleUrls once Angular 2 supports the use of relative paths
+    // https://github.com/angular/angular/issues/2383
+    //styleUrls: ['./toaster.css']
 })
 
 

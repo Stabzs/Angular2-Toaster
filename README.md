@@ -2,13 +2,19 @@
 
 **angular2-toaster** is an asynchronous, non-blocking Angular2 Toaster Notification library largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
-### Current Version 0.0.1-alpha.2
+### Current Version 0.0.1-alpha.4
 
 ## Installation:
 
 ```bash
 npm install angular2-toaster
 ```
+
+## Link CSS
+```html
+<link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/lib/toaster.css" />
+```
+
 
 ## Getting Started with Default Configuration:
 

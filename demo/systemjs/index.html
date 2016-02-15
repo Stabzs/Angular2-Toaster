@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Angular2-Toaster SystemJS Example</title>
 
+    <link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/lib/toaster.css" />
+
     <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
     <script src="/node_modules/systemjs/dist/system.src.js"></script>
@@ -25,7 +27,7 @@
     <script src="/node_modules/angular2/bundles/angular2.js"></script>
 
     <script>
-        System.import('build/src/app').catch(console.log.bind(console));
+        System.import('build/app').catch(console.log.bind(console));
     </script>
 </head>
 <body>
