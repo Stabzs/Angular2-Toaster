@@ -17,7 +17,7 @@ class TestComponent {}
     directives: [ToasterContainerComponent],
     providers: [ToasterService],
     template: `
-        <toaster-container ></toaster-container>
+        <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
         <button (click)="popToastFromObject()">pop toast from object</button><br/>
         <button (click)="popToastFromArgs()">pop toast from args</button><br/>
         <button (click)="clearAll()">Clear All</button><br/>
