@@ -10,6 +10,7 @@
     "pretest": "npm run build",
     "test": "karma start karma.conf.js",
     "postcoverage": "node_modules/.bin/remap-istanbul -i coverage/ts-json-report/coverage-final.json -o coverage -t html",
+    "generatetraviscoverage": "node_modules/.bin/remap-istanbul -i coverage/ts-json-report/coverage-final.json -o coverage/lcov-report/lcov -t lcovonly",
     "coverage": "karma start karma.coverage.js"
   },
   "keywords": [
