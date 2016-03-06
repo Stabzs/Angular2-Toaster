@@ -9,8 +9,6 @@ module.exports = function (config) {
             'node_modules/zone.js/dist/zone-microtask.js',
             'node_modules/zone.js/dist/long-stack-trace-zone.js',
             'node_modules/zone.js/dist/jasmine-patch.js',
-            'node_modules/traceur/bin/traceur-runtime.js',
-            'node_modules/traceur/bin/traceur.js',
             'node_modules/systemjs/dist/system.src.js',
             'node_modules/reflect-metadata/Reflect.js',
 
