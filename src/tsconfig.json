@@ -11,7 +11,14 @@
     "declaration": true,
     "outDir": "../lib"
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "files": [
+      "bodyOutputType.ts",
+      "toast.ts",
+      "toaster-config.ts",
+      "toaster-container.component.ts",
+      "toaster-container.component.spec.ts",
+      "toaster.service.ts",
+      "../node_modules/typescript/lib/lib.es6.d.ts",
+      "../typings/jasmine/jasmine.d.ts"
+    ]
 }

@@ -1,8 +1,9 @@
 # Angular2-Toaster
 
-**angular2-toaster** is an asynchronous, non-blocking Angular2 Toaster Notification library largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
+**angular2-toaster** is an asynchronous, non-blocking Angular2 Toaster Notification library 
+largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
-### Current Version 0.0.1-alpha.7
+### Current Version 0.1.0-beta.1
 
 ## Installation:
 
@@ -13,6 +14,30 @@ npm install angular2-toaster
 ## Link CSS
 ```html
 <link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/lib/toaster.css" />
+```
+
+## Building the Source
+In order to build Angular2-Toaster, you will need to have Git and Node.js installed.
+
+Clone a copy of the repo:
+
+```bash
+git clone https://github.com/stabzs/Angular2-Toaster.git
+```
+
+In the cloned directory, run:
+```bash
+npm install
+```
+
+Start Typescript compiler with watch:
+```bash
+npm run watch
+```
+
+Start Karma test instance with watch:
+```bash
+npm run test
 ```
 
 
@@ -28,8 +53,7 @@ import {ToasterContainerComponent, ToasterService} from 'angular2-toaster/angula
     providers: [ToasterService],
     template: `
         <toaster-container></toaster-container>
-        <button (click)="popToast()">pop toast</button>
-        `
+        <button (click)="popToast()">pop toast</button>`
 })
 
 class Root {
@@ -51,7 +75,7 @@ bootstrap(Root);
 
 ```typescript
 import {Component} from 'angular2/core';
-import {ToasterContainerComponent, ToasterService, ToasterConfig, Toaster} from 'angular2-toaster/angular2-toaster';
+import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
 
 @Component({
     selector: 'root',
@@ -60,8 +84,7 @@ import {ToasterContainerComponent, ToasterService, ToasterConfig, Toaster} from 
     template: `
         <toaster-container [toasterconfig]="toasterconfig">
         </toaster-container>
-        <button (click)="popToast()">pop toast</button>
-        `
+        <button (click)="popToast()">pop toast</button>`
 })
 
 class Root {
@@ -85,6 +108,25 @@ class Root {
 
 bootstrap(Root);
 ```
+
+## Asynchronous vs Synchronous ToasterService
+By default, EventEmitters are asynchronous and the ToasterService will use an async EventEmitter for toast events.  However, this can be overridden 
+in your Component's provider registration via a factory that passes `false` to the ToasterService constructor.
+
+```typescript
+import {provide} from 'angular2/core';
+
+@Component({
+    selector: 'root',
+    directives: [ToasterContainerComponent],
+    providers: [provide(ToasterService, { useFactory: () => { return new ToasterService(false) } })],
+    template: `
+        <toaster-container [toasterconfig]="toasterconfig">
+        </toaster-container>
+        <button (click)="popToast()">pop toast</button>`
+})
+```
+
 
 ## Customize Toast arguments in pop
 ```typescript
@@ -181,6 +223,33 @@ The close button html can be overridden either globally or per toast call.
     
     this.toasterService.pop(toast);
     ```
+
+
+### On Show Callback
+An onShow callback function can be attached to each toast instance.  The callback will be invoked upon toast add.
+
+```typescript
+var toast: Toast = {
+  type: 'success',
+  title: 'parent',
+  onShowCallback: (toast) => this.toasterService.pop('success', 'invoked from ' + toast.title + ' onShow callback')  
+};
+
+this.toasterService.pop(toast);
+```
+
+### On Hide Callback
+An onHide callback function can be attached to each toast instance.  The callback will be invoked upon toast removal.
+
+```typescript
+var toast: Toast = {
+  type: 'success',
+  title: 'parent',
+  onHideCallback: (toast) => this.toasterService.pop('success', 'invoked from ' + toast.title + ' onHide callback')  
+};
+
+this.toasterService.pop(toast);
+```
 
 
 ## Animations

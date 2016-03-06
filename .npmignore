@@ -1,4 +1,11 @@
 demo
-node_modules
 src
-npm-debug.log
+test
+coverage
+typings
+typings.json
+tsd.json
+karma-test-shim.js
+karma.conf.js
+karma.coverage.js
+lib/*.spec.*

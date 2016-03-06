@@ -62,7 +62,8 @@ export class ToasterContainerComponent {
                 if (typeof toast.clickHandler === "function") {
                     removeToast = toast.clickHandler(toast, isCloseButton);
                 } else {
-                    throw new Error("The toast click handler is not a callable function.")
+                    console.log("The toast click handler is not a callable function.");
+                    return false;
                 }
             }
 
@@ -127,7 +128,7 @@ export class ToasterContainerComponent {
             if (typeof this.toasterconfig.showCloseButton === "object") {
                 toast.showCloseButton = this.toasterconfig.showCloseButton[toast.type];
             } else if (typeof this.toasterconfig.showCloseButton === "boolean") {
-                toast.showCloseButton = this.toasterconfig.showCloseButton;
+                toast.showCloseButton = <boolean>this.toasterconfig.showCloseButton;
             }
         }
 
@@ -186,7 +187,10 @@ export class ToasterContainerComponent {
         if (index < 0) return;
 
         this.toasts.splice(index, 1);
-        if (toast.timeoutId) window.clearTimeout(toast.timeoutId);
+        if (toast.timeoutId) {
+            window.clearTimeout(toast.timeoutId);
+            toast.timeoutId = null;
+        }
         if (toast.onHideCallback) toast.onHideCallback(toast);
     }
 
@@ -200,7 +204,7 @@ export class ToasterContainerComponent {
         let toastId = clearWrapper.toastId;
         let toastContainerId = clearWrapper.toastContainerId;
 
-        if (toastContainerId == null || typeof toastContainerId === 'undefined') {
+        if (toastContainerId === null || typeof toastContainerId === 'undefined') {
             this.clearToastsAction(toastId);
         } else if (toastContainerId === this.toasterconfig.toastContainerId) {
             this.clearToastsAction(toastId);
@@ -209,7 +213,7 @@ export class ToasterContainerComponent {
 
     private clearToastsAction(toastId?: number) {
         if (toastId) {
-            this.removeToast(this.toasts.find(t => t.toastId === toastId));
+            this.removeToast(this.toasts.filter(t => t.toastId === toastId)[0]);
         } else {
             this.removeAllToasts();
         }

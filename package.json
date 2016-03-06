@@ -1,19 +1,24 @@
 {
   "name": "angular2-toaster",
-  "version": "0.0.1-alpha.7",
+  "version": "0.1.0-beta.1",
   "description": "An Angular 2 Toaster Notification library based on AngularJS-Toaster",
   "main": "angular2-toaster.ts",
   "scripts": {
     "watch": "tsc -p src -w",
-    "build": "tsc -p src && cpx src/toaster.css lib"
+    "start": "npm run test && http-server -c-1 -o -p 8875 .",
+    "build": "tsc -p src && cpx src/toaster.css lib",
+    "pretest": "npm run build",
+    "test": "karma start karma.conf.js",
+    "postcoverage": "node_modules/.bin/remap-istanbul -i coverage/ts-json-report/coverage-final.json -o coverage -t html",
+    "coverage": "karma start karma.coverage.js"
   },
   "keywords": [
-      "angular",
-      "angular2",
-      "angularjs-toaster",
-      "angular2-toaster",
-      "toaster",
-      "notification"
+    "angular",
+    "angular2",
+    "angularjs-toaster",
+    "angular2-toaster",
+    "toaster",
+    "notification"
   ],
   "author": "Stabzs",
   "license": "MIT",
@@ -21,13 +26,26 @@
     "type": "git",
     "url": "https://github.com/stabzs/Angular2-Toaster.git"
   },
+  "bugs": {
+    "url": "https://github.com/stabzs/Angular2-Toaster/issues"
+  },
   "typings": "./angular2-toaster.d.ts",
   "dependencies": {
-    "angular2": "^2.0.0-beta.3",
-    "rxjs": "5.0.0-beta.0"
+    "angular2": "^2.0.0-beta.8",
+    "rxjs": "^5.0.0-beta.2"
   },
   "devDependencies": {
-    "typescript": "^1.7.5",
-    "cpx": "^1.2.1"
+    "coveralls": "^2.11.6",
+    "cpx": "^1.2.1",
+    "http-server": "^0.9.0",
+    "jasmine-core": "2.4.1",
+    "karma": "^0.13.21",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-coverage": "^0.5.3",
+    "karma-jasmine": "^0.3.7",
+    "remap-istanbul": "^0.5.1",
+    "systemjs": "^0.19.23",
+    "traceur": "^0.0.102",
+    "typescript": "^1.8.2"
   }
 }

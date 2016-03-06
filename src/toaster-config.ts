@@ -3,12 +3,12 @@ import {BodyOutputType} from './bodyOutputType';
 export class ToasterConfig implements IToasterConfig {
     limit: number;
     tapToDismiss: boolean;
-    showCloseButton: any;
+    showCloseButton: boolean|Object;
     closeHtml: string;
     newestOnTop: boolean;
     // Set timeOut to 0 to make it sticky
     // TODO: move to documentation on README instead of here
-    timeout: number;
+    timeout: number|Object;
     typeClasses: Object;
     iconClasses: Object;
     bodyOutputType: BodyOutputType;
@@ -32,7 +32,7 @@ export class ToasterConfig implements IToasterConfig {
         this.tapToDismiss = configOverrides.tapToDismiss != null ? configOverrides.tapToDismiss : true;
         this.showCloseButton = configOverrides.showCloseButton != null ? configOverrides.showCloseButton : false;
         this.closeHtml = configOverrides.closeHtml || '<button class="toast-close-button" type="button">&times;</button>';
-        this.newestOnTop = configOverrides.newestOnTop != null ?configOverrides.newestOnTop : true;
+        this.newestOnTop = configOverrides.newestOnTop != null ? configOverrides.newestOnTop : true;
         this.timeout = configOverrides.timeout != null ? configOverrides.timeout : 5000;
         this.typeClasses = configOverrides.typeClasses || {
             error: 'toast-error',
@@ -57,7 +57,7 @@ export class ToasterConfig implements IToasterConfig {
         this.messageClass = configOverrides.messageClass || 'toast-message';
         this.preventDuplicates = configOverrides.preventDuplicates != null ? configOverrides.preventDuplicates : false;
         this.mouseoverTimerStop = configOverrides.mouseoverTimerStop != null ? configOverrides.mouseoverTimerStop : false;
-        this.toastContainerId = configOverrides.toastContainerId || null;
+        this.toastContainerId = configOverrides.toastContainerId != null ? configOverrides.toastContainerId : null;
     }
 }
 
@@ -66,12 +66,12 @@ export interface IToasterConfig {
     // TODO: move to documentation on README instead of here
     limit?: number;
     tapToDismiss?: boolean;
-    showCloseButton?: any;
+    showCloseButton?: boolean|Object;
     closeHtml?: string;
     newestOnTop?: boolean;
     // Set timeOut and extendedTimeout to 0 to make it sticky
     // TODO: move to documentation on README instead of here
-    timeout?: number;
+    timeout?: number|Object;
     typeClasses?: Object;
     iconClasses?: Object;
     bodyOutputType?: BodyOutputType;

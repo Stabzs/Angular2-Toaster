@@ -3,7 +3,7 @@ import {ToasterConfig} from './toaster-config';
 
 export interface Toast {
     type: string;
-    title: string;
+    title?: string;
     body?: any; 
     
     toastId?: number;

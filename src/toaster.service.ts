@@ -1,14 +1,24 @@
-import {Injectable, Output, EventEmitter} from 'angular2/core';
+import {Injectable, Output, EventEmitter, Optional} from 'angular2/core';
 import {Toast} from './toast';
 
 @Injectable()
 export class ToasterService {
+    private isAsync : boolean = true;
+    
+    constructor(@Optional() isAsync?: boolean) { 
+        if (typeof isAsync === "boolean") {
+            this.isAsync = isAsync;
+        } 
+        
+        this.addToast = new EventEmitter<Toast>(this.isAsync);
+        this.clearToasts = new EventEmitter(this.isAsync);
+    }
     
     @Output()
-    addToast: EventEmitter<Toast> = new EventEmitter<Toast>();
+    addToast: EventEmitter<Toast>;
     
     @Output()
-    clearToasts: EventEmitter<IClearWrapper> = new EventEmitter();
+    clearToasts: EventEmitter<IClearWrapper>;
     
     pop(type: string|Toast, title?: string, body?: string) {
         let toast = typeof type === 'string' ? { type: type, title: title, body: body } : type;
