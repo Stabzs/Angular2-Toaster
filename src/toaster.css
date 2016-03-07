@@ -44,6 +44,7 @@
   opacity: 0.8;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   filter: alpha(opacity=80);
+  z-index: 999;
 }
 .toast-close-button:hover,
 .toast-close-button:focus {
