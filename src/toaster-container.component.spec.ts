@@ -66,7 +66,7 @@ export function main() {
 
             setTimeout(function() {
                 expect(toasterContainer.toasts.length).toBe(1);
-            }, 0);
+            }, 0); 
         });
 
         it('should clear toast asynchronously', () => {

@@ -4,9 +4,9 @@
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&bust=1)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&busting=1)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 0.1.0-beta.2
+### Current Version 0.1.0-beta.3
 
 ## Installation:
 
@@ -146,6 +146,33 @@ this.toasterService.pop(toast);
 
 ## Configurable Options
 
+### Limit
+Limit is defaulted to null, meaning that there is no maximum number of toasts that are defined 
+before the toast container begins removing toasts when a new toast is added.
+
+To change this behavior, pass a "limit" option to the config:
+
+```typescript
+template: 
+    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+
+public toasterconfig : ToasterConfig = 
+    new ToasterConfig({limit: 5});
+```
+
+### Tap to Dismiss
+By default, the `tapToDismiss` option is set to true, meaning that if a toast is clicked anywhere 
+on the toast body, the toast will be dismissed.  This behavior can be overriden in the config so 
+that if set to false, the toast will only be dismissed if the close button is defined and clicked:
+
+```typescript
+template: 
+    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+
+public toasterconfig : ToasterConfig = 
+    new ToasterConfig({tapToDismiss: false});
+```
+
 ### Close Button
 
 The Close Button's visibility can be configured at three different levels:
@@ -154,13 +181,10 @@ The Close Button's visibility can be configured at three different levels:
 
     ```typescript
     template: 
-        `<toaster-container [toasterconfig]="toasterconfig">
-        </toaster-container>`
+        `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
 
     public toasterconfig : ToasterConfig = 
-        new ToasterConfig({
-            showCloseButton: true
-        });
+        new ToasterConfig({showCloseButton: true});
     ```
 
 * Per info-class type:
@@ -168,8 +192,7 @@ By passing the close-button configuration as an object instead of a boolean, you
 
     ```typescript
     template: 
-        `<toaster-container [toasterconfig]="toasterconfig">
-        </toaster-container>`
+        `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
 
     public toasterconfig : ToasterConfig = 
         new ToasterConfig({
@@ -204,8 +227,7 @@ The close button html can be overridden either globally or per toast call.
 
     ```typescript
     template: 
-        `<toaster-container [toasterconfig]="toasterconfig">
-        </toaster-container>`
+        `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
 
     public toasterconfig : ToasterConfig = 
         new ToasterConfig({
@@ -227,6 +249,61 @@ The close button html can be overridden either globally or per toast call.
     this.toasterService.pop(toast);
     ```
 
+### Newest Toasts on Top
+The `newestOnTop` option is defaulted to true, adding new toasts on top of other existing toasts. 
+If changed to false via the config, toasts will be added to the bottom of other existing toasts.
+
+```typescript
+template: 
+    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+
+public toasterconfig : ToasterConfig = 
+    new ToasterConfig({newestOnTop: false});
+```
+
+### Timeout
+By default, toasts have a timeout setting of 5000, meaning that they are removed after 5000 
+milliseconds.  
+
+If the timeout is set to anything other than a number greater than 0, the toast will be considered
+ "sticky" and will not automatically dismiss.
+
+The timeout can be configured at three different levels:
+
+* Globally in the config for all toast types:
+  ```typescript
+  template: 
+    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+
+  public toasterconfig : ToasterConfig = 
+        new ToasterConfig({timeout: 2000});
+  ```
+
+* Per info-class type:
+By passing the timeout config option as an object instead of a number, you can specify the global 
+behavior an info-class type should have.
+
+  ```typescript
+  template: 
+    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+
+  public toasterconfig : ToasterConfig = 
+      new ToasterConfig({timeout: {error:1000});
+  ```
+If a type is not defined and specified, a timeout will not be applied, making the toast "sticky".
+
+* Per toast constructed via toaster.pop('success', "title", "text"):
+  ```typescript
+  var toast : Toast = {
+      type: 'error',
+      title: 'Title text',
+      body: 'Body text',
+      showCloseButton: true,
+      closeHtml: '<button>Close</button>'
+  };
+    
+  this.toasterService.pop(toast);
+  ```
 
 ### On Show Callback
 An onShow callback function can be attached to each toast instance.  The callback will be invoked upon toast add.

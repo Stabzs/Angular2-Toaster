@@ -6,8 +6,6 @@ export class ToasterConfig implements IToasterConfig {
     showCloseButton: boolean|Object;
     closeHtml: string;
     newestOnTop: boolean;
-    // Set timeOut to 0 to make it sticky
-    // TODO: move to documentation on README instead of here
     timeout: number|Object;
     typeClasses: Object;
     iconClasses: Object;
@@ -62,15 +60,11 @@ export class ToasterConfig implements IToasterConfig {
 }
 
 export interface IToasterConfig {
-    // limits max number of toasts
-    // TODO: move to documentation on README instead of here
     limit?: number;
     tapToDismiss?: boolean;
     showCloseButton?: boolean|Object;
     closeHtml?: string;
     newestOnTop?: boolean;
-    // Set timeOut and extendedTimeout to 0 to make it sticky
-    // TODO: move to documentation on README instead of here
     timeout?: number|Object;
     typeClasses?: Object;
     iconClasses?: Object;
