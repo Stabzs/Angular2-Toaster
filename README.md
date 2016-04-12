@@ -119,7 +119,7 @@ ToasterService exposes both a synchronous and asynchronous pop method in the for
 `pop()` returns a concrete `Toast` instance after the toastId property has been hydrated and the 
 toast has been added to all receiving containers.
 
-'popAsync()' returns a hot 'Observable<Toast>` that may be subscribed to to receive multiple toast 
+`popAsync()` returns a hot `Observable<Toast>` that may be subscribed to to receive multiple toast 
 updates.
 
 
