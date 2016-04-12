@@ -1,41 +1,64 @@
-import {Injectable, Output, EventEmitter, Optional} from 'angular2/core';
+import {Injectable} from 'angular2/core';
 import {Toast} from './toast';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/share';
+import {Observer} from 'rxjs/Observer';
+
 
 @Injectable()
 export class ToasterService {
-    private isAsync : boolean = true;
-    
-    constructor(@Optional() isAsync?: boolean) { 
-        if (typeof isAsync === "boolean") {
-            this.isAsync = isAsync;
-        } 
-        
-        this.addToast = new EventEmitter<Toast>(this.isAsync);
-        this.clearToasts = new EventEmitter(this.isAsync);
+    addToast: Observable<Toast>;
+    private _addToast: Observer<Toast>;
+
+    clearToasts: Observable<IClearWrapper>;
+    private _clearToasts: Observer<IClearWrapper>;
+
+    constructor() {
+        this.addToast = new Observable<Toast>(observer => this._addToast = observer).share();
+        this.clearToasts = new Observable<IClearWrapper>(observer => this._clearToasts = observer).share();
     }
-    
-    @Output()
-    addToast: EventEmitter<Toast>;
-    
-    @Output()
-    clearToasts: EventEmitter<IClearWrapper>;
-    
-    pop(type: string|Toast, title?: string, body?: string) {
+
+    pop(type: string | Toast, title?: string, body?: string): Toast {
         let toast = typeof type === 'string' ? { type: type, title: title, body: body } : type;
-        this.addToast.emit(toast);
-        // TODO: Return toast id
+
+        toast.toastId = Guid.newGuid();
+
+        if (!this._addToast) {
+            throw new Error("No Toaster Containers have been initialized to receive toasts.");
+        }
+        
+        this._addToast.next(toast);
+        return toast;
     }
-    
-    clear(toastId?: number, toastContainerId?: number) {
-        let clearWrapper : IClearWrapper = {
+
+    popAsync(type: string | Toast, title?: string, body?: string): Observable<Toast> {
+        setTimeout(() => {
+            this.pop(type, title, body);
+        }, 0);
+
+        return this.addToast;
+    }
+
+    clear(toastId?: string, toastContainerId?: number) {
+        let clearWrapper: IClearWrapper = {
             toastId: toastId, toastContainerId: toastContainerId
         };
-        
-        this.clearToasts.emit(clearWrapper)
+
+        this._clearToasts.next(clearWrapper)
     }
 }
 
 export interface IClearWrapper {
-    toastId?: number;
+    toastId?: string;
     toastContainerId?: number;
+}
+
+// http://stackoverflow.com/questions/26501688/a-typescript-guid-class
+class Guid {
+    static newGuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+    }
 }

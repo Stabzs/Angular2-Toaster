@@ -6,7 +6,7 @@ export interface Toast {
     title?: string;
     body?: any; 
     
-    toastId?: number;
+    toastId?: string;
     toastContainerId?: number;
     onShowCallback?: OnActionCallback;
     onHideCallback?: OnActionCallback;

@@ -4,9 +4,9 @@
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&busting=1)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&busted=1)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 0.1.0-beta.3
+### Current Version 0.2.0-beta.0
 
 ## Installation:
 
@@ -113,22 +113,14 @@ bootstrap(Root);
 ```
 
 ## Asynchronous vs Synchronous ToasterService
-By default, EventEmitters are asynchronous and the ToasterService will use an async EventEmitter for toast events.  However, this can be overridden 
-in your Component's provider registration via a factory that passes `false` to the ToasterService constructor.
+ToasterService exposes both a synchronous and asynchronous pop method in the form of `pop()` and 
+`popAsync()` respectively.  
 
-```typescript
-import {provide} from 'angular2/core';
+`pop()` returns a concrete `Toast` instance after the toastId property has been hydrated and the 
+toast has been added to all receiving containers.
 
-@Component({
-    selector: 'root',
-    directives: [ToasterContainerComponent],
-    providers: [provide(ToasterService, { useFactory: () => { return new ToasterService(false) } })],
-    template: `
-        <toaster-container [toasterconfig]="toasterconfig">
-        </toaster-container>
-        <button (click)="popToast()">pop toast</button>`
-})
-```
+'popAsync()' returns a hot 'Observable<Toast>` that may be subscribed to to receive multiple toast 
+updates.
 
 
 ## Customize Toast arguments in pop

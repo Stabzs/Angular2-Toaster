@@ -4,23 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf build",
-    "prewatch": "npm run clean -s",
     "watch": "mkdir build && tsc -p src -w",
-    "prebuild": "npm run clean -s",
     "build": "mkdir build && tsc -p src",
     "start": "http-server -c-1 ."
   },
   "author": "Stabzs",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^1.7.5",
-    "rimraf": "^2.5.2"
+    "typescript": "1.8.9"
   },
   "dependencies": {
-    "angular2": "^2.0.0-beta.6",
-    "angular2-toaster": "0.2.0-beta.0",
-    "es6-shim": "0.33.3",
+    "angular2": "2.0.0-beta.11",
+    "angular2-toaster": "0.1.0-beta.03",
+    "es6-shim": "0.35.0",
     "http-server": "^0.8.5",
     "reflect-metadata": "0.1.2",
     "systemjs": "^0.19.9"

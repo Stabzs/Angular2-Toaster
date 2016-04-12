@@ -122,8 +122,6 @@ export class ToasterContainerComponent {
             }
         }
 
-        toast.toastId = ++this.id;
-
         if (toast.showCloseButton === null || typeof toast.showCloseButton === "undefined") {
             if (typeof this.toasterconfig.showCloseButton === "object") {
                 toast.showCloseButton = this.toasterconfig.showCloseButton[toast.type];
@@ -211,7 +209,7 @@ export class ToasterContainerComponent {
         }
     }
 
-    private clearToastsAction(toastId?: number) {
+    private clearToastsAction(toastId?: string) {
         if (toastId) {
             this.removeToast(this.toasts.filter(t => t.toastId === toastId)[0]);
         } else {

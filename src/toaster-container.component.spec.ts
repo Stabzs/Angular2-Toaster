@@ -1,8 +1,8 @@
 import {Component, Input, DynamicComponentLoader, ChangeDetectorRef, provide} from 'angular2/core';
 
 import {
-describe, expect, it, inject, injectAsync, beforeEach, beforeEachProviders,
-TestComponentBuilder, ComponentFixture
+    describe, expect, it, inject, injectAsync, beforeEach, beforeEachProviders,
+    TestComponentBuilder, ComponentFixture
 } from 'angular2/testing';
 
 import {Toast} from './toast';
@@ -12,12 +12,11 @@ import {ToasterConfig} from './toaster-config';
 import {BodyOutputType} from './bodyOutputType';
 
 // Mock component for bootstrapping <toaster-container></toaster-container>
-// Note override to ToasterService injection to allow for isAsync:false
 @Component({
     selector: 'test-component',
     template: '<toaster-container [toasterconfig]="toasterconfig"></toaster-container>',
     directives: [ToasterContainerComponent],
-    providers: [provide(ToasterService, { useFactory: () => { return new ToasterService(false) } })],
+    providers: [ToasterService],
 })
 export class TestComponent {
     toasterService: ToasterService;
@@ -26,7 +25,8 @@ export class TestComponent {
         this.toasterService = toasterService;
     }
 
-    public toasterconfig: ToasterConfig = new ToasterConfig({ showCloseButton: true, tapToDismiss: false, timeout: 0 });
+    public toasterconfig: ToasterConfig = new ToasterConfig({ showCloseButton: true, tapToDismiss: false, timeout: 0, toastContainerId: 1 });
+    public toasterconfig2: ToasterConfig = new ToasterConfig({ showCloseButton: true, tapToDismiss: false, timeout: 0, toastContainerId: 2 });
 }
 
 // Mock component for testing bodyOutputType Component rendering
@@ -38,54 +38,6 @@ class TestDynamicComponent { }
 
 
 export function main() {
-    describe('ToasterContainerComponent with async ToasterService', () => {
-        var toasterService: ToasterService,
-            toasterContainer: ToasterContainerComponent,
-            dynamicComponentLoader: DynamicComponentLoader,
-            changeDetectorRef: ChangeDetectorRef,
-            testComponentBuilder: TestComponentBuilder;
-
-        beforeEachProviders(() => [
-            ChangeDetectorRef
-        ]);
-
-        beforeEach(inject([DynamicComponentLoader, ChangeDetectorRef, TestComponentBuilder],
-            (dcl, cdr, tcb) => {
-                toasterService = new ToasterService();
-                toasterContainer = new ToasterContainerComponent(toasterService, dcl, cdr);
-                dynamicComponentLoader = dcl;
-                changeDetectorRef = cdr;
-                testComponentBuilder = tcb;
-            }
-        ));
-
-
-        it('should pop toast asynchronously', () => {
-            toasterContainer.ngOnInit();
-            toasterService.pop('success', 'test', 'test');
-
-            setTimeout(function() {
-                expect(toasterContainer.toasts.length).toBe(1);
-            }, 0); 
-        });
-
-        it('should clear toast asynchronously', () => {
-            toasterContainer.ngOnInit();
-            toasterService.pop('success', 'test', 'test');
-
-            setTimeout(function() {
-                expect(toasterContainer.toasts.length).toBe(1);
-            }, 0);
-
-            toasterService.clear();
-
-            setTimeout(function() {
-                expect(toasterContainer.toasts.length).toBe(0);
-            }, 0);
-        });
-    });
-
-
     describe('ToasterContainerComponent with sync ToasterService', () => {
         var toasterService: ToasterService,
             toasterContainer: ToasterContainerComponent;
@@ -98,7 +50,7 @@ export function main() {
         ]);
 
         beforeEach(inject([DynamicComponentLoader, ChangeDetectorRef], (dcl, changeDetector) => {
-            toasterService = new ToasterService(false);
+            toasterService = new ToasterService();
             toasterContainer = new ToasterContainerComponent(toasterService, dcl, changeDetector);
         }));
 
@@ -108,6 +60,57 @@ export function main() {
             toasterService.pop('success', 'test', 'test');
 
             expect(toasterContainer.toasts.length).toBe(1);
+        });
+
+        it('should pop toast asynchronously', () => {
+            toasterContainer.ngOnInit();
+
+            toasterService.popAsync('success', 'test', 'test')
+                .subscribe(toast => {
+                    expect(toast).toBeDefined();
+                    expect(toast.type).toBe('success');
+                    expect(toasterContainer.toasts.length).toBe(1);
+                    expect(toast.toastId).toBe(toasterContainer.toasts[0].toastId);
+                });
+        });
+
+        it('should pop toast asynchronously multiple times', () => {
+            toasterContainer.ngOnInit();
+
+            toasterService.popAsync('success', 'test', 'test');
+            toasterService.popAsync('success', 'test', 'test');
+            toasterService.popAsync('success', 'test', 'test')
+                .subscribe(toast => {
+                    expect(toast).toBeDefined();
+                    expect(toast.type).toBe('success');
+
+                    var locatedToast;
+                    for (var i = 0; i < toasterContainer.toasts.length; i++) {
+                        if (toasterContainer.toasts[i].toastId === toast.toastId) {
+                            locatedToast = toasterContainer.toasts[i];
+                            break;
+                        }
+                    }
+
+                    expect(locatedToast).toBeDefined();
+                });
+        });
+
+        it('should retrieve toast instance from pop observer', () => {
+            toasterContainer.ngOnInit();
+            var toast: Toast = {
+                type: 'success',
+                title: 'observer toast'
+            };
+
+            expect(toasterContainer.toasts.length).toBe(0);
+
+            var toast = toasterService.pop(toast);
+
+            expect(toast).toBeDefined();
+            expect(toast.type).toBe(toast.type);
+            expect(toast.title).toBe(toast.title);
+            expect(toast.toastId).toBe(toasterContainer.toasts[0].toastId);
         });
 
         it('should clear toast synchronously', () => {
@@ -120,14 +123,19 @@ export function main() {
             expect(toasterContainer.toasts.length).toBe(0);
         });
 
-        it('should not register subscribers until ngOnInit is called', () => {
-            toasterService.pop('success', 'test', 'test');
+        it('should throw exception if toast is popped without any subscribers being registered', () => {
+            let hasError: boolean = false;
+
+            try {
+                toasterService.pop('success', 'test', 'test');
+            }
+            catch (e) {
+                hasError = true;
+                expect(e.message).toBe('No Toaster Containers have been initialized to receive toasts.');
+            }
+
             expect(toasterContainer.toasts.length).toBe(0);
-
-            toasterContainer.ngOnInit();
-
-            toasterService.pop('success', 'test', 'test');
-            expect(toasterContainer.toasts.length).toBe(1);
+            expect(hasError).toBe(true);
         });
 
         it('should remove subscribers when ngOnDestroy is called', () => {
@@ -276,7 +284,7 @@ export function main() {
         it('addToast should not add toast if preventDuplicates and the same toastId exists', () => {
             toasterContainer.toasterconfig = new ToasterConfig({ preventDuplicates: true });
             toasterContainer.ngOnInit();
-            var toast: Toast = { type: 'info', toastId: 1 };
+            var toast: Toast = { type: 'info' };
             toasterService.pop(toast);
 
             expect(toasterContainer.toasts.length).toBe(1);
@@ -403,14 +411,14 @@ export function main() {
 
         it('removeToast will not remove the toast if it is not found in the toasters array', () => {
             toasterContainer.ngOnInit();
-            var toast: Toast = { type: 'info', toastId: 1 };
-            var toast2: Toast = { type: 'success', toastId: 2 };
+            var toast: Toast = { type: 'info' };
+            var toast2: Toast = { type: 'success' };
 
             toasterService.pop(toast);
 
             expect(toasterContainer.toasts.length).toBe(1);
 
-            toasterService.clear(toast2.toastId);
+            toasterService.clear('faketoastid');
             expect(toasterContainer.toasts.length).toBe(1);
         });
 
@@ -430,37 +438,66 @@ export function main() {
 
             var toast: Toast = { type: 'info' };
             toasterService.pop(toast);
-            
+
             expect(toasterContainer.toasts.length).toBe(1);
-            
+
             toasterService.clear(null, undefined);
             expect(toasterContainer.toasts.length).toBe(0);
         });
-        
+
         it('clearToasts will clear toasts from specified container if toastContainerId is number', () => {
-            toasterContainer.toasterconfig = new ToasterConfig({toastContainerId: 1});
+            toasterContainer.toasterconfig = new ToasterConfig({ toastContainerId: 1 });
             toasterContainer.ngOnInit();
 
             var toast: Toast = { type: 'info', toastContainerId: 1 };
             toasterService.pop(toast);
-            
+
             expect(toasterContainer.toasts.length).toBe(1);
-            
+
             toasterService.clear(null, 1);
             expect(toasterContainer.toasts.length).toBe(0);
         });
-        
+
         it('clearToasts will not clear toasts from specified container if toastContainerId does not match', () => {
-            toasterContainer.toasterconfig = new ToasterConfig({toastContainerId: 1});
+            toasterContainer.toasterconfig = new ToasterConfig({ toastContainerId: 1 });
             toasterContainer.ngOnInit();
 
             var toast: Toast = { type: 'info', toastContainerId: 1 };
             toasterService.pop(toast);
-            
+
             expect(toasterContainer.toasts.length).toBe(1);
-            
+
             toasterService.clear(null, 2);
             expect(toasterContainer.toasts.length).toBe(1);
+        });
+
+        it('createGuid should create unique Guids', () => {
+            toasterContainer.toasterconfig = new ToasterConfig({ toastContainerId: 1 });
+            toasterContainer.ngOnInit();
+            
+            var toastIds = [];
+
+            for (var i = 0; i < 10000; i++) {
+                var toast = toasterService.pop('success', 'toast');
+                toastIds.push(toast.toastId);
+                toasterService.clear();
+            }
+
+            var valuesSoFar = Object.create(null);
+            var dupFound = false;
+            for (var i = 0; i < toastIds.length; ++i) {
+                var value = toastIds[i];
+                if (value in valuesSoFar) {
+                    dupFound = true;
+                    break;
+                }
+                valuesSoFar[value] = true;
+            }
+            
+            expect(dupFound).toBe(false);
+            
+            toastIds = null;
+            valuesSoFar = null;
         });
     });
 
@@ -475,7 +512,7 @@ export function main() {
         beforeEach(injectAsync([TestComponentBuilder], tcb => {
             return tcb
                 .createAsync(TestComponent)
-                .then(f => fixture = f)
+                .then((f: ComponentFixture) => fixture = f)
                 .catch(e => expect(e).toBeUndefined());
         }));
 
@@ -617,6 +654,65 @@ export function main() {
                 var renderedToast = fixture.nativeElement.querySelector('#componentBody');
                 expect(renderedToast.innerHTML).toBe('<div>loaded via component</div>');
             }, 1);
+        });
+    });
+
+    describe('Multiple ToasterContainerComponent components', () => {
+        var dynamicComponentLoader: DynamicComponentLoader,
+            changeDetectorRef: ChangeDetectorRef,
+            testComponentBuilder: TestComponentBuilder;
+
+        let fixture;
+
+        beforeEach(injectAsync([TestComponentBuilder], tcb => {
+            return tcb
+                .overrideTemplate(TestComponent,
+                `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+                     <toaster-container [toasterconfig]="toasterconfig2"></toaster-container>`)
+                .createAsync(TestComponent)
+                .then(f => fixture = f)
+                .catch(e => expect(e).toBeUndefined());
+        }));
+
+        it('should create multiple container instances', () => {
+            fixture.componentInstance.toasterconfig.toastContainerId = 1;
+            fixture.componentInstance.toasterconfig2.toastContainerId = 2;
+            fixture.detectChanges();
+
+            expect(fixture).toBeDefined();
+            expect(fixture.componentInstance.toasterconfig).toBeDefined();
+            expect(fixture.componentInstance.toasterconfig2).toBeDefined();
+        });
+
+        it('should only receive toasts targeted for that container', () => {
+            fixture.componentInstance.toasterconfig.toastContainerId = 1;
+            fixture.componentInstance.toasterconfig2.toastContainerId = 2;
+            fixture.detectChanges();
+
+            var toast1: Toast = {
+                type: 'success',
+                title: 'fixture 1',
+                toastContainerId: 1
+            };
+
+            var toast2: Toast = {
+                type: 'success',
+                title: 'fixture 2',
+                toastContainerId: 2
+            };
+
+            fixture.componentInstance.toasterService.pop(toast1);
+            fixture.componentInstance.toasterService.pop(toast2);
+
+            fixture.detectChanges();
+
+            let container1 = fixture.debugElement.children[0].componentInstance;
+            let container2 = fixture.debugElement.children[1].componentInstance;
+
+            expect(container1.toasts.length).toBe(1);
+            expect(container2.toasts.length).toBe(1);
+            expect(container1.toasts[0].title).toBe('fixture 1');
+            expect(container2.toasts[0].title).toBe('fixture 2');
         });
     });
 }
