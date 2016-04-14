@@ -6,5 +6,5 @@ build
 src/*.js
 src/*.map
 src/*.d.ts
-bundle.js
-bundle.js.map
+demo/webpack/bundle.js
+demo/webpack/bundle.js.map
