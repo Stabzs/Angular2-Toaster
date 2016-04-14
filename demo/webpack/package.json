@@ -10,7 +10,6 @@
   "author": "Stabzs",
   "license": "ISC",
   "devDependencies": {
-    
     "typescript": "1.8.9",
     "webpack": "1.12.15",
     "webpack-dev-server": "1.14.1"

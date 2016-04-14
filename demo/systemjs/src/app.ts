@@ -16,8 +16,8 @@ class TestComponent {}
     directives: [ToasterContainerComponent],
     providers: [ToasterService],
     template: `
-        <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
-        <toaster-container [toasterconfig]="toasterconfig2"></toaster-container>
+        <toaster-container [toasterconfig]="config1"></toaster-container>
+        <toaster-container [toasterconfig]="config2"></toaster-container>
         <button (click)="popToastFromObject()">pop toast from object</button><br/>
         <button (click)="popToastFromArgs()">pop toast from args</button><br/>
         <button (click)="popAsyncToastFromArgs()">pop async toast from args</button><br/>
@@ -34,10 +34,10 @@ export class Root{
         this.toasterService = toasterService;    
     }
     
-    public toasterconfig : ToasterConfig = new ToasterConfig({showCloseButton: true, tapToDismiss: 
+    public config1 : ToasterConfig = new ToasterConfig({showCloseButton: true, tapToDismiss: 
         false, timeout: 0, toastContainerId: 1});
-    public toasterconfig2 : ToasterConfig = new ToasterConfig({showCloseButton: true, tapToDismiss: 
-        false, timeout: 0, toastContainerId: 2, positionClass: 'toast-top-center'});
+    public config2 : ToasterConfig = new ToasterConfig({tapToDismiss: 
+        true, showCloseButton: false, toastContainerId: 2, positionClass: 'toast-top-center'});
     
     popToastFromObject() {
         var toast: Toast = {
