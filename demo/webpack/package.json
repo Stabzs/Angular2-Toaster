@@ -1,0 +1,28 @@
+{
+  "name": "angular2-toaster-systemjs-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --colors --display-error-details --content-base src"
+  },
+  "author": "Stabzs",
+  "license": "ISC",
+  "devDependencies": {
+    
+    "typescript": "1.8.9",
+    "webpack": "1.12.15",
+    "webpack-dev-server": "1.14.1"
+  },
+  "dependencies": {
+    "es6-promise": "3.1.2",
+    "es6-shim": "0.35.0",
+    "reflect-metadata": "0.1.2",
+    "systemjs": "^0.19.25",
+    "zone.js": "0.6.11",
+    "ts-loader": "0.8.2",
+    "angular2": "2.0.0-beta.14",
+    "angular2-toaster": "0.2.0-beta.0"
+  }  
+}
