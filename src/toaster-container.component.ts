@@ -187,7 +187,7 @@ export class ToasterContainerComponent {
         this.toasts.splice(index, 1);
         if (toast.timeoutId) {
             window.clearTimeout(toast.timeoutId);
-            toast.timeoutId = null;
+            toast.timeoutId = null; 
         }
         if (toast.onHideCallback) toast.onHideCallback(toast);
     }

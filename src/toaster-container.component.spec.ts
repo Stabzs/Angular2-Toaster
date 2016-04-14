@@ -392,6 +392,20 @@ export function main() {
             expect(toasterContainer.toasts[0].title).toBe('updated');
         });
 
+        it('addToast registers timeout callback if timeout is greater than 0', () => {
+            toasterContainer.toasterconfig = new ToasterConfig({ timeout: 1 });
+            toasterContainer.ngOnInit();
+            var toast = toasterService.pop('success');
+            
+            expect(toast.timeoutId).toBeDefined();
+            expect(toasterContainer.toasts.length).toBe(1);
+            
+            setTimeout(() => {
+                expect(toasterContainer.toasts.length).toBe(0);
+                expect(toast.timeoutId).toBeNull(); 
+            }, 2);
+        });
+
         it('addToast uses toasterconfig.timeout object if defined and type exists', () => {
             toasterContainer.toasterconfig = new ToasterConfig({ timeout: { 'info': 10 } });
 

@@ -50,6 +50,6 @@
     "remap-istanbul": "^0.5.1",
     "systemjs": "^0.19.25",
     "typescript": "1.8.9",
-    "zone.js": "0.6.6"
+    "zone.js": "0.6.11"
   }
 }
