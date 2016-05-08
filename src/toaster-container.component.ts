@@ -1,23 +1,20 @@
-import {Component, Input, DynamicComponentLoader, ChangeDetectorRef} from 'angular2/core';
+import {Component, Input} from '@angular/core';
 import {BodyOutputType} from './bodyOutputType';
 import {ToasterConfig} from './toaster-config';
 import {ToasterService, IClearWrapper} from './toaster.service';
 import {Toast} from './toast';
+import {ToastComponent} from './toast.component';
 
 @Component({
     selector: 'toaster-container',
+    directives: [ToastComponent],
     template: `
         <div id="toast-container" [ngClass]="[toasterconfig.positionClass, toasterconfig.animationClass]" class="ng-animate">
-            <div *ngFor="#toast of toasts" class="toast" [ngClass]="toasterconfig.typeClasses[toast.type]" (click)="click(toast)" 
+            <div toastComp *ngFor="let toast of toasts" class="toast" [toast]="toast"
+                [iconClass]="toasterconfig.iconClasses[toast.type]" 
+                [ngClass]="toasterconfig.typeClasses[toast.type]"
+                (click)="click(toast)" (clickEvent)="childClick($event)" 
                 (mouseover)="stopTimer(toast)" (mouseout)="restartTimer">
-                <div *ngIf="toast.showCloseButton" (click)="click(toast, true)" [innerHTML]="toast.closeHtml"></div>
-                <i class="toaster-icon" [ngClass]="toasterconfig.iconClasses[toast.type]"></i>
-                <div [ngClass]="toast.toasterConfig.titleClass">{{toast.title}}</div>
-                <div [ngClass]="toast.toasterConfig.messageClass" [ngSwitch]="toast.bodyOutputType">
-                    <div *ngSwitchWhen="bodyOutputType.Component" id="componentBody"></div> 
-                    <div *ngSwitchWhen="bodyOutputType.TrustedHtml" [innerHTML]="toast.html"></div>
-                    <div *ngSwitchWhen="bodyOutputType.Default">{{toast.body}}</div>
-                </div>
             </div>
         </div>
         `//,
@@ -26,13 +23,11 @@ import {Toast} from './toast';
     //styleUrls: ['./toaster.css']
 })
 
-
 export class ToasterContainerComponent {
     private addToastSubscriber: any;
     private clearToastsSubscriber: any;
     private toasterService: ToasterService;
-    private dcl: DynamicComponentLoader;
-    private changeDetectorRef: ChangeDetectorRef;
+
     private id: number = 0;
 
     @Input() toasterconfig: ToasterConfig;
@@ -40,10 +35,9 @@ export class ToasterContainerComponent {
     public toasts: Toast[] = [];
     public bodyOutputType = BodyOutputType;
 
-    constructor(toasterService: ToasterService, dcl: DynamicComponentLoader, changeDetectorRef: ChangeDetectorRef) {
+
+    constructor(toasterService: ToasterService) {
         this.toasterService = toasterService;
-        this.dcl = dcl;
-        this.changeDetectorRef = changeDetectorRef;
     }
 
     ngOnInit() {
@@ -52,8 +46,7 @@ export class ToasterContainerComponent {
             this.toasterconfig = new ToasterConfig();
         }
     }
-    
-    
+
     // event handlers
     click(toast: Toast, isCloseButton?: boolean) {
         if (this.toasterconfig.tapToDismiss || (toast.showCloseButton && isCloseButton)) {
@@ -71,6 +64,10 @@ export class ToasterContainerComponent {
                 this.removeToast(toast);
             }
         }
+    }
+    
+    childClick($event) {
+        this.click($event.value.toast, $event.value.isCloseButton);
     }
 
     stopTimer(toast: Toast) {
@@ -91,8 +88,8 @@ export class ToasterContainerComponent {
             this.removeToast(toast);
         }
     }
-    
-    
+
+
     // private functions
     private registerSubscribers() {
         this.addToastSubscriber = this.toasterService.addToast.subscribe((toast) => {
@@ -136,16 +133,6 @@ export class ToasterContainerComponent {
 
         toast.bodyOutputType = toast.bodyOutputType || this.toasterconfig.bodyOutputType;
 
-        if (toast.bodyOutputType === this.bodyOutputType.Component) {
-            setTimeout(() => {
-                this.dcl.loadAsRoot(toast.body, '#componentBody', null);
-                
-                // TODO: Necessary per https://github.com/angular/angular/issues/6223
-                // until loadAsRoot matches loadIntoLocation behavior
-                this.changeDetectorRef.detectChanges();
-            }, 0);
-        }
-
         this.configureTimer(toast);
 
         if (this.toasterconfig.newestOnTop) {
@@ -187,7 +174,7 @@ export class ToasterContainerComponent {
         this.toasts.splice(index, 1);
         if (toast.timeoutId) {
             window.clearTimeout(toast.timeoutId);
-            toast.timeoutId = null; 
+            toast.timeoutId = null;
         }
         if (toast.onHideCallback) toast.onHideCallback(toast);
     }

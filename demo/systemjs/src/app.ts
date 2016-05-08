@@ -1,5 +1,5 @@
-import {Component} from 'angular2/core';
-import {bootstrap} from 'angular2/platform/browser'
+import {Component} from '@angular/core';
+import {bootstrap} from '@angular/platform-browser-dynamic';
 import {BodyOutputType, Toast, ToasterConfig, ToasterService, ToasterContainerComponent} 
     from 'angular2-toaster/angular2-toaster';
 
@@ -10,6 +10,12 @@ import {BodyOutputType, Toast, ToasterConfig, ToasterService, ToasterContainerCo
 
 class TestComponent {}
 
+@Component({
+    selector: 'test-component2',
+    template: `<div>loaded via component 2</div>`
+})
+
+class TestComponent2 {}
 
 @Component({
     selector: 'root',
@@ -60,9 +66,17 @@ export class Root{
             showCloseButton: true
         };
         
+        var toast4: Toast = {
+            type: 'warning', 
+            title: 'Comp 2',
+            body: TestComponent2,
+            bodyOutputType: BodyOutputType.Component
+        }
+        
         console.log(this.toasterService.pop(toast));
         console.log(this.toasterService.pop(toast2));
         console.log(this.toasterService.pop(toast3));
+        console.log(this.toasterService.pop(toast4));
     }
     
     popToastFromArgs() {

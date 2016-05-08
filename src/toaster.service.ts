@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {Toast} from './toast';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/share';
