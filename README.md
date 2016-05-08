@@ -4,9 +4,9 @@
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&busted=1)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&bust=33)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 0.2.0-beta.0
+### Current Version 0.3.0-rc.0
 
 ## Installation:
 
@@ -47,7 +47,7 @@ npm run test
 ## Getting Started with Default Configuration:
 
 ```typescript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {ToasterContainerComponent, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 @Component({
@@ -77,7 +77,7 @@ bootstrap(Root);
 ## Getting Started with Configuration Override:
 
 ```typescript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
 
 @Component({

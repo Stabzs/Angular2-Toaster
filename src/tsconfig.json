@@ -15,6 +15,7 @@
       "bodyOutputType.ts",
       "toast.ts",
       "toaster-config.ts",
+      "toast.component.ts",
       "toaster-container.component.ts",
       "toaster-container.component.spec.ts",
       "toaster.service.ts",

@@ -1,14 +1,17 @@
-import 'angular2/bundles/angular2-polyfills';
+declare var require;
+
+import 'reflect-metadata';
+require('zone.js/dist/zone');
+require('zone.js/dist/long-stack-trace-zone');
 import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
-import {Component} from 'angular2/core';
-import {FORM_PROVIDERS} from 'angular2/common';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
-import {bootstrap} from 'angular2/platform/browser';
+import {Component} from '@angular/core';
+import {FORM_PROVIDERS} from '@angular/common';
+import {bootstrap} from '@angular/platform-browser-dynamic';
 
 @Component({
   selector: 'app',
   providers: [FORM_PROVIDERS, ToasterService],
-  directives: [ROUTER_DIRECTIVES, ToasterContainerComponent ],
+  directives: [ToasterContainerComponent],
   pipes: [],
   styles:[],
   template: `

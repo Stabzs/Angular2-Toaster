@@ -6,28 +6,15 @@
 
     <link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/lib/toaster.css" />
 
-    <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
-    <script src="/node_modules/systemjs/dist/system.src.js"></script>
-    <script src="/node_modules/angular2/bundles/http.min.js"></script>
+     <script src="node_modules/es6-shim/es6-shim.min.js"></script>
 
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
     <script>
-        System.config({
-            defaultJSExtensions: true,
-            packages: {
-                "/angular2": {"defaultExtension": false}
-            },
-            map: {
-                'angular2-toaster': 'node_modules/angular2-toaster'
-            }
-        });
-    </script>
-
-    <script src="/node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="/node_modules/angular2/bundles/angular2.js"></script>
-
-    <script>
-        System.import('build/app').catch(console.log.bind(console));
+      System.import('build/app').catch(function(err){ console.error(err);  });
     </script>
 </head>
 <body>
