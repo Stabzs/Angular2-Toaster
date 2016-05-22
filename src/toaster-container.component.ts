@@ -205,7 +205,7 @@ export class ToasterContainerComponent {
     }
 
     ngOnDestroy() {
-        this.addToastSubscriber.unsubscribe();
-        this.clearToastsSubscriber.unsubscribe();
+        if(this.addToastSubscriber) { this.addToastSubscriber.unsubscribe(); }
+        if(this.clearToastsSubscriber) { this.clearToastsSubscriber.unsubscribe(); }
     }
 }
