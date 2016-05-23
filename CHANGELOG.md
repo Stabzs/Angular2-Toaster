@@ -1,3 +1,15 @@
+# 0.3.1-rc.1 (2016-05-22)
+The rc version has been bumped to match the currently targeted Angular 2 version.
+
+### Bug Fixes
+* **toaster.container.component.ts:** If the component has not been properly initialized but 
+ngDestroy is triggered, an exception will no longer be thrown.
+Fixed via [#20](https://github.com/Stabzs/Angular2-Toaster/issues/20).
+
+### Documentation
+* **toaster.service.ts:** JSDoc documentation added for public API methods of the toaster service.
+
+
 # 0.3.0-rc.0 (2016-05-07)
 
 This is the first release of Angular2-Toaster against the Angular2 Release Candidate. All Angular 2 

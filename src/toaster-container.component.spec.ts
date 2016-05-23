@@ -151,6 +151,16 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         toasterService.clear();
         expect(toasterContainer.toasts.length).toBe(1);
     });
+    
+    it('will not attempt to remove subscribers when ngOnDestroy is called if ngOnInit is not called', () => {
+        spyOn(toasterContainer, 'ngOnInit').and.callThrough();
+        spyOn(toasterContainer, 'ngOnDestroy').and.callThrough();
+        expect(toasterContainer.ngOnInit).not.toHaveBeenCalled();
+
+        toasterContainer.ngOnDestroy();
+        
+        expect(toasterContainer.ngOnDestroy).toHaveBeenCalled();
+    });
 
     it('stopTimer should clear timer if mouseOverTimerStop is true', () => {
         toasterContainer.toasterconfig = new ToasterConfig({ mouseoverTimerStop: true, timeout: 100 });

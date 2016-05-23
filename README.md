@@ -4,9 +4,9 @@
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&bust=33)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&rcbust=1)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 0.3.0-rc.0
+### Current Version 0.3.1-rc.1
 
 ## Installation:
 
@@ -41,6 +41,11 @@ npm run watch
 Start Karma test instance with watch:
 ```bash
 npm run test
+```
+
+Generate test coverage report:
+```bash
+npm run coverage
 ```
 
 

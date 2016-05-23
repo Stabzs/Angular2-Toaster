@@ -1,6 +1,6 @@
 {
   "name": "angular2-toaster",
-  "version": "0.3.0-rc.0",
+  "version": "0.3.1-rc.1",
   "description": "An Angular 2 Toaster Notification library based on AngularJS-Toaster",
   "main": "angular2-toaster.ts",
   "scripts": {

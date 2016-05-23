@@ -13,11 +13,25 @@ export class ToasterService {
     clearToasts: Observable<IClearWrapper>;
     private _clearToasts: Observer<IClearWrapper>;
 
+    
+    /**
+     * Creates an instance of ToasterService.
+     */
     constructor() {
         this.addToast = new Observable<Toast>(observer => this._addToast = observer).share();
         this.clearToasts = new Observable<IClearWrapper>(observer => this._clearToasts = observer).share();
     }
 
+    
+    /**
+     * Synchronously create and show a new toast instance.
+     * 
+     * @param {(string | Toast)} type The type of the toast, or a Toast object.
+     * @param {string=} title The toast title.
+     * @param {string=} body The toast body.
+     * @returns {Toast}
+     *          The newly created Toast instance with a randomly generated GUID Id.
+     */
     pop(type: string | Toast, title?: string, body?: string): Toast {
         let toast = typeof type === 'string' ? { type: type, title: title, body: body } : type;
 
@@ -31,6 +45,17 @@ export class ToasterService {
         return toast;
     }
 
+    
+    /**
+     * Asynchronously create and show a new toast instance.
+     * 
+     * @param {(string | Toast)} type The type of the toast, or a Toast object.
+     * @param {string=} title The toast title.
+     * @param {string=} body The toast body.
+     * @returns {Observable<Toast>}
+     *          A hot Observable that can be subscribed to in order to receive the Toast instance 
+     *          with a randomly generated GUID Id.
+     */
     popAsync(type: string | Toast, title?: string, body?: string): Observable<Toast> {
         setTimeout(() => {
             this.pop(type, title, body);
@@ -39,6 +64,14 @@ export class ToasterService {
         return this.addToast;
     }
 
+    
+    /**
+     * Clears a toast by toastId and/or toastContainerId.
+     * 
+     * @param {string} toastId The toastId to clear.
+     * @param {number=} toastContainerId 
+     *        The toastContainerId of the container to remove toasts from.
+     */
     clear(toastId?: string, toastContainerId?: number) {
         let clearWrapper: IClearWrapper = {
             toastId: toastId, toastContainerId: toastContainerId
