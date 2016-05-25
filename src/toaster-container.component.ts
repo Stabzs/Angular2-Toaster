@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {BodyOutputType} from './bodyOutputType';
 import {ToasterConfig} from './toaster-config';
 import {ToasterService, IClearWrapper} from './toaster.service';
 import {Toast} from './toast';
@@ -28,12 +27,9 @@ export class ToasterContainerComponent {
     private clearToastsSubscriber: any;
     private toasterService: ToasterService;
 
-    private id: number = 0;
-
     @Input() toasterconfig: ToasterConfig;
 
     public toasts: Toast[] = [];
-    public bodyOutputType = BodyOutputType;
 
 
     constructor(toasterService: ToasterService) {
@@ -92,7 +88,7 @@ export class ToasterContainerComponent {
 
     // private functions
     private registerSubscribers() {
-        this.addToastSubscriber = this.toasterService.addToast.subscribe((toast) => {
+        this.addToastSubscriber = this.toasterService.addToast.subscribe((toast: Toast) => {
             this.addToast(toast);
         });
 
@@ -153,7 +149,8 @@ export class ToasterContainerComponent {
     }
 
     private configureTimer(toast: Toast) {
-        var timeout = toast.timeout || this.toasterconfig.timeout;
+        var timeout = (typeof toast.timeout === "number") 
+            ? toast.timeout : this.toasterconfig.timeout;
 
         if (typeof timeout === "object") timeout = timeout[toast.type];
         if (timeout > 0) {

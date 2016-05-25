@@ -416,6 +416,37 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
             expect(toast.timeoutId).toBeNull();
         }, 2);
     });
+    
+    it('addToast will not register timeout callback if toast.timeout is 0', () => {
+        toasterContainer.toasterconfig = new ToasterConfig({ timeout: 1 });
+        toasterContainer.ngOnInit();
+        
+        var toast: Toast = { type: 'success', timeout: 0 };
+        var poppedToast = toasterService.pop(toast);
+        
+         expect(poppedToast.timeoutId).toBeUndefined();
+    });
+    
+    it('addToast will fallback to toasterconfig timeout value if toast.timeout is undefined', () => {
+        toasterContainer.toasterconfig = new ToasterConfig({ timeout: 1 });
+        toasterContainer.ngOnInit();
+        
+        var toast: Toast = { type: 'success' };
+        var poppedToast = toasterService.pop(toast);
+        
+         expect(poppedToast.timeoutId).toBeDefined();
+         expect((<any>(poppedToast.timeoutId)).data.delay).toBe(1); 
+    });
+    
+    it('addToast will not register timeout if toast.timeout is undefined and toasterconfig.timeout is 0', () => {
+        toasterContainer.toasterconfig = new ToasterConfig({ timeout: 0 });
+        toasterContainer.ngOnInit();
+        
+        var toast: Toast = { type: 'success' };
+        var poppedToast = toasterService.pop(toast);
+        
+         expect(poppedToast.timeoutId).toBeUndefined();
+    });
 
     it('addToast uses toasterconfig.timeout object if defined and type exists', () => {
         toasterContainer.toasterconfig = new ToasterConfig({ timeout: { 'info': 10 } });

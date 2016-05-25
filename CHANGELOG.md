@@ -1,3 +1,12 @@
+# 0.3.2-rc.1 (2016-05-22
+
+### Bug Fixes
+* **toaster.container.component.ts:** if `toast.timeout` property is set to 0, the toast instance 
+will correctly be "sticky". If the `toast.timeout` is undefined, the timeout property assignment 
+will continue to correctly fallback to the `toasterconfig.timeout` property.
+Closes [#23](https://github.com/Stabzs/Angular2-Toaster/issues/23).
+
+
 # 0.3.1-rc.1 (2016-05-22)
 The rc version has been bumped to match the currently targeted Angular 2 version.
 
