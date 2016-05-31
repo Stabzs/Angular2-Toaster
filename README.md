@@ -325,7 +325,7 @@ is not provided, it will be defaulted to 'Default'.
 
 * Component: The `body` argument is the name of the component class to be rendered as the content 
 of the toast.
-```typescript
+  ```typescript
   import {BodyOutputType} from 'angular2-toaster/angular2-toaster';
   
   @Component({
