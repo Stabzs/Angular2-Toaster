@@ -11,6 +11,7 @@ export interface Toast {
     onShowCallback?: OnActionCallback;
     onHideCallback?: OnActionCallback;
     data?: Object;
+    html?: string;
     
     timeout?: number;
     timeoutId?: number;
