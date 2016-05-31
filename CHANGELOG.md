@@ -1,7 +1,18 @@
+# 0.3.3-rc.1 (2016-05-31)
+
+### Bug Fixes
+* **toast.component.ts:** The `BodyOutputType.TrustedHtml` option was trying to improperly render 
+the `toast.html` property of the toast.  This has been updated to render the body property as the 
+inner html of the new toast instance and addresses [#24](https://github.com/Stabzs/Angular2-Toaster/issues/24).
+
+### Documentation
+* **README:** Body Output Type documentation added to the README.
+
+
 # 0.3.2-rc.1 (2016-05-22
 
 ### Bug Fixes
-* **toaster.container.component.ts:** if `toast.timeout` property is set to 0, the toast instance 
+* **toaster.container.component.ts:** If `toast.timeout` property is set to 0, the toast instance 
 will correctly be "sticky". If the `toast.timeout` is undefined, the timeout property assignment 
 will continue to correctly fallback to the `toasterconfig.timeout` property.
 Closes [#23](https://github.com/Stabzs/Angular2-Toaster/issues/23).

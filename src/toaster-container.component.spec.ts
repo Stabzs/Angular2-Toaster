@@ -723,6 +723,73 @@ describe('ToasterContainerComponent when included as a component', () => {
             expect(renderedToast.innerHTML).toBe('<div>loaded via component</div>'); 
         }, 1);
     });
+    
+    it('addToast should render html passed in toast.body if bodyOutputType is TrustedHtml', () => {
+        let textContent = 'here is test text';
+        let htmlContent = '<h4>' + textContent + '</h4>';
+        
+        fixture.detectChanges();
+        var container = fixture.debugElement.children[0].componentInstance;
+        var toast: Toast = {
+            type: 'success',
+            title: 'Yay',
+            body: htmlContent,
+            bodyOutputType: BodyOutputType.TrustedHtml
+        }
+
+        fixture.componentInstance.toasterService.pop(toast);
+        fixture.detectChanges();
+        expect(container.toasts.length).toBe(1);
+
+        var renderedToast = fixture.nativeElement.querySelector('.toast-message');
+        var innerBody = renderedToast.querySelector('div');
+        expect(innerBody.innerHTML).toBe(htmlContent); 
+        expect(innerBody.textContent).toBe(textContent);
+        expect(innerBody.innerHTML).not.toBe(innerBody.textContent);
+    });
+    
+    it('addToast will not render html if bodyOutputType is TrustedHtml and body is null', () => {
+        fixture.detectChanges();
+        var container = fixture.debugElement.children[0].componentInstance;
+        var toast: Toast = {
+            type: 'success',
+            title: 'Yay',
+            body: null,
+            bodyOutputType: BodyOutputType.TrustedHtml
+        }
+
+        fixture.componentInstance.toasterService.pop(toast);
+        fixture.detectChanges();
+        expect(container.toasts.length).toBe(1);
+
+        var renderedToast = fixture.nativeElement.querySelector('.toast-message');
+        var innerBody = renderedToast.querySelector('div');
+        expect(innerBody.innerHTML).toBe(''); 
+    });
+    
+    it('addToast will render encoded text instead of html if bodyOutputType is Default', () => {
+        let textContent = 'here is test text';
+        let htmlContent = '<h4>' + textContent + '</h4>';
+        const encodedString = '&lt;h4&gt;here is test text&lt;/h4&gt;';
+        
+        fixture.detectChanges();
+        var container = fixture.debugElement.children[0].componentInstance;
+        var toast: Toast = {
+            type: 'success',
+            title: 'Yay',
+            body: htmlContent,
+            bodyOutputType: BodyOutputType.Default
+        }
+
+        fixture.componentInstance.toasterService.pop(toast);
+        fixture.detectChanges();
+        expect(container.toasts.length).toBe(1);
+
+        var renderedToast = fixture.nativeElement.querySelector('.toast-message');
+        var innerBody = renderedToast.querySelector('div');
+        expect(innerBody.innerHTML).toBe(encodedString);
+        expect(innerBody.textContent).toBe(htmlContent);
+    });
 });
 
 describe('Multiple ToasterContainerComponent components', () => {

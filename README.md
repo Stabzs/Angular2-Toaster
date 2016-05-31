@@ -4,9 +4,9 @@
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&bust=0.3.2)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&busted=0.3.3)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 0.3.2-rc.1
+### Current Version 0.3.3-rc.1
 
 ## Installation:
 
@@ -301,6 +301,49 @@ If a type is not defined and specified, a timeout will not be applied, making th
     
   this.toasterService.pop(toast);
   ```
+
+### Body Output Type
+There are three different types of body renderings that can be passed via the 
+`toast.bodyOutputType` argument: 'Default', 'TrustedHtml', and 'Component'. If a `bodyOutputType` 
+is not provided, it will be defaulted to 'Default'.
+
+* Default: The `body` argument will be directly interpolated as text content.  If html is passed 
+ in the `body` argument, it will be encoded and rendered as text.
+ 
+* TrustedHtml: The `body` argument will be parsed and rendered as html content.
+  ```typescript
+  import {BodyOutputType} from 'angular2-toaster/angular2-toaster';
+  var toast : Toast = {
+      type: 'error',
+      title: 'Title text',
+      body: '<h4>Body text</h4>',
+      bodyOutputType: BodyOutputType.TrustedHtml
+  };
+            
+  this.toasterService.pop(toast);
+  ```
+
+* Component: The `body` argument is the name of the component class to be rendered as the content 
+of the toast.
+```typescript
+  import {BodyOutputType} from 'angular2-toaster/angular2-toaster';
+  
+  @Component({
+    selector: 'dynamic-component',
+    template: `<div>loaded via component</div>`
+  })
+  class DynamicComponent { }
+  
+  var toast : Toast = {
+      type: 'error',
+      title: 'Title text',
+      body: DynamicComponent,
+      bodyOutputType: BodyOutputType.Component
+  };
+            
+  this.toasterService.pop(toast);
+  ```
+
 
 ### On Show Callback
 An onShow callback function can be attached to each toast instance.  The callback will be invoked upon toast add.

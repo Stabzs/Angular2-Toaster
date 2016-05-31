@@ -12,7 +12,7 @@ import {BodyOutputType} from './bodyOutputType';
         <div [ngClass]="toast.toasterConfig.titleClass">{{toast.title}}</div>
         <div [ngClass]="toast.toasterConfig.messageClass" [ngSwitch]="toast.bodyOutputType">
             <div *ngSwitchWhen="bodyOutputType.Component" #componentBody></div> 
-            <div *ngSwitchWhen="bodyOutputType.TrustedHtml" [innerHTML]="toast.html"></div>
+            <div *ngSwitchWhen="bodyOutputType.TrustedHtml" [innerHTML]="toast.body"></div>
             <div *ngSwitchWhen="bodyOutputType.Default">{{toast.body}}</div>
         </div>`,
     outputs: ['clickEvent']

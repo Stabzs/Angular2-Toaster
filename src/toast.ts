@@ -4,21 +4,17 @@ import {ToasterConfig} from './toaster-config';
 export interface Toast {
     type: string;
     title?: string;
-    body?: any; 
-    
+    body?: any;
     toastId?: string;
     toastContainerId?: number;
     onShowCallback?: OnActionCallback;
     onHideCallback?: OnActionCallback;
-    data?: Object;
-    
     timeout?: number;
     timeoutId?: number;
     bodyOutputType?: BodyOutputType;
     clickHandler?: ClickHandler;
     showCloseButton?: boolean;
     closeHtml?: string;
-    
     toasterConfig? : ToasterConfig
 }
 
