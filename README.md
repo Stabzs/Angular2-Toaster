@@ -118,7 +118,7 @@ bootstrap(Root);
 ```
 
 ## Asynchronous vs Synchronous ToasterService
-ToasterService exposes both a synchronous and asynchronous pop method in the form of `pop()` and 
+`ToasterService` exposes both a synchronous and asynchronous pop method in the form of `pop()` and 
 `popAsync()` respectively.  
 
 `pop()` returns a concrete `Toast` instance after the toastId property has been hydrated and the 
@@ -140,6 +140,20 @@ var toast: Toast = {
 this.toasterService.pop(toast);
 
 ```
+
+## Clear Existing Toast
+`ToasterService` exposes a `clear` function that accepts two optional parameters: `toastId` and 
+`toastContainerId`.
+
+These parameters can be used to clear toasts by specific id, by container id, 
+by both, or by neither.  If both parameters are omitted, all toasts in all containers will be 
+removed.
+
+```typescript
+var toast = this.toasterService.pop('success', 'title', 'body');
+this.toasterService.clear(toast.toastId, toast.toastContainerId);
+```
+
 
 ## Configurable Options
 
