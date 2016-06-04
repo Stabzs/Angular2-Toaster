@@ -18,6 +18,32 @@ class TestComponent {}
 class TestComponent2 {}
 
 @Component({
+    selector: 'action-component',
+    template: `
+        <div>Stabzs wants to speak.  Open Mic?</div>
+        <div>Mic is {{micStatus ? 'Open' : 'Closed'}}
+        <div>
+            <button (click)="open()">Open</button>
+            <button (click)="close()">Close</button>
+        </div>`
+})
+
+class TestComponent3 {
+    public micStatus : boolean = false;
+    
+    open() {
+        console.log('opened!');
+        this.micStatus = true;
+    }
+    
+    close() {
+        console.log('closed.');
+        this.micStatus = false;
+    }
+}
+
+
+@Component({
     selector: 'root',
     directives: [ToasterContainerComponent],
     providers: [ToasterService],
@@ -29,6 +55,7 @@ class TestComponent2 {}
         <button (click)="popAsyncToastFromArgs()">pop async toast from args</button><br/>
         <button (click)="popTwoContainers()">pop toast to two containers</button><br/>
         <button (click)="popTwoContainersAsync()">pop toast to two containers async</button><br/>
+        <button (click)="popToastWithActionComponent()">pop toast with action component</button><br/>
         <button (click)="clearAll()">Clear All</button><br/>
         `
 })
@@ -191,6 +218,19 @@ export class Root{
         this.toasterService.popAsync(toast); 
         this.toasterService.popAsync(toast2);
         this.toasterService.popAsync(toast3);
+    }
+    
+    popToastWithActionComponent() {
+        var toast: Toast = {
+            type: 'info',
+            title: 'Mic Request',
+            showCloseButton: true,
+            body: TestComponent3,
+            toastContainerId: 1,
+            bodyOutputType: BodyOutputType.Component
+        }
+        
+        this.toasterService.pop(toast);
     }
     
     clearAll() {

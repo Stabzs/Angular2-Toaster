@@ -7,13 +7,17 @@ import {BodyOutputType} from './bodyOutputType';
 @Component({
     selector: '[toastComp]',
     template: `
-        <div *ngIf="toast.showCloseButton" (click)="click(toast)" [innerHTML]="toast.closeHtml"></div>
         <i class="toaster-icon" [ngClass]="iconClass"></i>
-        <div [ngClass]="toast.toasterConfig.titleClass">{{toast.title}}</div>
-        <div [ngClass]="toast.toasterConfig.messageClass" [ngSwitch]="toast.bodyOutputType">
-            <div *ngSwitchWhen="bodyOutputType.Component" #componentBody></div> 
-            <div *ngSwitchWhen="bodyOutputType.TrustedHtml" [innerHTML]="toast.body"></div>
-            <div *ngSwitchWhen="bodyOutputType.Default">{{toast.body}}</div>
+        <div class="toast-content">
+            <div [ngClass]="toast.toasterConfig.titleClass">{{toast.title}}</div>
+            <div [ngClass]="toast.toasterConfig.messageClass" [ngSwitch]="toast.bodyOutputType">
+                <div *ngSwitchWhen="bodyOutputType.Component" #componentBody></div> 
+                <div *ngSwitchWhen="bodyOutputType.TrustedHtml" [innerHTML]="toast.body"></div>
+                <div *ngSwitchWhen="bodyOutputType.Default">{{toast.body}}</div>
+            </div>
+        </div>
+        <div class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click(toast)" 
+            [innerHTML]="toast.closeHtml">
         </div>`,
     outputs: ['clickEvent']
 })

@@ -1,3 +1,18 @@
+# 0.3.4-rc.1 (2016-06-04)
+
+### Bug Fixes
+* **toaster.css:** The toast icons were covering the entire toast body due to their layout.  As 
+a result, any component being rendered into the toast body could not have any interaction points 
+(such as buttons) since it was beneath the icon.  The toast has been slightly restructured to 
+accommodate this scenario.
+
+### Documentation
+* **README:** Documentation has been added for the `toasterService.clear()` function.  Added in 
+[8e6404c](https://github.com/Stabzs/Angular2-Toaster/commit/8e6404cb474fb95b63c446458d681ccce51d89ec).
+* **demo.systemjs:** An additional use case for rendering components with actions (buttons) in the 
+toast body has been added to address [#27](https://github.com/Stabzs/Angular2-Toaster/issues/27). 
+
+
 # 0.3.3-rc.1 (2016-05-31)
 
 ### Bug Fixes
