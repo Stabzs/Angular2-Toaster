@@ -1,5 +1,6 @@
 import {Component, Input, ViewChild, ComponentResolver, ViewContainerRef, EventEmitter}
 from '@angular/core';
+import {DomSanitizationService, SafeHtml} from '@angular/platform-browser'
 
 import {Toast, ClickHandler} from './toast';
 import {BodyOutputType} from './bodyOutputType';
@@ -17,7 +18,7 @@ import {BodyOutputType} from './bodyOutputType';
             </div>
         </div>
         <div class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click(toast)"
-            [innerHTML]="toast.closeHtml">
+            [innerHTML]="safeCloseHtml">
         </div>`,
     outputs: ['clickEvent']
 })
@@ -28,10 +29,15 @@ export class ToastComponent {
     @Input() iconClass: string;
     @ViewChild('componentBody', { read: ViewContainerRef }) componentBody: ViewContainerRef;
 
+    safeCloseHtml: SafeHtml;
+
     private bodyOutputType = BodyOutputType;
     public clickEvent = new EventEmitter();
 
-    constructor(private resolver: ComponentResolver) { }
+    constructor(
+      private resolver: ComponentResolver,
+      private sanitizer: DomSanitizationService
+    ) {}
 
     ngOnInit() {
         if (this.toast.bodyOutputType === this.bodyOutputType.Component) {
@@ -39,6 +45,8 @@ export class ToastComponent {
                 this.componentBody.createComponent(factory, 0, this.componentBody.injector);
             });
         }
+
+        this.safeCloseHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.closeHtml);
     }
 
     click(toast: Toast) {
