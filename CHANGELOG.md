@@ -1,3 +1,11 @@
+# 0.3.5-rc.2 (2016-06-17)
+### Features
+* **Angular RC2:**  The library has been updated to Angular RC2.
+* **toaster-container.component.ts:** An explcit markForRef check has been added for timeouts. 
+This allows toasts to be properly removed when their timeout expires, even if the rest of the 
+consuming app is running as ChangeDectectionStrategy.OnPush.
+
+
 # 0.3.4-rc.1 (2016-06-04)
 
 ### Bug Fixes

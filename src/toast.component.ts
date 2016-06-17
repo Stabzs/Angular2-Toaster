@@ -46,7 +46,9 @@ export class ToastComponent {
             });
         }
 
-        this.safeCloseHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.closeHtml);
+        if (this.toast.closeHtml) {
+            this.safeCloseHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.closeHtml);
+        }
     }
 
     click(toast: Toast) {

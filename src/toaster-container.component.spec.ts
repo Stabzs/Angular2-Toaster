@@ -40,19 +40,25 @@ class TestDynamicComponent { }
 
 
 describe('ToasterContainerComponent with sync ToasterService', () => {
-    var toasterService: ToasterService,
-        toasterContainer: ToasterContainerComponent;
+    let toasterService: ToasterService,
+        toasterContainer: ToasterContainerComponent,
+        changeDetectorRef: ChangeDetectorRef,
+        testComponentBuilder: TestComponentBuilder,
+        componentResolver: ComponentResolver,
+        fixture : ComponentFixture<TestComponent>;
 
-    beforeEachProviders(() => [
-        ToasterContainerComponent,
-        ToasterService,
-        ChangeDetectorRef,
-        ComponentResolver
-    ]);
 
-    beforeEach(inject([ChangeDetectorRef, ComponentResolver], (changeDetector, compRes) => {
-        toasterService = new ToasterService();
-        toasterContainer = new ToasterContainerComponent(toasterService);
+    beforeEach(injectAsync([TestComponentBuilder, ComponentResolver], (tcb, compRes) => {
+        return tcb
+            .createAsync(TestComponent)
+            .then((f: ComponentFixture<TestComponent>) => {
+                fixture = f;
+                toasterContainer = fixture.debugElement.children[0].componentInstance;
+                toasterService = fixture.componentInstance.toasterService;
+            })
+            .catch(e => {
+                expect(e).toBeUndefined();
+            });
     }));
 
 

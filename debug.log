@@ -1,0 +1,26 @@
+[0609/095123:ERROR:process_info.cc(330)] VirtualQueryEx: Access is denied. (0x5)
+[0609/095123:ERROR:process_info.cc(547)] ReadMemoryInfo failed
+[0609/095123:ERROR:process_info.cc(608)] range at 0xfee4f000, size 0x230 fully unreadable
+[0609/095123:ERROR:process_info.cc(608)] range at 0x77c28b40, size 0x24 fully unreadable
+[0609/095123:ERROR:process_info.cc(608)] range at 0x77b265e8, size 0x12 fully unreadable
+[0609/095123:ERROR:process_info.cc(608)] range at 0x77b265e8, size 0x12 fully unreadable
+[0609/095123:ERROR:process_info.cc(608)] range at 0x77b265e8, size 0x12 fully unreadable
+[0609/095123:ERROR:process_info.cc(608)] range at 0x77c26410, size 0x18 fully unreadable
+[0609/095123:ERROR:process_info.cc(608)] range at 0x77c26b6c, size 0x20 fully unreadable
+[0609/095123:ERROR:process_reader_win.cc(232)] ReadMemory at 0x5a920000 of 64 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
+[0609/095123:WARNING:pe_image_reader.cc(280)] could not read dos header from C:\Program Files (x86)\Google\Chrome\Application\50.0.2661.102\chrome_elf.dll
+[0609/095123:ERROR:process_reader_win.cc(232)] ReadMemory at 0x556f0000 of 64 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
+[0609/095123:WARNING:pe_image_reader.cc(280)] could not read dos header from C:\Program Files (x86)\Google\Chrome\Application\50.0.2661.102\chrome_child.dll
+[0609/095123:ERROR:process_reader_win.cc(232)] ReadMemory at 0x5a920000 of 64 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
+[0609/095123:WARNING:pe_image_reader.cc(280)] could not read dos header from C:\Program Files (x86)\Google\Chrome\Application\50.0.2661.102\chrome_elf.dll
+[0609/095123:ERROR:process_reader_win.cc(232)] ReadMemory at 0x556f0000 of 64 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
+[0609/095123:WARNING:pe_image_reader.cc(280)] could not read dos header from C:\Program Files (x86)\Google\Chrome\Application\50.0.2661.102\chrome_child.dll
+[0609/095123:ERROR:process_reader_win.cc(141)] SuspendThread: Access is denied. (0x5)
+[0609/095123:ERROR:exception_snapshot_win.cc(57)] thread ID 11600 not found in process
+[0609/095123:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::InitializeException failed
+[0609/095123:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess, ntstatus=-1073741558
+[0609/111146:ERROR:process_info.cc(608)] range at 0xff0df000, size 0x230 fully unreadable
+[0609/111146:ERROR:process_reader_win.cc(141)] SuspendThread: Access is denied. (0x5)
+[0609/111146:ERROR:exception_snapshot_win.cc(57)] thread ID 27016 not found in process
+[0609/111146:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::InitializeException failed
+[0609/111146:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess, ntstatus=-1073741558

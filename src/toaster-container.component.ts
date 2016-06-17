@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectorRef} from '@angular/core';
 import {ToasterConfig} from './toaster-config';
 import {ToasterService, IClearWrapper} from './toaster.service';
 import {Toast} from './toast';
@@ -26,13 +26,13 @@ export class ToasterContainerComponent {
     private addToastSubscriber: any;
     private clearToastsSubscriber: any;
     private toasterService: ToasterService;
-
+    
     @Input() toasterconfig: ToasterConfig;
 
     public toasts: Toast[] = [];
 
 
-    constructor(toasterService: ToasterService) {
+    constructor(toasterService: ToasterService, private ref : ChangeDetectorRef) {
         this.toasterService = toasterService;
     }
 
@@ -155,6 +155,7 @@ export class ToasterContainerComponent {
         if (typeof timeout === "object") timeout = timeout[toast.type];
         if (timeout > 0) {
             toast.timeoutId = window.setTimeout(() => {
+                this.ref.markForCheck();
                 this.removeToast(toast);
             }, timeout);
         }
