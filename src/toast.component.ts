@@ -11,12 +11,12 @@ import {BodyOutputType} from './bodyOutputType';
         <div class="toast-content">
             <div [ngClass]="toast.toasterConfig.titleClass">{{toast.title}}</div>
             <div [ngClass]="toast.toasterConfig.messageClass" [ngSwitch]="toast.bodyOutputType">
-                <div *ngSwitchWhen="bodyOutputType.Component" #componentBody></div> 
-                <div *ngSwitchWhen="bodyOutputType.TrustedHtml" [innerHTML]="toast.body"></div>
-                <div *ngSwitchWhen="bodyOutputType.Default">{{toast.body}}</div>
+                <div *ngSwitchCase="bodyOutputType.Component" #componentBody></div>
+                <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="toast.body"></div>
+                <div *ngSwitchCase="bodyOutputType.Default">{{toast.body}}</div>
             </div>
         </div>
-        <div class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click(toast)" 
+        <div class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click(toast)"
             [innerHTML]="toast.closeHtml">
         </div>`,
     outputs: ['clickEvent']
@@ -40,7 +40,7 @@ export class ToastComponent {
             });
         }
     }
-    
+
     click(toast: Toast) {
         this.clickEvent.emit({
             value : { toast: toast, isCloseButton: true}
