@@ -1,3 +1,8 @@
+# 0.3.5.-rc.3 (2016-06-23)
+### Features
+* **Angular: RC3:** The library has been updated to Angular RC3.
+
+
 # 0.3.5-rc.2 (2016-06-17)
 ### Features
 * **Angular RC2:**  The library has been updated to Angular RC2.

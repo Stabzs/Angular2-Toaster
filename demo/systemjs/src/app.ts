@@ -67,6 +67,7 @@ class TestComponent4 {
         <button (click)="popTwoContainersAsync()">pop toast to two containers async</button><br/>
         <button (click)="popToastWithActionComponent()">pop toast with action component</button><br/>
         <button (click)="popToastWithTrustedHtml()">pop toast with trusted html</button><br/>
+        <button (click)="popClickHandler()">pop toast with click handler</button><br/>
         <button (click)="clearAll()">Clear All</button><br/>
         `
 })
@@ -257,6 +258,23 @@ export class Root {
             toastContainerId: 1,
             bodyOutputType: BodyOutputType.TrustedHtml
         }
+        this.toasterService.pop(toast);
+    }
+
+    popClickHandler() {
+        let toast: Toast = {
+            type: 'info',
+            title: 'Title',
+            body: 'Click here to cancel',
+            showCloseButton: true,
+            timeout: 9000,
+
+            clickHandler: (toast , isCloseButton) => {
+                console.log("isCloseButton : "+isCloseButton);
+                return true;
+            }   
+        };
+    
         this.toasterService.pop(toast);
     }
 

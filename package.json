@@ -1,6 +1,6 @@
 {
   "name": "angular2-toaster",
-  "version": "0.3.5-rc.2",
+  "version": "0.3.5-rc.3",
   "description": "An Angular 2 Toaster Notification library based on AngularJS-Toaster",
   "main": "angular2-toaster.ts",
   "scripts": {
@@ -18,8 +18,10 @@
     "angular2",
     "angularjs-toaster",
     "angular2-toaster",
+    "toast",
     "toaster",
-    "notification"
+    "notification",
+    "growl"
   ],
   "author": "Stabzs",
   "license": "MIT",
@@ -32,11 +34,11 @@
   },
   "typings": "./angular2-toaster.d.ts",
   "dependencies": {
-    "@angular/common": "2.0.0-rc.2",
-    "@angular/compiler": "2.0.0-rc.2",
-    "@angular/core": "2.0.0-rc.2",
-    "@angular/platform-browser": "2.0.0-rc.2",
-    "@angular/platform-browser-dynamic": "2.0.0-rc.2",
+    "@angular/common": "^2.0.0-rc.3",
+    "@angular/compiler": "^2.0.0-rc.3",
+    "@angular/core": "^2.0.0-rc.3",
+    "@angular/platform-browser": "^2.0.0-rc.3",
+    "@angular/platform-browser-dynamic": "^2.0.0-rc.3",
     "rxjs": "5.0.0-beta.6"
   },
   "devDependencies": {
