@@ -17,7 +17,7 @@ import {BodyOutputType} from './bodyOutputType';
                 <div *ngSwitchCase="bodyOutputType.Default">{{toast.body}}</div>
             </div>
         </div>
-        <div class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click(toast)"
+        <div class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click($event, toast)"
             [innerHTML]="safeCloseHtml">
         </div>`,
     outputs: ['clickEvent']
@@ -51,7 +51,8 @@ export class ToastComponent {
         }
     }
 
-    click(toast: Toast) {
+    click(event, toast: Toast) {
+        event.stopPropagation();
         this.clickEvent.emit({
             value : { toast: toast, isCloseButton: true}
         });

@@ -271,7 +271,7 @@ export class Root {
 
             clickHandler: (toast , isCloseButton) => {
                 console.log("isCloseButton : "+isCloseButton);
-                return true;
+                return false;
             }   
         };
     

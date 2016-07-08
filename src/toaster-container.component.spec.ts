@@ -379,6 +379,33 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         expect(toasterContainer.toasts[0]).toBe(toast4);
     });
 
+    it('addToast will not populate safeCloseHtml if closeHtml is null', () => {
+        toasterContainer.toasterconfig = new ToasterConfig();
+        toasterContainer.toasterconfig.closeHtml = null;
+        toasterContainer.ngOnInit();
+
+        var toast1: Toast = { type: 'info', title: '1', body: '1', showCloseButton: true };
+        var poppedToast = toasterService.pop(toast1);
+        
+        fixture.detectChanges();
+        
+        var closeButtonEle = fixture.nativeElement.querySelector('.toast-close-button');
+        expect(closeButtonEle.innerHTML).toBe("");
+    });
+
+    it('addToast will populate safeCloseHtml with default html', () => {
+        toasterContainer.toasterconfig = new ToasterConfig();
+        toasterContainer.ngOnInit();
+
+        var toast1: Toast = { type: 'info', title: '1', body: '1', showCloseButton: true };
+        var poppedToast = toasterService.pop(toast1);
+
+        fixture.detectChanges();
+        
+        var closeButtonEle = fixture.nativeElement.querySelector('.toast-close-button');
+        expect(closeButtonEle.innerHTML).toBe('<button class="toast-close-button" type="button">×</button>');
+    });
+
     it('addToast removes toast from top if !toasterconfig.newestOnTop and limit exceeded', () => {
         toasterContainer.toasterconfig = new ToasterConfig({ newestOnTop: false, limit: 2 });
         toasterContainer.ngOnInit();
