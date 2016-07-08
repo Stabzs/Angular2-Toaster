@@ -1,4 +1,15 @@
-# 0.3.5.-rc.3 (2016-06-23)
+# 0.3.6-rc.4 (2016-07-07)
+### Features
+* **Angular: RC4:** The library has been updated to Angular RC4.
+
+### Bug Fixes
+* **toast.component.ts:** The ClickHandler was called twice when the close button checked the
+ClickHandler function and the ClickHandler returned false.  This is
+corrected by stopping the double event propagation.  Closes 
+[#35](https://github.com/Stabzs/Angular2-Toaster/issues/35).
+
+
+# 0.3.5-rc.3 (2016-06-23)
 ### Features
 * **Angular: RC3:** The library has been updated to Angular RC3.
 

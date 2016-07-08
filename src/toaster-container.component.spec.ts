@@ -2,7 +2,7 @@ import {Component, Input, ChangeDetectorRef, provide, ComponentResolver}
     from '@angular/core';
 
 import {
-    describe, expect, it, inject, injectAsync, beforeEach, beforeEachProviders
+    describe, expect, it, inject, async, beforeEach, beforeEachProviders
 } from '@angular/core/testing';
 
 import {TestComponentBuilder, ComponentFixture} from '@angular/compiler/testing';
@@ -48,7 +48,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         fixture : ComponentFixture<TestComponent>;
 
 
-    beforeEach(injectAsync([TestComponentBuilder, ComponentResolver], (tcb, compRes) => {
+    beforeEach(async(inject([TestComponentBuilder, ComponentResolver], (tcb, compRes) => {
         return tcb
             .createAsync(TestComponent)
             .then((f: ComponentFixture<TestComponent>) => {
@@ -59,7 +59,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
             .catch(e => {
                 expect(e).toBeUndefined();
             });
-    }));
+    })));
 
 
     it('should pop toast synchronously', () => {
@@ -598,7 +598,7 @@ describe('ToasterContainerComponent when included as a component', () => {
 
     let fixture;
 
-    beforeEach(injectAsync([TestComponentBuilder, ComponentResolver], (tcb, compRes) => {
+    beforeEach(async(inject([TestComponentBuilder, ComponentResolver], (tcb, compRes) => {
         return tcb
             //.overrideProviders(TestComponent, appRef)
             .createAsync(TestComponent)
@@ -608,7 +608,7 @@ describe('ToasterContainerComponent when included as a component', () => {
             .catch(e => {
                 expect(e).toBeUndefined();
             });
-    }));
+    })));
 
     it('should use the bound toasterconfig object if provided', () => {
         fixture.detectChanges();
@@ -831,7 +831,7 @@ describe('Multiple ToasterContainerComponent components', () => {
 
     let fixture;
 
-    beforeEach(injectAsync([TestComponentBuilder], tcb => {
+    beforeEach(async(inject([TestComponentBuilder], tcb => {
         return tcb
             .overrideTemplate(TestComponent,
             `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
@@ -839,7 +839,7 @@ describe('Multiple ToasterContainerComponent components', () => {
             .createAsync(TestComponent)
             .then(f => fixture = f)
             .catch(e => expect(e).toBeUndefined());
-    }));
+    })));
 
     it('should create multiple container instances', () => {
         fixture.componentInstance.toasterconfig.toastContainerId = 1;
