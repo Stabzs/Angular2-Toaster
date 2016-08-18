@@ -1,24 +1,19 @@
-import {Component, Input, ChangeDetectorRef, provide, ComponentResolver} 
-    from '@angular/core';
-
-import {
-    describe, expect, it, inject, async, beforeEach, beforeEachProviders
-} from '@angular/core/testing';
-
-import {TestComponentBuilder, ComponentFixture} from '@angular/compiler/testing';
+import {Component} from '@angular/core';
+import {TestBed} from '@angular/core/testing/test_bed';
+import {ComponentFixture} from '@angular/core/testing/component_fixture';
 
 import {Toast} from './toast';
 import {ToasterService} from './toaster.service';
 import {ToasterContainerComponent} from './toaster-container.component';
 import {ToasterConfig} from './toaster-config';
 import {BodyOutputType} from './bodyOutputType';
+import {ToastModule} from './toast.module';
+import {BrowserModule} from '@angular/platform-browser';
 
 // Mock component for bootstrapping <toaster-container></toaster-container>
 @Component({
     selector: 'test-component',
     template: '<toaster-container [toasterconfig]="toasterconfig"></toaster-container>',
-    directives: [ToasterContainerComponent],
-    providers: [ToasterService],
 })
 export class TestComponent {
     toasterService: ToasterService;
@@ -42,24 +37,19 @@ class TestDynamicComponent { }
 describe('ToasterContainerComponent with sync ToasterService', () => {
     let toasterService: ToasterService,
         toasterContainer: ToasterContainerComponent,
-        changeDetectorRef: ChangeDetectorRef,
-        testComponentBuilder: TestComponentBuilder,
-        componentResolver: ComponentResolver,
-        fixture : ComponentFixture<TestComponent>;
+        fixture: ComponentFixture<TestComponent>;
 
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestComponent, TestDynamicComponent],
+            imports: [ToastModule, BrowserModule]
+        });
 
-    beforeEach(async(inject([TestComponentBuilder, ComponentResolver], (tcb, compRes) => {
-        return tcb
-            .createAsync(TestComponent)
-            .then((f: ComponentFixture<TestComponent>) => {
-                fixture = f;
-                toasterContainer = fixture.debugElement.children[0].componentInstance;
-                toasterService = fixture.componentInstance.toasterService;
-            })
-            .catch(e => {
-                expect(e).toBeUndefined();
-            });
-    })));
+        fixture = TestBed.createComponent(TestComponent);
+        toasterContainer = fixture.debugElement.children[0].componentInstance;
+        toasterService = fixture.componentInstance.toasterService;
+        return fixture;
+    });
 
 
     it('should pop toast synchronously', () => {
@@ -355,7 +345,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         var toast: Toast = { type: 'info' };
 
         toasterService.pop(toast);
-        expect(toasterContainer.toasts[0].showCloseButton).toBeUndefined;
+        expect(toasterContainer.toasts[0].showCloseButton).toBeUndefined();
     });
 
     it('addToast removes toast from bottom if toasterconfig.newestOnTop and limit exceeded', () => {
@@ -385,8 +375,8 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         toasterContainer.ngOnInit();
 
         var toast1: Toast = { type: 'info', title: '1', body: '1', showCloseButton: true };
-        var poppedToast = toasterService.pop(toast1);
         
+        toasterService.pop(toast1);
         fixture.detectChanges();
         
         var closeButtonEle = fixture.nativeElement.querySelector('.toast-close-button');
@@ -398,7 +388,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         toasterContainer.ngOnInit();
 
         var toast1: Toast = { type: 'info', title: '1', body: '1', showCloseButton: true };
-        var poppedToast = toasterService.pop(toast1);
+        toasterService.pop(toast1);
 
         fixture.detectChanges();
         
@@ -501,7 +491,6 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
     it('removeToast will not remove the toast if it is not found in the toasters array', () => {
         toasterContainer.ngOnInit();
         var toast: Toast = { type: 'info' };
-        var toast2: Toast = { type: 'success' };
 
         toasterService.pop(toast);
 
@@ -592,23 +581,15 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
 
 describe('ToasterContainerComponent when included as a component', () => {
-    var changeDetectorRef: ChangeDetectorRef,
-        testComponentBuilder: TestComponentBuilder,
-        componentResolver: ComponentResolver;
+    let fixture: ComponentFixture<TestComponent>;
 
-    let fixture;
-
-    beforeEach(async(inject([TestComponentBuilder, ComponentResolver], (tcb, compRes) => {
-        return tcb
-            //.overrideProviders(TestComponent, appRef)
-            .createAsync(TestComponent)
-            .then((f: ComponentFixture<TestComponent>) => {
-                fixture = f;
-            })
-            .catch(e => {
-                expect(e).toBeUndefined();
-            });
-    })));
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestComponent, TestDynamicComponent],
+            imports: [ToastModule]
+        });
+        fixture = TestBed.createComponent(TestComponent);
+    });
 
     it('should use the bound toasterconfig object if provided', () => {
         fixture.detectChanges();
@@ -685,7 +666,9 @@ describe('ToasterContainerComponent when included as a component', () => {
         fixture.detectChanges();
         var container = fixture.debugElement.children[0].componentInstance;
         var toast: Toast = {
-            type: 'success', clickHandler: (toast, isCloseButton) => { return true; }
+            type: 'success', clickHandler: () => {
+                return true;
+            }
         };
 
         fixture.componentInstance.toasterService.pop(toast);
@@ -706,7 +689,9 @@ describe('ToasterContainerComponent when included as a component', () => {
         fixture.detectChanges();
         var container = fixture.debugElement.children[0].componentInstance;
         var toast: Toast = {
-            type: 'success', clickHandler: (toast, isCloseButton) => { return false; }
+            type: 'success', clickHandler: () => {
+                return false;
+            }
         };
 
         fixture.componentInstance.toasterService.pop(toast);
@@ -724,14 +709,18 @@ describe('ToasterContainerComponent when included as a component', () => {
     it('should log error if clickHandler is not a function and not remove toast', () => {
         fixture.detectChanges();
         var container = fixture.debugElement.children[0].componentInstance;
-        var toast = { type: 'success', clickHandler: {} };
+        var toast = {
+            type: 'success', clickHandler: () => {
+                return false;
+            }
+        };
 
         fixture.componentInstance.toasterService.pop(toast);
         fixture.detectChanges();
         expect(container.toasts.length).toBe(1);
 
         var toastButton = fixture.nativeElement.querySelector('.toast-close-button');
-        var x = toastButton.click()
+        toastButton.click();
 
         fixture.detectChanges();
         expect(container.toasts.length).toBe(1);
@@ -745,7 +734,7 @@ describe('ToasterContainerComponent when included as a component', () => {
             title: 'Yay',
             body: TestDynamicComponent,
             bodyOutputType: BodyOutputType.Component
-        }
+        };
 
         fixture.componentInstance.toasterService.pop(toast);
         fixture.detectChanges();
@@ -753,7 +742,7 @@ describe('ToasterContainerComponent when included as a component', () => {
 
         setTimeout(() => {
             var renderedToast = fixture.nativeElement.querySelector('test-dynamic-component');
-            expect(renderedToast.innerHTML).toBe('<div>loaded via component</div>'); 
+            expect(renderedToast.innerHTML).toBe('<div>loaded via component</div>');
         }, 1);
     });
     
@@ -768,7 +757,7 @@ describe('ToasterContainerComponent when included as a component', () => {
             title: 'Yay',
             body: htmlContent,
             bodyOutputType: BodyOutputType.TrustedHtml
-        }
+        };
 
         fixture.componentInstance.toasterService.pop(toast);
         fixture.detectChanges();
@@ -776,7 +765,7 @@ describe('ToasterContainerComponent when included as a component', () => {
 
         var renderedToast = fixture.nativeElement.querySelector('.toast-message');
         var innerBody = renderedToast.querySelector('div');
-        expect(innerBody.innerHTML).toBe(htmlContent); 
+        expect(innerBody.innerHTML).toBe(htmlContent);
         expect(innerBody.textContent).toBe(textContent);
         expect(innerBody.innerHTML).not.toBe(innerBody.textContent);
     });
@@ -789,7 +778,7 @@ describe('ToasterContainerComponent when included as a component', () => {
             title: 'Yay',
             body: null,
             bodyOutputType: BodyOutputType.TrustedHtml
-        }
+        };
 
         fixture.componentInstance.toasterService.pop(toast);
         fixture.detectChanges();
@@ -797,7 +786,7 @@ describe('ToasterContainerComponent when included as a component', () => {
 
         var renderedToast = fixture.nativeElement.querySelector('.toast-message');
         var innerBody = renderedToast.querySelector('div');
-        expect(innerBody.innerHTML).toBe(''); 
+        expect(innerBody.innerHTML).toBe('');
     });
     
     it('addToast will render encoded text instead of html if bodyOutputType is Default', () => {
@@ -812,7 +801,7 @@ describe('ToasterContainerComponent when included as a component', () => {
             title: 'Yay',
             body: htmlContent,
             bodyOutputType: BodyOutputType.Default
-        }
+        };
 
         fixture.componentInstance.toasterService.pop(toast);
         fixture.detectChanges();
@@ -826,20 +815,24 @@ describe('ToasterContainerComponent when included as a component', () => {
 });
 
 describe('Multiple ToasterContainerComponent components', () => {
-    var changeDetectorRef: ChangeDetectorRef,
-        testComponentBuilder: TestComponentBuilder;
+    let fixture: ComponentFixture<TestComponent>;
 
-    let fixture;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestComponent],
+            imports: [ToastModule]
+        });
+        TestBed.overrideComponent(TestComponent,
+            {
+                set: {
+                    template: `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+                    <toaster-container [toasterconfig]="toasterconfig2"></toaster-container>`
+                }
+            }
+        );
 
-    beforeEach(async(inject([TestComponentBuilder], tcb => {
-        return tcb
-            .overrideTemplate(TestComponent,
-            `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
-                     <toaster-container [toasterconfig]="toasterconfig2"></toaster-container>`)
-            .createAsync(TestComponent)
-            .then(f => fixture = f)
-            .catch(e => expect(e).toBeUndefined());
-    })));
+        fixture = TestBed.createComponent(TestComponent);
+    });
 
     it('should create multiple container instances', () => {
         fixture.componentInstance.toasterconfig.toastContainerId = 1;

@@ -2,7 +2,7 @@ import {Component, Input, ViewChild, ComponentResolver, ViewContainerRef, EventE
 from '@angular/core';
 import {DomSanitizationService, SafeHtml} from '@angular/platform-browser'
 
-import {Toast, ClickHandler} from './toast';
+import {Toast} from './toast';
 import {BodyOutputType} from './bodyOutputType';
 
 @Component({

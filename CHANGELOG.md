@@ -1,3 +1,9 @@
+# 0.3.6-rc.5 (2016-08-18)
+### Features
+* **Angular: RC5:** The library has been updated to Angular RC5.
+* **Angular:** Toaster is now encapsulated in an ngModule **ToastModule** [#47](https://github.com/Stabzs/Angular2-Toaster/issues/47).
+
+
 # 0.3.6-rc.4 (2016-07-07)
 ### Features
 * **Angular: RC4:** The library has been updated to Angular RC4.
