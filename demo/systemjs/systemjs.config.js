@@ -5,7 +5,7 @@
     'app':                          'app', // 'dist',
     'rxjs':                         'node_modules/rxjs',
     '@angular':                     'node_modules/@angular',
-    'angular2-toaster':             'node_modules/angular2-toaster',
+    'angular2-toaster':             'node_modules/angular2-toaster'
     //'reflect-metadata':             'node_modules/reflect-metadata',
     //'zone':                         'node_modules/zone.js',
   };
@@ -33,7 +33,7 @@
   var config = {
     map: map,
     packages: packages
-  }
+  };
 
   // filterSystemConfig - index.html's chance to modify config before we register it.
   if (global.filterSystemConfig) { global.filterSystemConfig(config); }

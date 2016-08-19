@@ -1,18 +1,17 @@
 declare var require;
-
 import 'reflect-metadata';
 require('zone.js/dist/zone');
 require('zone.js/dist/long-stack-trace-zone');
-import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
-import {Component} from '@angular/core';
+
+
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {NgModule, Component} from '@angular/core';
+import {ToastModule, ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
+import {BrowserModule} from '@angular/platform-browser';
 import {FORM_PROVIDERS} from '@angular/common';
-import {bootstrap} from '@angular/platform-browser-dynamic';
 
 @Component({
   selector: 'app',
-  providers: [FORM_PROVIDERS, ToasterService],
-  directives: [ToasterContainerComponent],
-  pipes: [],
   styles:[],
   template: `
     <main-header></main-header>
@@ -46,4 +45,11 @@ export class App {
     }
 }
 
-bootstrap(App);
+@NgModule({
+    declarations: [TestComponent, App],
+    bootstrap: [App],
+    imports: [BrowserModule, ToastModule]
+})
+export class Module {}
+
+platformBrowserDynamic().bootstrapModule(Module)
