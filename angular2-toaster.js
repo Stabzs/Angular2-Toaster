@@ -4,4 +4,4 @@ exports.ToastComponent = require('./lib/toast.component').ToastComponent;
 exports.ToasterConfig = require('./lib/toaster-config').ToasterConfig;
 exports.ToasterContainerComponent = require('./lib/toaster-container.component').ToasterContainerComponent;
 exports.ToasterService = require('./lib/toaster.service').ToasterService;
-exports.TostModule = require('./lib/toast.module').ToastModule;
+exports.ToastModule = require('./lib/toast.module').ToastModule;
