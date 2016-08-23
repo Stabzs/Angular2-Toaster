@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing/test_bed';
 import {ComponentFixture} from '@angular/core/testing/component_fixture';
 
-import {Toast} from './toast';
+import {Toast, ClickHandler} from './toast';
 import {ToasterService} from './toaster.service';
 import {ToasterContainerComponent} from './toaster-container.component';
 import {ToasterConfig} from './toaster-config';
@@ -709,11 +709,8 @@ describe('ToasterContainerComponent when included as a component', () => {
     it('should log error if clickHandler is not a function and not remove toast', () => {
         fixture.detectChanges();
         var container = fixture.debugElement.children[0].componentInstance;
-        var toast = {
-            type: 'success', clickHandler: () => {
-                return false;
-            }
-        };
+		var clickHandler = <ClickHandler> {};
+        var toast = { type: 'success', clickHandler: clickHandler };
 
         fixture.componentInstance.toasterService.pop(toast);
         fixture.detectChanges();
