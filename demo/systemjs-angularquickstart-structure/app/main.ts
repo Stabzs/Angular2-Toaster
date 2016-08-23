@@ -1,7 +1,9 @@
-import {Component} from 'angular2/core';
-import {bootstrap} from 'angular2/platform/browser'
-import {BodyOutputType, Toast, ToasterConfig, ToasterService, ToasterContainerComponent} 
+import {NgModule, Component} from '@angular/core';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {BrowserModule} from '@angular/platform-browser';
+import {ToastModule, BodyOutputType, Toast, ToasterConfig, ToasterService, ToasterContainerComponent}
     from 'angular2-toaster/angular2-toaster';
+
 
 @Component({
     selector: 'test-component',
@@ -15,8 +17,6 @@ class TestComponent {}
 
 @Component({
     selector: 'root',
-    directives: [ToasterContainerComponent],
-    providers: [ToasterService],
     template: `
         <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
         <button (click)="popToastFromObject()">pop toast from object</button><br/>
@@ -72,4 +72,11 @@ export class Root{
     }
 }
 
-bootstrap(Root)
+@NgModule({
+    declarations: [TestComponent, Root],
+    bootstrap: [Root],
+    imports: [BrowserModule, ToastModule]
+})
+export class Module {}
+
+platformBrowserDynamic().bootstrapModule(Module)

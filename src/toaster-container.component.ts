@@ -2,11 +2,9 @@ import {Component, Input, ChangeDetectorRef} from '@angular/core';
 import {ToasterConfig} from './toaster-config';
 import {ToasterService, IClearWrapper} from './toaster.service';
 import {Toast} from './toast';
-import {ToastComponent} from './toast.component';
 
 @Component({
     selector: 'toaster-container',
-    directives: [ToastComponent],
     template: `
         <div id="toast-container" [ngClass]="[toasterconfig.positionClass, toasterconfig.animationClass]" class="ng-animate">
             <div toastComp *ngFor="let toast of toasts" class="toast" [toast]="toast"

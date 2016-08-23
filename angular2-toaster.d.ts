@@ -4,3 +4,4 @@ export * from './lib/toast.component';
 export * from './lib/toaster-config';
 export * from './lib/toaster-container.component';
 export * from './lib/toaster.service';
+export * from './lib/toast.module';
