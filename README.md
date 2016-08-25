@@ -48,8 +48,41 @@ Generate test coverage report:
 npm run coverage
 ```
 
+## Getting Started With Default Configuration - NgModule:
+```typescript
+import {NgModule} from '@angular/core';
+import {ToastModule} from 'angular2-toaster/lib/toast.module';
+import {Root} from './root.component'
 
-## Getting Started with Default Configuration:
+@NgModule({
+    imports: [ToastModule],
+    declarations: [Root],
+    providers: [],
+    bootstrap: [Root]
+})
+
+@Component({
+    selector: 'root',
+    template: `
+            <toaster-container></toaster-container>
+            <button (click)="popToast()">pop toast</button>`
+})
+
+export class Root {
+    private toasterService: ToasterService;
+
+    constructor(toasterService: ToasterService) {
+        this.toasterService = toasterService;
+    }
+
+    popToast() {
+        this.toasterService.pop('success', 'Args Title', 'Args Body');
+    }
+}
+```
+
+
+## Getting Started with Default Configuration - Manual Component Inclusion:
 
 ```typescript
 import {Component} from '@angular/core';
