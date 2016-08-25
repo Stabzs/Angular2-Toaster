@@ -51,7 +51,7 @@ npm run coverage
 ## Getting Started With Default Configuration - NgModule:
 ```typescript
 import {NgModule} from '@angular/core';
-import {ToastModule} from 'angular2-toaster/lib/toast.module';
+import {ToastModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 import {Root} from './root.component'
 
 @NgModule({
