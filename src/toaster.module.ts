@@ -10,4 +10,4 @@ import {ToasterService} from './toaster.service';
     providers: [ToasterService],
     exports: [ToasterContainerComponent, ToastComponent],
 })
-export class ToastModule {}
+export class ToasterModule {}

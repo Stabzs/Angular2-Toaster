@@ -1,3 +1,15 @@
+# 0.4.0-rc.5 (2016-08-24)
+### Features
+* **toast.module:** toast.module renamed to  **toaster.module** for greater consistency with other 
+components representing top-level APIs.
+* **demo:** A plunker demo has been created and added to the README to begin work on 
+[#46](https://github.com/Stabzs/Angular2-Toaster/issues/46).
+
+### Bug Fixes
+* **toaster.module:** previous NPM build 0.3.6-rc.5 was improperly built with **toast.module** not 
+being included. The module is now renamed and included appropriately.
+
+
 # 0.3.6-rc.5 (2016-08-18)
 ### Features
 * **Angular: RC5:** The library has been updated to Angular RC5.

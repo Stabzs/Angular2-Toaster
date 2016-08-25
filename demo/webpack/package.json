@@ -24,6 +24,6 @@
     "@angular/common": "2.0.0-rc.5",
     "@angular/core": "2.0.0-rc.5",
     "@angular/platform-browser-dynamic": "2.0.0-rc.5",
-    "angular2-toaster": "0.3.0-rc.5"
+    "angular2-toaster": "0.4.0-rc.5"
   }  
 }

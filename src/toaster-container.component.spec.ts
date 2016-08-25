@@ -7,7 +7,7 @@ import {ToasterService} from './toaster.service';
 import {ToasterContainerComponent} from './toaster-container.component';
 import {ToasterConfig} from './toaster-config';
 import {BodyOutputType} from './bodyOutputType';
-import {ToastModule} from './toast.module';
+import {ToasterModule} from './toaster.module';
 import {BrowserModule} from '@angular/platform-browser';
 
 // Mock component for bootstrapping <toaster-container></toaster-container>
@@ -42,7 +42,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent, TestDynamicComponent],
-            imports: [ToastModule, BrowserModule]
+            imports: [ToasterModule, BrowserModule]
         });
 
         fixture = TestBed.createComponent(TestComponent);
@@ -586,7 +586,7 @@ describe('ToasterContainerComponent when included as a component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent, TestDynamicComponent],
-            imports: [ToastModule]
+            imports: [ToasterModule]
         });
         fixture = TestBed.createComponent(TestComponent);
     });
@@ -817,7 +817,7 @@ describe('Multiple ToasterContainerComponent components', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToastModule]
+            imports: [ToasterModule]
         });
         TestBed.overrideComponent(TestComponent,
             {

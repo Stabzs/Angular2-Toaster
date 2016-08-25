@@ -19,7 +19,7 @@
       "toaster-container.component.ts",
       "toaster-container.component.spec.ts",
       "toaster.service.ts",
-      "toast.module.ts",
+      "toaster.module.ts",
       "../node_modules/typescript/lib/lib.es6.d.ts",
       "../typings/jasmine/jasmine.d.ts"
     ]

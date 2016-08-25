@@ -1,7 +1,7 @@
 import {NgModule, Component} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserModule} from '@angular/platform-browser';
-import {ToastModule, BodyOutputType, Toast, ToasterConfig, ToasterService, ToasterContainerComponent}
+import {ToasterModule, BodyOutputType, Toast, ToasterConfig, ToasterService, ToasterContainerComponent}
     from 'angular2-toaster/angular2-toaster';
 
 
@@ -75,7 +75,7 @@ export class Root{
 @NgModule({
     declarations: [TestComponent, Root],
     bootstrap: [Root],
-    imports: [BrowserModule, ToastModule]
+    imports: [BrowserModule, ToasterModule]
 })
 export class Module {}
 

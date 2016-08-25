@@ -6,7 +6,7 @@ require('zone.js/dist/long-stack-trace-zone');
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {NgModule, Component} from '@angular/core';
-import {ToastModule, ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
+import {ToasterModule, ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
 import {BrowserModule} from '@angular/platform-browser';
 import {FORM_PROVIDERS} from '@angular/common';
 
@@ -48,7 +48,7 @@ export class App {
 @NgModule({
     declarations: [TestComponent, App],
     bootstrap: [App],
-    imports: [BrowserModule, ToastModule]
+    imports: [BrowserModule, ToasterModule]
 })
 export class Module {}
 
