@@ -34,12 +34,12 @@
   },
   "typings": "./angular2-toaster.d.ts",
   "dependencies": {
-    "@angular/common": "^2.0.0-rc.5",
-    "@angular/compiler": "^2.0.0-rc.5",
-    "@angular/core": "^2.0.0-rc.5",
-    "@angular/platform-browser": "^2.0.0-rc.5",
-    "@angular/platform-browser-dynamic": "^2.0.0-rc.5",
-    "rxjs": "5.0.0-beta.6"
+    "@angular/common": "^2.0.0-rc.6",
+    "@angular/compiler": "^2.0.0-rc.6",
+    "@angular/core": "^2.0.0-rc.6",
+    "@angular/platform-browser": "^2.0.0-rc.6",
+    "@angular/platform-browser-dynamic": "^2.0.0-rc.6",
+    "rxjs": "5.0.0-beta.11"
   },
   "devDependencies": {
     "coveralls": "^2.11.9",
@@ -56,6 +56,6 @@
     "remap-istanbul": "^0.6.3",
     "systemjs": "^0.19.27",
     "typescript": "1.8.10",
-    "zone.js": "0.6.12"
+    "zone.js": "^0.6.17"
   }
 }
