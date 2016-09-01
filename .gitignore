@@ -1,7 +1,6 @@
 node_modules
 npm-debug.log
 coverage
-lib
 build
 src/*.js
 src/*.map
