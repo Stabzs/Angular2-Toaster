@@ -1,6 +1,6 @@
-import {Component, Input, ViewChild, ComponentResolver, ViewContainerRef, EventEmitter}
+import {Component, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, EventEmitter}
 from '@angular/core';
-import {DomSanitizationService, SafeHtml} from '@angular/platform-browser'
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
 
 import {Toast} from './toast';
 import {BodyOutputType} from './bodyOutputType';
@@ -35,15 +35,14 @@ export class ToastComponent {
     public clickEvent = new EventEmitter();
 
     constructor(
-      private resolver: ComponentResolver,
-      private sanitizer: DomSanitizationService
+      private resolver: ComponentFactoryResolver,
+      private sanitizer: DomSanitizer
     ) {}
 
     ngOnInit() {
         if (this.toast.bodyOutputType === this.bodyOutputType.Component) {
-            this.resolver.resolveComponent(this.toast.body).then(factory => {
-                this.componentBody.createComponent(factory, 0, this.componentBody.injector);
-            });
+          let factory = this.resolver.resolveComponentFactory(this.toast.body);
+          this.componentBody.createComponent(factory, 0, this.componentBody.injector);
         }
 
         if (this.toast.closeHtml) {

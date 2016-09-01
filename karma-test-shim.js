@@ -54,8 +54,8 @@ System.config(config);
 
 Promise.all([
     System.import('@angular/platform-browser/src/browser/browser_adapter'),
-    System.import('@angular/platform-browser-dynamic/testing'),
-    System.import('@angular/core/testing'),
+    System.import('@angular/platform-browser-dynamic/testing/index.js'),
+    System.import('@angular/core/testing/index.js'),
 ]).then(function (modules) {
     var browser_adapter = modules[0];
     var providers = modules[1];
