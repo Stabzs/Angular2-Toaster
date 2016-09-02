@@ -12,6 +12,7 @@ install:
   - npm install @angular/platform-browser@2.0.0-rc.6
   - npm install @angular/platform-browser-dynamic@2.0.0-rc.6
   - npm install rxjs@5.0.0-beta.11
+  - npm install
 script:
   - npm run build
   - npm run coverage
