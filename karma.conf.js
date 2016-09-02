@@ -20,6 +20,7 @@ module.exports = function (config) {
             'node_modules/zone.js/dist/fake-async-test.js',
             'node_modules/es6-promise/dist/es6-promise.js',
             'node_modules/es6-shim/es6-shim.js',
+            'node_modules/traceur/bin/traceur.js',
             'node_modules/systemjs/dist/system-polyfills.js',
             'node_modules/systemjs/dist/system.src.js',
 
