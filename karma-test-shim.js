@@ -28,11 +28,13 @@ System.config({
 });
 
 System.import('systemjs.config.js')
-  .then(() => Promise.all([
+  .then(function () { 
+    Promise.all([
       System.import('@angular/core/testing'),
       System.import('@angular/platform-browser-dynamic/testing')
-    ]))
-  .then((providers) => {
+    ])
+  })
+  .then(function (providers) {
     var coreTesting = providers[0];
     var browserTesting = providers[1];
     coreTesting.TestBed.initTestEnvironment(
