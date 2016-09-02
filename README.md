@@ -4,9 +4,9 @@
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&busted=0.3.6-rc.4)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=0.5.0-rc.6)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 0.4.0-rc.5
+### Current Version 0.5.0-rc.6
 
 ## Installation:
 
@@ -56,7 +56,7 @@ A dynamic Angular2 and Typescript demo can be found at
 
 ## Getting Started With Default Configuration - NgModule:
 ```typescript
-import {NgModule} from '@angular/core';
+import {NgModule, Component} from '@angular/core';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 import {Root} from './root.component'
 

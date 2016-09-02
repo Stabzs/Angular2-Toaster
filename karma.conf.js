@@ -1,5 +1,5 @@
 module.exports = function (config) {
-    var dependencies = require('./package.json').dependencies;
+    var dependencies = require('./package.json').peerDependencies;
     var excludedDependencies = [
         'systemjs', 'zone.js'
     ];
@@ -10,16 +10,27 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
 
         files: [
+            'node_modules/reflect-metadata/Reflect.js',
             'node_modules/zone.js/dist/zone.js',
             'node_modules/zone.js/dist/long-stack-trace-zone.js',
+            'node_modules/zone.js/dist/proxy.js',
+            'node_modules/zone.js/dist/sync-test.js',
             'node_modules/zone.js/dist/jasmine-patch.js',
+            'node_modules/zone.js/dist/async-test.js',
+            'node_modules/zone.js/dist/fake-async-test.js',
             'node_modules/es6-promise/dist/es6-promise.js',
             'node_modules/es6-shim/es6-shim.js',
             'node_modules/systemjs/dist/system-polyfills.js',
-            'node_modules/reflect-metadata/Reflect.js',
-            'node_modules/zone.js/dist/async-test.js',
-            'node_modules/zone.js/dist/fake-async-test.js',
             'node_modules/systemjs/dist/system.src.js',
+
+            { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
+            { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
+
+            // Angular 2 itself and the testing library
+            {pattern: 'node_modules/@angular/**/*.js', included: false, watched: false},
+            {pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: false},
+
+            {pattern: 'systemjs.config.js', included: false, watched: false},
 
             'karma-test-shim.js',
 

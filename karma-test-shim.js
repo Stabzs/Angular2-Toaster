@@ -1,95 +1,54 @@
-//Based on https://github.com/mgechev/angular2-seed/blob/master/test-main.js
-//Updated with excellent insight from https://github.com/antonybudianto/angular2-starter
-
-// Turn on full stack traces in errors to help debugging
+/*global jasmine, __karma__, window*/
 Error.stackTraceLimit = Infinity;
-
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 
-// Cancel Karma's synchronous start,
-// we will call `__karma__.start()` later, once all the specs are loaded.
-__karma__.loaded = function () { };
-
-var paths = {
-    'n:*': 'node_modules/*'
+__karma__.loaded = function () {
 };
 
-// map tells the System loader where to look for things
-var map = {
-    'lib': 'lib',
-    'src': 'src',
-    'rxjs': 'n:rxjs',
-    '@angular': 'n:@angular'
-};
+function isJsFile(path) {
+  return path.slice(-3) == '.js';
+}
 
-var packages = {
-    'src': { defaultExtension: 'ts', format: 'register' },
-    'lib': { defaultExtension: 'js' },
-    'rxjs': { defaultExtension: 'js' }
-};
+function isSpecFile(path) {
+  return /\.spec\.js$/.test(path);
+}
 
-var packageNames = [
-    '@angular/common',
-    '@angular/compiler',
-    '@angular/core',
-    '@angular/platform-browser',
-    '@angular/platform-browser-dynamic',
-    '@angular/testing',
-];
+function isBuiltFile(path) {
+  var builtPath = '/base/lib/';
+  return isJsFile(path) && (path.substr(0, builtPath.length) == builtPath);
+}
 
-// add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
-packageNames.forEach(function (pkgName) {
-    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
+var allSpecFiles = Object.keys(window.__karma__.files)
+  .filter(isSpecFile)
+  .filter(isBuiltFile);
+
+System.config({
+  baseURL: '/base',
+  packageWithIndex: true
 });
 
-var config = {
-    baseURL: '/base/',
-    map: map,
-    packages: packages,
-    paths: paths
-};
+System.import('systemjs.config.js')
+  .then(() => Promise.all([
+      System.import('@angular/core/testing'),
+      System.import('@angular/platform-browser-dynamic/testing')
+    ]))
+  .then((providers) => {
+    var coreTesting = providers[0];
+    var browserTesting = providers[1];
+    coreTesting.TestBed.initTestEnvironment(
+            browserTesting.BrowserDynamicTestingModule,
+            browserTesting.platformBrowserDynamicTesting());
 
-System.config(config);
-
-
-Promise.all([
-    System.import('@angular/platform-browser/src/browser/browser_adapter'),
-    System.import('@angular/platform-browser-dynamic/testing'),
-    System.import('@angular/core/testing'),
-]).then(function (modules) {
-    var browser_adapter = modules[0];
-    var providers = modules[1];
-    var testing = modules[2];
-    testing.setBaseTestProviders(providers.TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
-        providers.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
-
-    browser_adapter.BrowserDomAdapter.makeCurrent();
-}).then(function () {
-    return Promise.all(
-        Object.keys(window.__karma__.files)
-            .filter(onlySpecFiles)
-            .map(file2moduleName)
-            .map(importModules)
-    );
-})
-    .then(function () {
-        __karma__.start();
-    }, function (error) {
-        console.error(error.stack || error);
-        __karma__.start();
-    });
-
-function onlySpecFiles(path) {
-    return /[\.|-]spec\.js$/.test(path);
-}
-
-// Normalize paths to module names.
-function file2moduleName(filePath) {
-    return filePath.replace(/\\/g, '/')
-        .replace(/^\/base\//, '')
-        .replace(/\.js/, '');
-}
-
-function importModules(path) {
-    return System.import(path);
-}
+  })
+  .then(function () {
+  // Finally, load all spec files.
+  // This will run the tests directly.
+  return Promise.all(
+    allSpecFiles.map(function (moduleName) {
+      return System.import(moduleName);
+    }));
+  })
+  .then(__karma__.start, function (error) {
+      console.error(error.stack || error);
+      __karma__.start();
+  });

@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {TestBed} from '@angular/core/testing/test_bed';
+import {Component, NgModule} from '@angular/core';
+import {TestBed} from '@angular/core/testing';
 import {ComponentFixture} from '@angular/core/testing/component_fixture';
 
 import {Toast, ClickHandler} from './toast';
@@ -26,12 +26,20 @@ export class TestComponent {
     public toasterconfig2: ToasterConfig = new ToasterConfig({ showCloseButton: true, tapToDismiss: false, timeout: 0, toastContainerId: 2 });
 }
 
+
 // Mock component for testing bodyOutputType Component rendering
 @Component({
     selector: 'test-dynamic-component',
     template: `<div>loaded via component</div>`
 })
-class TestDynamicComponent { }
+export class TestDynamicComponent { }
+
+@NgModule({
+    imports: [BrowserModule],
+    bootstrap: [TestDynamicComponent],
+    declarations: [TestDynamicComponent]
+})
+export class TestDynamicModule { }
 
 
 describe('ToasterContainerComponent with sync ToasterService', () => {
@@ -41,11 +49,11 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestComponent, TestDynamicComponent],
+            declarations: [TestComponent],
             imports: [ToasterModule, BrowserModule]
         });
 
-        fixture = TestBed.createComponent(TestComponent);
+        fixture = TestBed.createComponent<TestComponent>(TestComponent);
         toasterContainer = fixture.debugElement.children[0].componentInstance;
         toasterService = fixture.componentInstance.toasterService;
         return fixture;
@@ -60,37 +68,55 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
     });
 
     it('should pop toast asynchronously', () => {
-        toasterContainer.ngOnInit();
+        // create test-specific fixture to protect against
+        // container being overwritten by other tests since this
+        // test now executes fully asynchronously
+        let fixture = TestBed.createComponent<TestComponent>(TestComponent);
+        let toasterContainer = fixture.debugElement.children[0].componentInstance;
+        let toasterService = fixture.componentInstance.toasterService;
 
-        toasterService.popAsync('success', 'test', 'test')
-            .subscribe(toast => {
-                expect(toast).toBeDefined();
-                expect(toast.type).toBe('success');
-                expect(toasterContainer.toasts.length).toBe(1);
-                expect(toast.toastId).toBe(toasterContainer.toasts[0].toastId);
-            });
+        fixture.whenStable().then(() => {
+            toasterContainer.ngOnInit();
+
+            toasterService.popAsync('success', 'test', 'test')
+                .subscribe(toast => {
+                    expect(toast).toBeDefined();
+                    expect(toast.type).toBe('success');
+                    expect(toasterContainer.toasts.length).toBe(1);
+                    expect(toast.toastId).toBe(toasterContainer.toasts[0].toastId);
+                });
+        });
     });
 
     it('should pop toast asynchronously multiple times', () => {
-        toasterContainer.ngOnInit();
+        // create test-specific fixture to protect against
+        // container being overwritten by other tests since this
+        // test now executes fully asynchronously
+        let fixture = TestBed.createComponent<TestComponent>(TestComponent);
+        let toasterContainer = fixture.debugElement.children[0].componentInstance;
+        let toasterService = fixture.componentInstance.toasterService;
 
-        toasterService.popAsync('success', 'test', 'test');
-        toasterService.popAsync('success', 'test', 'test');
-        toasterService.popAsync('success', 'test', 'test')
-            .subscribe(toast => {
-                expect(toast).toBeDefined();
-                expect(toast.type).toBe('success');
+        fixture.whenStable().then(() => {
+            toasterContainer.ngOnInit();
 
-                var locatedToast;
-                for (var i = 0; i < toasterContainer.toasts.length; i++) {
-                    if (toasterContainer.toasts[i].toastId === toast.toastId) {
-                        locatedToast = toasterContainer.toasts[i];
-                        break;
+            toasterService.popAsync('success', 'test', 'test');
+            toasterService.popAsync('success', 'test', 'test');
+            toasterService.popAsync('success', 'test', 'test')
+                .subscribe(toast => {
+                    expect(toast).toBeDefined();
+                    expect(toast.type).toBe('success');
+
+                    var locatedToast;
+                    for (var i = 0; i < toasterContainer.toasts.length; i++) {
+                        if (toasterContainer.toasts[i].toastId === toast.toastId) {
+                            locatedToast = toasterContainer.toasts[i];
+                            break;
+                        }
                     }
-                }
 
-                expect(locatedToast).toBeDefined();
-            });
+                    expect(locatedToast).toBeDefined();
+                });
+        });
     });
 
     it('should retrieve toast instance from pop observer', () => {
@@ -147,14 +173,14 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         toasterService.clear();
         expect(toasterContainer.toasts.length).toBe(1);
     });
-    
+
     it('will not attempt to remove subscribers when ngOnDestroy is called if ngOnInit is not called', () => {
         spyOn(toasterContainer, 'ngOnInit').and.callThrough();
         spyOn(toasterContainer, 'ngOnDestroy').and.callThrough();
         expect(toasterContainer.ngOnInit).not.toHaveBeenCalled();
 
         toasterContainer.ngOnDestroy();
-        
+
         expect(toasterContainer.ngOnDestroy).toHaveBeenCalled();
     });
 
@@ -375,10 +401,10 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         toasterContainer.ngOnInit();
 
         var toast1: Toast = { type: 'info', title: '1', body: '1', showCloseButton: true };
-        
+
         toasterService.pop(toast1);
         fixture.detectChanges();
-        
+
         var closeButtonEle = fixture.nativeElement.querySelector('.toast-close-button');
         expect(closeButtonEle.innerHTML).toBe("");
     });
@@ -391,7 +417,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         toasterService.pop(toast1);
 
         fixture.detectChanges();
-        
+
         var closeButtonEle = fixture.nativeElement.querySelector('.toast-close-button');
         expect(closeButtonEle.innerHTML).toBe('<button class="toast-close-button" type="button">×</button>');
     });
@@ -439,36 +465,36 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
             expect(toast.timeoutId).toBeNull();
         }, 2);
     });
-    
+
     it('addToast will not register timeout callback if toast.timeout is 0', () => {
         toasterContainer.toasterconfig = new ToasterConfig({ timeout: 1 });
         toasterContainer.ngOnInit();
-        
+
         var toast: Toast = { type: 'success', timeout: 0 };
         var poppedToast = toasterService.pop(toast);
-        
-         expect(poppedToast.timeoutId).toBeUndefined();
+
+        expect(poppedToast.timeoutId).toBeUndefined();
     });
-    
+
     it('addToast will fallback to toasterconfig timeout value if toast.timeout is undefined', () => {
         toasterContainer.toasterconfig = new ToasterConfig({ timeout: 1 });
         toasterContainer.ngOnInit();
-        
+
         var toast: Toast = { type: 'success' };
         var poppedToast = toasterService.pop(toast);
-        
-         expect(poppedToast.timeoutId).toBeDefined();
-         expect((<any>(poppedToast.timeoutId)).data.delay).toBe(1); 
+
+        expect(poppedToast.timeoutId).toBeDefined();
+        expect((<any>(poppedToast.timeoutId)).data.delay).toBe(1);
     });
-    
+
     it('addToast will not register timeout if toast.timeout is undefined and toasterconfig.timeout is 0', () => {
         toasterContainer.toasterconfig = new ToasterConfig({ timeout: 0 });
         toasterContainer.ngOnInit();
-        
+
         var toast: Toast = { type: 'success' };
         var poppedToast = toasterService.pop(toast);
-        
-         expect(poppedToast.timeoutId).toBeUndefined();
+
+        expect(poppedToast.timeoutId).toBeUndefined();
     });
 
     it('addToast uses toasterconfig.timeout object if defined and type exists', () => {
@@ -585,10 +611,11 @@ describe('ToasterContainerComponent when included as a component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TestComponent, TestDynamicComponent],
-            imports: [ToasterModule]
+            declarations: [TestComponent],
+            imports: [ToasterModule, TestDynamicModule]
         });
-        fixture = TestBed.createComponent(TestComponent);
+
+        fixture = TestBed.createComponent<TestComponent>(TestComponent);
     });
 
     it('should use the bound toasterconfig object if provided', () => {
@@ -656,10 +683,8 @@ describe('ToasterContainerComponent when included as a component', () => {
 
         toastButton.click();
         fixture.detectChanges();
-            
-        setTimeout(() => {
-            expect(container.toasts.length).toBe(0);
-        }, 0);
+
+        expect(container.toasts.length).toBe(0);
     });
 
     it('should remove toast if clickHandler evaluates to true', () => {
@@ -679,10 +704,8 @@ describe('ToasterContainerComponent when included as a component', () => {
 
         toastButton.click();
         fixture.detectChanges();
-        
-        setTimeout(() => {
-            expect(container.toasts.length).toBe(0);
-        }, 0);
+
+        expect(container.toasts.length).toBe(0);
     });
 
     it('should not remove toast if clickHandler evaluates to false', () => {
@@ -709,7 +732,7 @@ describe('ToasterContainerComponent when included as a component', () => {
     it('should log error if clickHandler is not a function and not remove toast', () => {
         fixture.detectChanges();
         var container = fixture.debugElement.children[0].componentInstance;
-		var clickHandler = <ClickHandler> {};
+        var clickHandler = <ClickHandler>{};
         var toast = { type: 'success', clickHandler: clickHandler };
 
         fixture.componentInstance.toasterService.pop(toast);
@@ -735,18 +758,36 @@ describe('ToasterContainerComponent when included as a component', () => {
 
         fixture.componentInstance.toasterService.pop(toast);
         fixture.detectChanges();
+
         expect(container.toasts.length).toBe(1);
 
-        setTimeout(() => {
-            var renderedToast = fixture.nativeElement.querySelector('test-dynamic-component');
-            expect(renderedToast.innerHTML).toBe('<div>loaded via component</div>');
-        }, 1);
+        var renderedToast = fixture.nativeElement.querySelector('test-dynamic-component');
+        expect(renderedToast.innerHTML).toBe('<div>loaded via component</div>');
     });
-    
+
+
+    it('addToast should render module if it exists', () => {
+        fixture.detectChanges();
+        var container = fixture.debugElement.children[0].componentInstance;
+        var toast: Toast = {
+            type: 'success',
+            title: 'Yay',
+            body: TestDynamicComponent,
+            bodyOutputType: BodyOutputType.Component
+        };
+
+        fixture.componentInstance.toasterService.pop(toast);
+        fixture.detectChanges();
+        expect(container.toasts.length).toBe(1);
+
+        var renderedToast = fixture.nativeElement.querySelector('test-dynamic-component');
+        expect(renderedToast.innerHTML).toBe('<div>loaded via component</div>');
+    });
+
     it('addToast should render html passed in toast.body if bodyOutputType is TrustedHtml', () => {
         let textContent = 'here is test text';
         let htmlContent = '<h4>' + textContent + '</h4>';
-        
+
         fixture.detectChanges();
         var container = fixture.debugElement.children[0].componentInstance;
         var toast: Toast = {
@@ -766,7 +807,7 @@ describe('ToasterContainerComponent when included as a component', () => {
         expect(innerBody.textContent).toBe(textContent);
         expect(innerBody.innerHTML).not.toBe(innerBody.textContent);
     });
-    
+
     it('addToast will not render html if bodyOutputType is TrustedHtml and body is null', () => {
         fixture.detectChanges();
         var container = fixture.debugElement.children[0].componentInstance;
@@ -785,12 +826,12 @@ describe('ToasterContainerComponent when included as a component', () => {
         var innerBody = renderedToast.querySelector('div');
         expect(innerBody.innerHTML).toBe('');
     });
-    
+
     it('addToast will render encoded text instead of html if bodyOutputType is Default', () => {
         let textContent = 'here is test text';
         let htmlContent = '<h4>' + textContent + '</h4>';
         const encodedString = '&lt;h4&gt;here is test text&lt;/h4&gt;';
-        
+
         fixture.detectChanges();
         var container = fixture.debugElement.children[0].componentInstance;
         var toast: Toast = {
@@ -817,7 +858,7 @@ describe('Multiple ToasterContainerComponent components', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule]
+            imports: [ToasterModule, TestDynamicModule]
         });
         TestBed.overrideComponent(TestComponent,
             {
@@ -828,7 +869,7 @@ describe('Multiple ToasterContainerComponent components', () => {
             }
         );
 
-        fixture = TestBed.createComponent(TestComponent);
+        fixture = TestBed.createComponent<TestComponent>(TestComponent);
     });
 
     it('should create multiple container instances', () => {

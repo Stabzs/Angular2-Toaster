@@ -1,3 +1,30 @@
+# 0.5.0-rc.6 (2016-09-01)
+### Features
+* **Angular: RC6:** The library has been updated to Angular RC6.
+Closes [#52](https://github.com/Stabzs/Angular2-Toaster/issues/52).
+* **Documentation:** Updated to close 
+[#51](https://github.com/Stabzs/Angular2-Toaster/issues/51).
+
+### Breaking Changes
+* **package dependencies:** @angular packages and the rxjs package have been removed from 
+dependencies and added to peerDependencies to allow for more flexible consumption of alternative 
+builds and configurations.  The consumer is now responsible to ensure that the correct version is 
+used per the minimum requirements in 
+[package.json](https://github.com/Stabzs/Angular2-Toaster/blob/master/package.json).
+Closes [#50](https://github.com/Stabzs/Angular2-Toaster/issues/50).
+
+* **toast.component:** Due to Angular2-RC5 deprecating `ComponentResolver` and Angular2-RC6 
+removing `ComponentResolver`, dynamic component resolution has been moved to 
+`Compiler.compileComponentAsync`.
+
+* **toast.component:** Dynamic body rendering via component has been moved to the `ngAfterViewInit` 
+lifecycle hook to ensure full module compilation is complete and metadata is attached before 
+attempting to render the component.
+
+* **toast.component:** RC6 requires that all dynamically rendered components be enclosed in a 
+`NgModule`.  If a module is not used, an error will be thrown at runtime.
+
+
 # 0.4.0-rc.5 (2016-08-24)
 ### Features
 * **toast.module:** toast.module renamed to  **toaster.module** for greater consistency with other 

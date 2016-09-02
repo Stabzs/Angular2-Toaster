@@ -1,6 +1,6 @@
-import {Component, Input, ViewChild, ComponentResolver, ViewContainerRef, EventEmitter}
+import {Component, Input, ViewChild, ViewContainerRef, EventEmitter, ComponentFactoryResolver}
 from '@angular/core';
-import {DomSanitizationService, SafeHtml} from '@angular/platform-browser'
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
 
 import {Toast} from './toast';
 import {BodyOutputType} from './bodyOutputType';
@@ -24,7 +24,7 @@ import {BodyOutputType} from './bodyOutputType';
 })
 
 export class ToastComponent {
-
+    
     @Input() toast: Toast;
     @Input() iconClass: string;
     @ViewChild('componentBody', { read: ViewContainerRef }) componentBody: ViewContainerRef;
@@ -35,19 +35,20 @@ export class ToastComponent {
     public clickEvent = new EventEmitter();
 
     constructor(
-      private resolver: ComponentResolver,
-      private sanitizer: DomSanitizationService
+      private sanitizer: DomSanitizer,
+      private componentFactoryResolver : ComponentFactoryResolver
     ) {}
 
     ngOnInit() {
-        if (this.toast.bodyOutputType === this.bodyOutputType.Component) {
-            this.resolver.resolveComponent(this.toast.body).then(factory => {
-                this.componentBody.createComponent(factory, 0, this.componentBody.injector);
-            });
-        }
-
         if (this.toast.closeHtml) {
             this.safeCloseHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.closeHtml);
+        }
+    }
+
+    ngAfterViewInit() {
+        if (this.toast.bodyOutputType === this.bodyOutputType.Component) {
+            let component = this.componentFactoryResolver.resolveComponentFactory(this.toast.body);
+            this.componentBody.createComponent(component, null, this.componentBody.injector);            
         }
     }
 
