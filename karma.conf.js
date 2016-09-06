@@ -1,13 +1,13 @@
 module.exports = function (config) {
-    var dependencies = require('./package.json').peerDependencies;
-    var excludedDependencies = [
-        'systemjs', 'zone.js'
-    ];
-
     var configuration = {
         basePath: '',
 
         frameworks: ['jasmine'],
+        
+        plugins: [
+            require('karma-jasmine'),
+            require('karma-chrome-launcher')
+        ],
 
         files: [
             'node_modules/reflect-metadata/Reflect.js',
@@ -46,16 +46,6 @@ module.exports = function (config) {
         browsers: ['Chrome'],
         singleRun: false
     };
-
-    Object.keys(dependencies).forEach(function (key) {
-        if (excludedDependencies.indexOf(key) >= 0) { return; }
-
-        configuration.files.push({
-            pattern: 'node_modules/' + key + '/**/*.js',
-            included: false,
-            watched: false
-        });
-    });
 
     config.set(configuration);
 }

@@ -11,7 +11,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 __karma__.loaded = function () { };
 
 var paths = {
-    'n:*': 'node_modules/*'
+    'n:': 'node_modules/'
 };
 
 // map tells the System loader where to look for things
@@ -23,14 +23,17 @@ var map = {
 
     'traceur': 'n:traceur/dist/traceur.js',
 
+    '@angular/core': 'n:@angular/core/bundles/core.umd.js',
+    '@angular/common': 'n:@angular/common/bundles/common.umd.js',
+    '@angular/compiler': 'n:@angular/compiler/bundles/compiler.umd.js',
+    '@angular/platform-browser': 'n:@angular/platform-browser/bundles/platform-browser.umd.js',
+    '@angular/platform-browser-dynamic': 'n:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+
     '@angular/core/testing': 'n:@angular/core/bundles/core-testing.umd.js',
     '@angular/common/testing': 'n:@angular/common/bundles/common-testing.umd.js',
     '@angular/compiler/testing': 'n:@angular/compiler/bundles/compiler-testing.umd.js',
     '@angular/platform-browser/testing': 'n:@angular/platform-browser/bundles/platform-browser-testing.umd.js',
-    '@angular/platform-browser-dynamic/testing': 'n:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
-    '@angular/http/testing': 'n:@angular/http/bundles/http-testing.umd.js',
-    '@angular/router/testing': 'n:@angular/router/bundles/router-testing.umd.js',
-    '@angular/forms/testing': 'n:@angular/forms/bundles/forms-testing.umd.js',
+    '@angular/platform-browser-dynamic/testing': 'n:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js'
 };
 
 var packages = {
@@ -38,20 +41,6 @@ var packages = {
     'lib': { defaultExtension: 'js' },
     'rxjs': { defaultExtension: 'js' }
 };
-
-var packageNames = [
-    '@angular/common',
-    '@angular/compiler',
-    '@angular/core',
-    '@angular/platform-browser',
-    '@angular/platform-browser-dynamic',
-    '@angular/testing',
-];
-
-// add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
-packageNames.forEach(function (pkgName) {
-    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
-});
 
 var config = {
     baseURL: '/base/',
@@ -79,8 +68,7 @@ Promise.all([
             .map(file2moduleName)
             .map(importModules)
     );
-})
-    .then(function () {
+}).then(function () {
         __karma__.start();
     }, function (error) {
         console.error(error.stack || error);
