@@ -2,6 +2,7 @@ module.exports = function(config) {
 	require("./karma.conf")(config);
 
 	config.autoWatch = true;
+	config.browserNoActivityTimeout = 30000;
 
 	config.preprocessors = {
 		'lib/**/!(*spec).js': ['coverage']
