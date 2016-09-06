@@ -1,3 +1,10 @@
+# 0.5.1-rc.6 (2016-09-06)
+### Bug Fixes
+* **toaster.module:** Toaster Module was improperly using `BrowserModule` when it should have been 
+importing `CommonModule`.  Closes [#55](https://github.com/Stabzs/Angular2-Toaster/issues/55).
+* **Test Build:** Corrected broken Travis-CI build.
+
+
 # 0.5.0-rc.6 (2016-09-01)
 ### Features
 * **Angular: RC6:** The library has been updated to Angular RC6.
