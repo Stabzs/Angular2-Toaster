@@ -75,6 +75,8 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         let toasterContainer = fixture.debugElement.children[0].componentInstance;
         let toasterService = fixture.componentInstance.toasterService;
 
+        fixture.detectChanges();
+
         fixture.whenStable().then(() => {
             toasterContainer.ngOnInit();
 
@@ -95,6 +97,8 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         let fixture = TestBed.createComponent<TestComponent>(TestComponent);
         let toasterContainer = fixture.debugElement.children[0].componentInstance;
         let toasterService = fixture.componentInstance.toasterService;
+
+        fixture.detectChanges();
 
         fixture.whenStable().then(() => {
             toasterContainer.ngOnInit();
@@ -345,6 +349,9 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         var toast: Toast = { type: 'info', showCloseButton: true };
 
         toasterService.pop(toast);
+
+        fixture.detectChanges();
+
         expect(toasterContainer.toasts[0].showCloseButton).toBe(true);
     });
 
