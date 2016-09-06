@@ -1,7 +1,7 @@
 module.exports = function(config) {
 	require("./karma.conf")(config);
 
-	config.autoWatch = false;
+	config.autoWatch = true;
 
 	config.preprocessors = {
 		'lib/**/!(*spec).js': ['coverage']
