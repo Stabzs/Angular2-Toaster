@@ -14,11 +14,6 @@ largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-T
 npm install angular2-toaster
 ```
 
-## Link CSS
-```html
-<link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/lib/toaster.css" />
-```
-
 ## Building the Source
 In order to build Angular2-Toaster, you will need to have Git and Node.js installed.
 

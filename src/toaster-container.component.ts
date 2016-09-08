@@ -14,10 +14,8 @@ import {Toast} from './toast';
                 (mouseover)="stopTimer(toast)" (mouseout)="restartTimer">
             </div>
         </div>
-        `//,
-    // TODO: use styleUrls once Angular 2 supports the use of relative paths
-    // https://github.com/angular/angular/issues/2383
-    //styleUrls: ['./toaster.css']
+        `,
+    styleUrls: ['toaster.css']
 })
 
 export class ToasterContainerComponent {
