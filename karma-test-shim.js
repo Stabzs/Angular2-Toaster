@@ -64,7 +64,8 @@ Promise.all([
 }).then(function () {
     return Promise.all(
         Object.keys(window.__karma__.files)
-            .filter(onlySpecFiles)
+            .filter(isSpecFile)
+            .filter(isBuiltFile)
             .map(file2moduleName)
             .map(importModules)
     );
@@ -75,8 +76,16 @@ Promise.all([
         __karma__.start();
     });
 
-function onlySpecFiles(path) {
-    return /[\.|-]spec\.js$/.test(path);
+function isJsFile(path) {
+  return path.slice(-3) == '.js';
+}
+
+function isSpecFile(path) {
+  return /\.spec\.(.*\.)?js$/.test(path);
+}
+
+function isBuiltFile(path) {
+  return isJsFile(path) && (path.indexOf('/base/lib/') > -1);
 }
 
 // Normalize paths to module names.

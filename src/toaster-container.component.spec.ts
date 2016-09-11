@@ -25,6 +25,10 @@ export class TestComponent {
     public toasterconfig: ToasterConfig = new ToasterConfig({ showCloseButton: true, tapToDismiss: false, timeout: 0, toastContainerId: 1 });
     public toasterconfig2: ToasterConfig = new ToasterConfig({ showCloseButton: true, tapToDismiss: false, timeout: 0, toastContainerId: 2 });
 }
+@NgModule({
+    imports: [ToasterModule],
+    declarations: [TestComponent]
+})
 
 
 // Mock component for testing bodyOutputType Component rendering

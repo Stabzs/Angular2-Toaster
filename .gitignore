@@ -1,4 +1,5 @@
 node_modules
+src/node_modules
 npm-debug.log
 coverage
 lib
@@ -6,5 +7,6 @@ build
 src/*.js
 src/*.map
 src/*.d.ts
+src/*.ngfactory.ts
 demo/webpack/bundle.js
 demo/webpack/bundle.js.map

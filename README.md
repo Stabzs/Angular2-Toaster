@@ -4,9 +4,9 @@
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&bump=0.5.1-rc.6)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&bumped=0.5.2-rc.6)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 0.5.1-rc.6
+### Current Version 0.5.2-rc.6
 
 ## Installation:
 
@@ -21,6 +21,7 @@ npm install angular2-toaster
 
 ## Building the Source
 In order to build Angular2-Toaster, you will need to have Git and Node.js installed.
+In addition, the library assumes that you will install all peer dependencies.
 
 Clone a copy of the repo:
 
