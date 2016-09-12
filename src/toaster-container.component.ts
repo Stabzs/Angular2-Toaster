@@ -173,6 +173,7 @@ export class ToasterContainerComponent {
             toast.timeoutId = null;
         }
         if (toast.onHideCallback) toast.onHideCallback(toast);
+        this.toasterService._removeToastSubject.next({ toastId: toast.toastId, toastContainerId: toast.toastContainerId });
     }
 
     private removeAllToasts() {

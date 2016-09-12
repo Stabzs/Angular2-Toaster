@@ -548,6 +548,21 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         expect(status).toBe('updated');
     });
 
+    it('removeToast notifies the removeToast subscribers', (done) => {
+        toasterContainer.ngOnInit();
+
+        var toast: Toast = { type: 'info', title: 'default' };
+        toasterService.pop(toast);
+
+        toasterService.removeToast.subscribe(t => {
+            expect(t.toastId).toEqual(toast.toastId);
+            expect(t.toastContainerId).toEqual(toast.toastContainerId);
+            done();
+        });
+        
+        toasterService.clear(toast.toastId);
+    });
+
     it('clearToasts will clear toasts from all containers if toastContainerId is undefined', () => {
         toasterContainer.ngOnInit();
 
