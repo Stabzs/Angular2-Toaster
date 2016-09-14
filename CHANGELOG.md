@@ -1,3 +1,13 @@
+# 0.5.2-rc.7 (2016-09-14)
+### Features
+* **Angular: RC7:** The library has been updated to Angular RC7.
+Closes [#59](https://github.com/Stabzs/Angular2-Toaster/issues/59).
+
+* **toaster.service:** A `removeToast` observable has been added to toasterService. This allows the 
+consumer to be notified when any toast is removed.  This was added in 
+[#58](https://github.com/Stabzs/Angular2-Toaster/pull/58).
+
+
 # 0.5.1-rc.6 (2016-09-06)
 ### Bug Fixes
 * **toaster.module:** Toaster Module was improperly using `BrowserModule` when it should have been 
