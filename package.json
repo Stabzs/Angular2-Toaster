@@ -1,14 +1,13 @@
 {
   "name": "angular2-toaster",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An Angular 2 Toaster Notification library based on AngularJS-Toaster",
   "main": "angular2-toaster.js",
   "scripts": {
-    "postinstall": "typings install",
     "clean": "rimraf ./lib",
     "watch": "tsc -p src -w",
     "start": "npm run test && http-server -c-1 -o -p 8875 .",
-    "prebuild": "npm run clean",
+    "prebuild": "npm run clean && typings install",
     "build": "node_modules/.bin/ngc -p src && cpx src/toaster.css lib",
     "pretest": "npm run build",
     "test": "karma start karma.conf.js",

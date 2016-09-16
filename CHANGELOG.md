@@ -1,3 +1,11 @@
+# 1.0.1 (2016-09-16)
+### Bug Fix
+* **package.json:** The `typings install` step was incorrectly set in the `postinstall` hook when 
+it should have been set in the `prebuild` hook.  This was causing typings to attempt to be 
+installed whenever the package was installed, which was incorrect.  Closes 
+[#67](https://github.com/Stabzs/Angular2-Toaster/issues/67).
+
+
 # 1.0.0 (2016-09-15)
 ### Features
 * **Angular: Final Version:** The library has been updated to Angular `2.0.0` and the version has 
