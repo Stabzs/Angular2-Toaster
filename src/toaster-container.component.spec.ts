@@ -29,6 +29,7 @@ export class TestComponent {
     imports: [ToasterModule],
     declarations: [TestComponent]
 })
+export class TestComponentModule {}
 
 
 // Mock component for testing bodyOutputType Component rendering
@@ -37,13 +38,10 @@ export class TestComponent {
     template: `<div>loaded via component</div>`
 })
 export class TestDynamicComponent { }
-
 @NgModule({
-    imports: [BrowserModule],
     bootstrap: [TestDynamicComponent],
     declarations: [TestDynamicComponent]
 })
-export class TestDynamicModule { }
 
 
 describe('ToasterContainerComponent with sync ToasterService', () => {
@@ -638,7 +636,6 @@ describe('ToasterContainerComponent when included as a component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, TestDynamicModule]
         });
 
         fixture = TestBed.createComponent<TestComponent>(TestComponent);
@@ -884,7 +881,6 @@ describe('Multiple ToasterContainerComponent components', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, TestDynamicModule]
         });
         TestBed.overrideComponent(TestComponent,
             {

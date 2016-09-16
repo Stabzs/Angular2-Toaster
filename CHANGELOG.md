@@ -1,8 +1,25 @@
+# 1.0.0 (2016-09-15)
+### Features
+* **Angular: Final Version:** The library has been updated to Angular `2.0.0` and the version has 
+been bumped to `1.0.0` as a result. Closes [#63](https://github.com/Stabzs/Angular2-Toaster/issues/63).
+* **typings:** The library has been updated from tsd to typings.  Typings have been updated and 
+wired into the build and are now re-installed on `npm install`. In addition, typings are no 
+longer checked into source.  Closes [#60](https://github.com/Stabzs/Angular2-Toaster/issues/60).
+
+### Bug Fixes
+* **package.json:** The main entrance has been updated to `angular2-toaster.js`.  Addresses 
+[#60](https://github.com/Stabzs/Angular2-Toaster/issues/60).
+* **toast.component:** The `bodyOutputType` property is public to enable AoT compilation on the 
+template. Closes [#62](https://github.com/Stabzs/Angular2-Toaster/issues/62).
+* **toaster.container.spec:** The `TestComponent` module was improperly defined, causing errors in 
+the corresponding `ngFactory` file.  This has been corrected, closing 
+[#64](https://github.com/Stabzs/Angular2-Toaster/issues/64).
+
+
 # 0.5.2-rc.7 (2016-09-14)
 ### Features
 * **Angular: RC7:** The library has been updated to Angular RC7.
 Closes [#59](https://github.com/Stabzs/Angular2-Toaster/issues/59).
-
 * **toaster.service:** A `removeToast` observable has been added to toasterService. This allows the 
 consumer to be notified when any toast is removed.  This was added in 
 [#58](https://github.com/Stabzs/Angular2-Toaster/pull/58).

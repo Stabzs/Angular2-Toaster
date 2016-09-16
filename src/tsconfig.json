@@ -22,6 +22,6 @@
       "toaster.service.ts",
       "toaster.module.ts",
       "../node_modules/typescript/lib/lib.es6.d.ts",
-      "../typings/jasmine/jasmine.d.ts"
+      "../typings/globals/jasmine/index.d.ts"
     ]
 }

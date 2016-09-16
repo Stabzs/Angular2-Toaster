@@ -31,7 +31,7 @@ export class ToastComponent {
 
     safeCloseHtml: SafeHtml;
 
-    private bodyOutputType = BodyOutputType;
+    public bodyOutputType = BodyOutputType;
     public clickEvent = new EventEmitter();
 
     constructor(

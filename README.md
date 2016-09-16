@@ -4,9 +4,9 @@
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&bumped=0.5.2-rc.7)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&bump=1.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 0.5.2-rc.7
+### Current Version 1.0.0
 
 ## Installation:
 
@@ -21,7 +21,8 @@ npm install angular2-toaster
 
 ## Building the Source
 In order to build Angular2-Toaster, you will need to have Git and Node.js installed.
-In addition, the library assumes that you will install all peer dependencies.
+In addition, the library assumes that you will install all peer dependencies before running 
+`npm install`.
 
 Clone a copy of the repo:
 
@@ -427,7 +428,7 @@ this.toasterService.pop(toast);
 
 
 ## Animations
-Animations are currently not released in Angular 2 beta and are not yet included in angular2-toaster.
+Animations will be included at a later point in time.
 
 ## Author
 [Stabzs](stabzssoftware@gmail.com)

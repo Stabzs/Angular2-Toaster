@@ -4,6 +4,7 @@ npm-debug.log
 coverage
 lib
 build
+typings
 src/*.js
 src/*.map
 src/*.d.ts
