@@ -4,6 +4,8 @@
   "description": "An Angular 2 Toaster Notification library based on AngularJS-Toaster",
   "main": "angular2-toaster.ts",
   "scripts": {
+    "postinstall": "typings install",
+    "clean": "rimraf ./lib",
     "watch": "tsc -p src -w",
     "start": "npm run test && http-server -c-1 -o -p 8875 .",
     "build": "node_modules/.bin/ngc -p src && cpx src/toaster.css lib",
@@ -55,8 +57,10 @@
     "karma-jasmine": "1.0.2",
     "reflect-metadata": "0.1.8",
     "remap-istanbul": "^0.6.4",
+    "rimraf": "^2.5.2",
     "systemjs": "^0.19.38",
     "typescript": "2.0.2",
+    "typings": "^1.3.3",
     "zone.js": "0.6.21"
   }
 }

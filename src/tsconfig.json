@@ -12,16 +12,13 @@
     "outDir": "../lib",
     "stripInternal": true
   },
-  "files": [
-      "bodyOutputType.ts",
-      "toast.ts",
-      "toaster-config.ts",
-      "toast.component.ts",
-      "toaster-container.component.ts",
-      "toaster-container.component.spec.ts",
-      "toaster.service.ts",
-      "toaster.module.ts",
-      "../node_modules/typescript/lib/lib.es6.d.ts",
-      "../typings/jasmine/jasmine.d.ts"
-    ]
+  "include": [
+    "../src/**/*.ts",
+    "../typings/index.d.ts"
+  ],
+  "exclude": [
+    "../lib",
+    "../node_modules",
+    "../src/node_modules"
+  ]
 }
