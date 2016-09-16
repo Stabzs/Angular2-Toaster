@@ -42,6 +42,7 @@ export class TestDynamicComponent { }
     bootstrap: [TestDynamicComponent],
     declarations: [TestDynamicComponent]
 })
+export class TestDynamicComponentModule { }
 
 
 describe('ToasterContainerComponent with sync ToasterService', () => {
@@ -636,6 +637,7 @@ describe('ToasterContainerComponent when included as a component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
+            imports: [ToasterModule, TestDynamicComponentModule]
         });
 
         fixture = TestBed.createComponent<TestComponent>(TestComponent);
@@ -881,6 +883,7 @@ describe('Multiple ToasterContainerComponent components', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
+            imports: [ToasterModule, TestDynamicComponentModule]
         });
         TestBed.overrideComponent(TestComponent,
             {
