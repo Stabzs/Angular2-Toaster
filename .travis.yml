@@ -6,7 +6,7 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install: 
-  - npm install zone.js@0.6.21 rxjs@5.0.0-beta.12 @angular/common@2.0.0 @angular/compiler@2.0.0 @angular/core@2.0.0 @angular/platform-browser@2.0.0 @angular/platform-browser-dynamic@2.0.0
+  - npm install zone.js@0.6.21 rxjs@5.0.0-beta.12 @angular/common@2.0.2 @angular/compiler@2.0.2 @angular/core@2.0.2 @angular/platform-browser@2.0.2 @angular/platform-browser-dynamic@2.0.2
   - npm install
 script:
   - npm run build

@@ -1,3 +1,17 @@
+# 1.0.2 (2016-10-12)
+### Bug Fixes
+* **toast.component:** Dynamic template data would break `bodyOutputType.Component` rendering. 
+A forced `detectChanges()` call has been added after the component is created and loaded to enable 
+this functionality.  Additional test cases were added for the gap.  Closes 
+[#71](https://github.com/Stabzs/Angular2-Toaster/issues/71).
+* **angular2-toaster.js:** The library entrance attempts to load `Toast` from `./lib/toast`.  Since 
+the `Toast` file is an interface-only file, there is nothing to load.  Closes 
+[#70](https://github.com/Stabzs/Angular2-Toaster/issues/70).
+
+### Features
+* **Angular 2.0.2 Support:** The library has been tested through to Angular 2.0.2.
+
+
 # 1.0.1 (2016-09-16)
 ### Bug Fix
 * **package.json:** The `typings install` step was incorrectly set in the `postinstall` hook when 

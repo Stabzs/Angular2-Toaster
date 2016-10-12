@@ -1,4 +1,5 @@
-import {Component, Input, ViewChild, ViewContainerRef, EventEmitter, ComponentFactoryResolver}
+import {Component, Input, ViewChild, ViewContainerRef, EventEmitter, 
+    ComponentFactoryResolver, ChangeDetectorRef}
 from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
 
@@ -36,7 +37,8 @@ export class ToastComponent {
 
     constructor(
       private sanitizer: DomSanitizer,
-      private componentFactoryResolver : ComponentFactoryResolver
+      private componentFactoryResolver : ComponentFactoryResolver,
+      private changeDetectorRef : ChangeDetectorRef
     ) {}
 
     ngOnInit() {
@@ -48,7 +50,8 @@ export class ToastComponent {
     ngAfterViewInit() {
         if (this.toast.bodyOutputType === this.bodyOutputType.Component) {
             let component = this.componentFactoryResolver.resolveComponentFactory(this.toast.body);
-            this.componentBody.createComponent(component, null, this.componentBody.injector);            
+            this.componentBody.createComponent(component, null, this.componentBody.injector);
+            this.changeDetectorRef.detectChanges();
         }
     }
 

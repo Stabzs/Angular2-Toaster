@@ -44,6 +44,19 @@ export class TestDynamicComponent { }
 })
 export class TestDynamicComponentModule { }
 
+@Component({
+  selector: 'bound-dynamic-component',
+  template: `<div>{{someValue}} loaded via component</div>`
+})
+export class TestBoundDynamicComponent { 
+  someValue: string = 'Some value';
+}
+@NgModule({
+    bootstrap: [TestBoundDynamicComponent],
+    declarations: [TestBoundDynamicComponent]
+})
+export class TestBoundDynamicComponentModule { }
+
 
 describe('ToasterContainerComponent with sync ToasterService', () => {
     let toasterService: ToasterService,
@@ -936,5 +949,51 @@ describe('Multiple ToasterContainerComponent components', () => {
         expect(container2.toasts.length).toBe(1);
         expect(container1.toasts[0].title).toBe('fixture 1');
         expect(container2.toasts[0].title).toBe('fixture 2');
+    });
+});
+
+describe('ToasterContainerComponent when included as a component with bindings', () => {
+    let fixture: ComponentFixture<TestComponent>;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestComponent],
+            imports: [ToasterModule, TestBoundDynamicComponentModule]
+        });
+
+        fixture = TestBed.createComponent<TestComponent>(TestComponent);
+    });
+
+    it('should use the bound toasterconfig object if provided', () => {
+        fixture.detectChanges();
+
+        expect(fixture.componentInstance).toBeDefined();
+
+        var container = fixture.debugElement.children[0].componentInstance;
+
+        expect(container).toBeDefined();
+        expect(container.toasterconfig).toBeDefined();
+        expect(container.toasterconfig.showCloseButton).toBe(true);
+        expect(container.toasterconfig.tapToDismiss).toBe(false);
+        expect(container.toasterconfig.timeout).toBe(0);
+    });
+
+    
+    it('should redner the dynamic bound content', () => {
+        fixture.detectChanges();
+        var container = fixture.debugElement.children[0].componentInstance;
+        var toast: Toast = {
+            type: 'success',
+            title: 'Yay',
+            body: TestBoundDynamicComponent,
+            bodyOutputType: BodyOutputType.Component
+        };
+
+        fixture.componentInstance.toasterService.pop(toast);
+        fixture.detectChanges();
+        expect(container.toasts.length).toBe(1);
+
+        var renderedToast = fixture.nativeElement.querySelector('bound-dynamic-component');
+        expect(renderedToast.innerHTML).toBe('<div>Some value loaded via component</div>');
     });
 });
