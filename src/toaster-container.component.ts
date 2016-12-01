@@ -11,7 +11,7 @@ import {Toast} from './toast';
                 [iconClass]="toasterconfig.iconClasses[toast.type]" 
                 [ngClass]="toasterconfig.typeClasses[toast.type]"
                 (click)="click(toast)" (clickEvent)="childClick($event)" 
-                (mouseover)="stopTimer(toast)" (mouseout)="restartTimer">
+                (mouseover)="stopTimer(toast)" (mouseout)="restartTimer(toast)">
             </div>
         </div>
         `//,
@@ -75,7 +75,7 @@ export class ToasterContainerComponent {
 
     restartTimer(toast: Toast) {
         if (this.toasterconfig.mouseoverTimerStop) {
-            if (toast.timeoutId) {
+            if (!toast.timeoutId) {
                 this.configureTimer(toast);
             }
         } else if (toast.timeoutId === null) {
