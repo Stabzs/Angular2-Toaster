@@ -46,10 +46,15 @@ export class TestDynamicComponentModule { }
 
 @Component({
   selector: 'bound-dynamic-component',
-  template: `<div>{{someValue}} loaded via component</div>`
+  template: '<div>{{someValue}} loaded via component<button (click)="clickHandler()" id="click"></button></div>'
 })
 export class TestBoundDynamicComponent { 
   someValue: string = 'Some value';
+  public toast : Toast = null;
+
+  clickHandler() {
+      this.toast.title = 'updated title';
+  }
 }
 @NgModule({
     bootstrap: [TestBoundDynamicComponent],
@@ -979,7 +984,7 @@ describe('ToasterContainerComponent when included as a component with bindings',
     });
 
     
-    it('should redner the dynamic bound content', () => {
+    it('should render the dynamic bound content', () => {
         fixture.detectChanges();
         var container = fixture.debugElement.children[0].componentInstance;
         var toast: Toast = {
@@ -994,6 +999,30 @@ describe('ToasterContainerComponent when included as a component with bindings',
         expect(container.toasts.length).toBe(1);
 
         var renderedToast = fixture.nativeElement.querySelector('bound-dynamic-component');
-        expect(renderedToast.innerHTML).toBe('<div>Some value loaded via component</div>');
+        expect(renderedToast.innerHTML).toBe('<div>Some value loaded via component<button id="click"></button></div>');
+    });
+
+    it('should propagate the toast instance to the component', () => {
+        fixture.detectChanges();
+        var container = fixture.debugElement.children[0].componentInstance;
+        var toast: Toast = {
+            type: 'success',
+            title: 'test',
+            body: TestBoundDynamicComponent,
+            bodyOutputType: BodyOutputType.Component
+        };
+
+        var toastInstance = fixture.componentInstance.toasterService.pop(toast);
+        fixture.detectChanges();
+
+        expect(container.toasts.length).toBe(1);
+        expect(toastInstance.title).toBe('test');
+
+        var clickButton = fixture.nativeElement.querySelector('#click');
+        clickButton.click();
+
+        fixture.detectChanges();
+
+        expect(toastInstance.title).toBe('updated title');
     });
 });

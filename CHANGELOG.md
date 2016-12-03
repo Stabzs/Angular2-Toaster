@@ -1,4 +1,24 @@
+# 1.1.0 (2016-12-02)
+### Features
+* **toast.component:** When rendering BodyOutputType.Component, the toast instance itself is 
+applied to the rendered component.  This allows the component to interact with the toast as 
+needed, as well as expose access to the toast id.  
+Addresses [#84](https://github.com/Stabzs/Angular2-Toaster/issues/84).
+
+### Bug Fix
+* **toaster-container.component:** ResetTimer on mouseout was not being properly called. It is 
+now called appropriately when mouseoverTimerStop is set to true.  Thanks to @kb3eua.
+
+### Documentation
+* **README:** Documented the mouseoverTimerStop config option and documented the addition of the 
+toast instance to components when using BodyOutputType.Component.  Closes 
+[#83](https://github.com/Stabzs/Angular2-Toaster/issues/83).
+
+
 # 1.0.2 (2016-10-12)
+### Features
+* **Angular 2.0.2 Support:** The library has been tested through to Angular 2.0.2.
+
 ### Bug Fixes
 * **toast.component:** Dynamic template data would break `bodyOutputType.Component` rendering. 
 A forced `detectChanges()` call has been added after the component is created and loaded to enable 
@@ -7,9 +27,6 @@ this functionality.  Additional test cases were added for the gap.  Closes
 * **angular2-toaster.js:** The library entrance attempts to load `Toast` from `./lib/toast`.  Since 
 the `Toast` file is an interface-only file, there is nothing to load.  Closes 
 [#70](https://github.com/Stabzs/Angular2-Toaster/issues/70).
-
-### Features
-* **Angular 2.0.2 Support:** The library has been tested through to Angular 2.0.2.
 
 
 # 1.0.1 (2016-09-16)

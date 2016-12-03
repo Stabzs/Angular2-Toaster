@@ -50,7 +50,8 @@ export class ToastComponent {
     ngAfterViewInit() {
         if (this.toast.bodyOutputType === this.bodyOutputType.Component) {
             let component = this.componentFactoryResolver.resolveComponentFactory(this.toast.body);
-            this.componentBody.createComponent(component, null, this.componentBody.injector);
+            let componentInstance : any = this.componentBody.createComponent(component, null, this.componentBody.injector);
+            componentInstance.instance.toast = this.toast;
             this.changeDetectorRef.detectChanges();
         }
     }

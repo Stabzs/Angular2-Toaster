@@ -4,9 +4,9 @@
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=1.0.2)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=1.1.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 1.0.2
+### Current Version 1.1.0
 
 ## Installation:
 
@@ -335,7 +335,7 @@ The timeout can be configured at three different levels:
 By passing the timeout config option as an object instead of a number, you can specify the global 
 behavior an info-class type should have.
 
-  ```typescript
+  ```
   template: 
     `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
 
@@ -353,9 +353,22 @@ If a type is not defined and specified, a timeout will not be applied, making th
       showCloseButton: true,
       closeHtml: '<button>Close</button>'
   };
-    
+        
   this.toasterService.pop(toast);
   ```
+
+### Prevent Timeout on Mouseover
+By default, all toasts are dismissed when their timer expires, even if you mouse over the toast.  
+This can be overriden via the container's config.
+
+```typescript
+template: 
+    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+
+public toasterconfig : ToasterConfig = 
+    new ToasterConfig({mouseoverTimerStop: false});
+```
+
 
 ### Body Output Type
 There are three different types of body renderings that can be passed via the 
@@ -398,6 +411,11 @@ of the toast.
             
   this.toasterService.pop(toast);
   ```
+
+  The Component BodyOutputType offers the additional flexibilty of attaching the toast instance to 
+  your component.  It is recommended that you expose a public property on your component for type 
+  safe access to the toast instance if you need to consume it inside of your component.  
+  Mutation of the toast instance is not recommended.
 
 
 ### On Show Callback
