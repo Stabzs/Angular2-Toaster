@@ -3,6 +3,7 @@ src/node_modules
 npm-debug.log
 coverage
 lib
+dist
 build
 typings
 src/*.js

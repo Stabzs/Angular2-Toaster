@@ -5,7 +5,7 @@ module.exports = function(config) {
 	config.browserNoActivityTimeout = 30000;
 
 	config.preprocessors = {
-		'lib/**/!(*spec).js': ['coverage']
+		'dist/**/!(*spec).js': ['coverage']
 	};
 	
 	config.coverageReporter = {

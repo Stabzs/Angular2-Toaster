@@ -36,9 +36,9 @@ In the cloned directory, run:
 npm install
 ```
 
-Start Typescript compiler with watch:
+Run Angular AoT compiler:
 ```bash
-npm run watch
+npm run build
 ```
 
 Start Karma test instance with watch:

@@ -1,8 +1,7 @@
 import {Component, Input, ViewChild, ViewContainerRef, EventEmitter, 
     ComponentFactoryResolver, ChangeDetectorRef}
 from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
-
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {Toast} from './toast';
 import {BodyOutputType} from './bodyOutputType';
 

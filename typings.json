@@ -1,7 +1,0 @@
-{
-  "name": "angular2-toaster",
-  "globalDependencies": {
-    "core-js": "registry:dt/core-js#0.0.0+20160914114559",
-    "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#ab2462147a313f69e7118625cfcce21c005fa4af"
-  }
-}
