@@ -1,5 +1,5 @@
 import {Component, Input, ViewChild, ViewContainerRef, EventEmitter, 
-    ComponentFactoryResolver, ChangeDetectorRef}
+    ComponentFactoryResolver, ChangeDetectorRef }
 from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {Toast} from './toast';
@@ -55,7 +55,7 @@ export class ToastComponent {
         }
     }
 
-    click(event, toast: Toast) {
+    click(event : MouseEvent, toast: Toast) {
         event.stopPropagation();
         this.clickEvent.emit({
             value : { toast: toast, isCloseButton: true}

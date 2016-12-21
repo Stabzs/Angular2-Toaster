@@ -11,7 +11,7 @@
     "build": "node_modules/.bin/ngc -p ./tsconfig-aot.json && npm run rollup",
     "rollup": "node_modules/.bin/rollup -c ./config/rollup.config.js && npm run uglify",
     "uglify": "node_modules/.bin/uglifyjs ./dist/bundles/angular2-toaster.umd.js -o ./dist/bundles/angular2-toaster.umd.min.js && npm run copy",
-    "copy": "cpx package.json dist && cpx LICENSE dist && cpx README.md dist",
+    "copy": "cpx package.json dist && cpx LICENSE dist && cpx README.md dist && cpx ./src/toaster.css dist",
     "test": "karma start karma.conf.js"
   },
   "keywords": [
@@ -37,8 +37,6 @@
     "@angular/common": "^2.0.0",
     "@angular/compiler": "^2.0.0",
     "@angular/core": "^2.0.0",
-    "@angular/platform-browser": "^2.0.0",
-    "@angular/platform-browser-dynamic": "^2.0.0",
     "rxjs": "^5.0.0-beta.11"
   },
   "devDependencies": {
@@ -52,7 +50,7 @@
     "rxjs": "5.0.1",
     "@types/jasmine": "2.5.38",
     "@types/node": "6.0.46",
-    "awesome-typescript-loader": "3.0.0-beta.17",
+    "awesome-typescript-loader": "2.2.4",
     "core-js": "2.4.1",
     "coveralls": "2.11.14",
     "cpx": "1.5.0",
@@ -73,7 +71,7 @@
     "rollup": "0.37.0",
     "source-map-loader": "0.1.5",
     "ts-helpers": "1.1.2",
-    "typescript": "2.1.4",
+    "typescript": "2.0.10",
     "typings": "1.4.0",
     "uglify-js": "2.7.5", 
     "webpack": "2.1.0-beta.27",

@@ -10,12 +10,13 @@
     "noImplicitAny": false,
     "declaration": true,
     "stripInternal": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "types": [ "jasmine", "node" ],
     "lib": ["es2015", "dom"]
   },
   "include": [
-    "src/**/**"
+    "angular2-toaster.ts",
+    "src/**/*"
   ],
   "exclude": [
       "node_modules",

@@ -60,7 +60,7 @@ export class ToasterContainerComponent {
         }
     }
     
-    childClick($event) {
+    childClick($event: any) {
         this.click($event.value.toast, $event.value.isCloseButton);
     }
 

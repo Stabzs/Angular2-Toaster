@@ -10,8 +10,9 @@ export default {
         '@angular/common',
         'rxjs/Observable',
         'rxjs/Observer',
+        'rxjs/add/operator/share',
         'rxjs/Subject',
-        'rxjs/add/operator/share'
+        
     ],
     globals: {
         '@angular/core': 'ng.core',
@@ -21,5 +22,5 @@ export default {
         'rxjs/add/operator/share': 'Rx',
         'rxjs/Subject': 'Rx'
     },
-    onwarn: () => { return }
+    onwarn: (e) => { return }
 }
