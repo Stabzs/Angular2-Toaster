@@ -1,3 +1,37 @@
+# 2.0.0 (2016-12-21)
+### BREAKING CHANGES
+* **angular2-toaster:** The library has been converted to a UMD Format to mirror @angular packages 
+and properly expose the top-level module.  As a result, a number of changes have been implemented 
+and require updates to your code.
+    - You no longer need to (or can) import from `angular2-toaster/angular2-toaster`.  You can now 
+    import directly from `angular2-toaster`.
+    - There is no longer a `/lib` folder.  The `toaster.css` file has been moved to the root of the 
+    package since this is a top-level file, just like `angular2-toaster`.
+    - If you still need to deep-link to a specific file rather than consuming it via 
+    `angular2-toaster`, the compiled files are now available under `/src` instead of `/lib`.
+    - The default module style for the library is now `es2015` instead of `commonjs`.
+
+### Features
+* **angular2-toaster:** UMD files are now included under the `/bundles` folder of the package. The 
+UMD files expect `@angular/core`, `@angular/common`, and `rxjs` to exist in the global namespaces 
+if being consumed.
+
+### Bug Fixes
+* **angular2-toaster:** The peerDependency requirement for rxjs has been relaxed to 
+`rxjs@^5.0.0-beta.11`.  This allows for flexibility all the way back to `@angular@2.0.0`. 
+Closes [#87](https://github.com/Stabzs/Angular2-Toaster/issues/87).
+
+* **angular2-toaster:** The `angular2-toaster` package entrance was never compiled via Ahead of 
+Time compilation.  As a result, no `metadata.json` was available for the package entrance point 
+and the library could not be consumed with AoT if trying to import directly from 
+`angular2-toaster`. This has been corrected.
+
+### Documentation
+* **README:** The README documentation has been restructured to make it easier to find key 
+information, such as how to get started.  All import examples have been updated to match the new 
+package structure.
+
+
 # 1.1.0 (2016-12-02)
 ### Features
 * **toast.component:** When rendering BodyOutputType.Component, the toast instance itself is 
