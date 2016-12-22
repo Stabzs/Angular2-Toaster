@@ -7,7 +7,7 @@ import {ToasterService} from './toaster.service';
 import {ToasterContainerComponent} from './toaster-container.component';
 import {ToasterConfig} from './toaster-config';
 import {BodyOutputType} from './bodyOutputType';
-import {ToasterModule} from './toaster.module';
+import {ToasterModule} from '../angular2-toaster';
 import {BrowserModule} from '@angular/platform-browser';
 
 // Mock component for bootstrapping <toaster-container></toaster-container>

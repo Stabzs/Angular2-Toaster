@@ -22,8 +22,8 @@ export class ToasterService {
      * Creates an instance of ToasterService.
      */
     constructor() {
-        this.addToast = new Observable<Toast>(observer => this._addToast = observer).share();
-        this.clearToasts = new Observable<IClearWrapper>(observer => this._clearToasts = observer).share();
+        this.addToast = new Observable<Toast>((observer: any) => this._addToast = observer).share();
+        this.clearToasts = new Observable<IClearWrapper>((observer: any) => this._clearToasts = observer).share();
         this._removeToastSubject = new Subject<IClearWrapper>()
         this.removeToast = this._removeToastSubject.share();
     }

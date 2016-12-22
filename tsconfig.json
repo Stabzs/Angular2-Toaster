@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "declaration": true,
+    "stripInternal": true,
+    "noUnusedLocals": false,
+    "types": [ "jasmine", "node" ],
+    "lib": ["es2015", "dom"]
+  },
+  "include": [
+    "angular2-toaster.ts",
+    "src/**/*"
+  ],
+  "exclude": [
+      "node_modules",
+      "bundles"
+    ]
+}

@@ -1,13 +1,20 @@
 # Angular2-Toaster
 
-**angular2-toaster** is an asynchronous, non-blocking Angular2 Toaster Notification library 
+**angular2-toaster** is an asynchronous, non-blocking, Ahead of Time Compilation-supported Angular2 Toaster Notification library 
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
-[![npm](https://img.shields.io/npm/dt/angular2-toaster.svg)]()
+[![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600)](https://www.npmjs.com/package/angular2-toaster)
+[![npm](https://img.shields.io/npm/dt/angular2-toaster.svg)](https://www.npmjs.com/package/angular2-toaster)
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=1.1.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=2.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-### Current Version 1.1.0
+
+# Demo
+A dynamic Angular2 and Typescript demo can be found at 
+[this plunker](http://plnkr.co/edit/hkENUhos6q9fhiOHprXO?p=preview).
+
+
+# Getting Started
 
 ## Installation:
 
@@ -15,52 +22,23 @@ largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-T
 npm install angular2-toaster
 ```
 
-## Link CSS
+## Import CSS
+
+### Copy or Link CSS
 ```html
-<link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/lib/toaster.css" />
+<link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/toaster.css" />
 ```
 
-## Building the Source
-In order to build Angular2-Toaster, you will need to have Git and Node.js installed.
-In addition, the library assumes that you will install all peer dependencies before running 
-`npm install`.
-
-Clone a copy of the repo:
-
-```bash
-git clone https://github.com/stabzs/Angular2-Toaster.git
-```
-
-In the cloned directory, run:
-```bash
-npm install
-```
-
-Start Typescript compiler with watch:
-```bash
-npm run watch
-```
-
-Start Karma test instance with watch:
-```bash
-npm run test
-```
-
-Generate test coverage report:
-```bash
-npm run coverage
+### Import CSS with Sass or Less
+```scss
+@import 'node_modules/angular2-toaster/toaster';
 ```
 
 
-## Demo
-A dynamic Angular2 and Typescript demo can be found at 
-[this plunker](http://plnkr.co/edit/hkENUhos6q9fhiOHprXO?p=preview).
-
-
-## Getting Started With Default Configuration - NgModule:
+## Getting Started With Default Configuration - NgModule (Recommended):
 ```typescript
 import {NgModule, Component} from '@angular/core';
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToasterModule, ToasterService} from 'angular2-toaster';
 import {Root} from './root.component'
 
 @NgModule({
@@ -95,7 +73,7 @@ export class Root {
 
 ```typescript
 import {Component} from '@angular/core';
-import {ToasterContainerComponent, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToasterContainerComponent, ToasterService} from 'angular2-toaster';
 
 @Component({
     selector: 'root',
@@ -125,7 +103,7 @@ bootstrap(Root);
 
 ```typescript
 import {Component} from '@angular/core';
-import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
+import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster';
 
 @Component({
     selector: 'root',
@@ -158,6 +136,7 @@ class Root {
 
 bootstrap(Root);
 ```
+
 
 ## Asynchronous vs Synchronous ToasterService
 `ToasterService` exposes both a synchronous and asynchronous pop method in the form of `pop()` and 
@@ -197,7 +176,7 @@ this.toasterService.clear(toast.toastId, toast.toastContainerId);
 ```
 
 
-## Configurable Options
+# Configurable Options
 
 ### Limit
 Limit is defaulted to null, meaning that there is no maximum number of toasts that are defined 
@@ -381,7 +360,7 @@ is not provided, it will be defaulted to 'Default'.
  
 * TrustedHtml: The `body` argument will be parsed and rendered as html content.
   ```typescript
-  import {BodyOutputType} from 'angular2-toaster/angular2-toaster';
+  import {BodyOutputType} from 'angular2-toaster';
   var toast : Toast = {
       type: 'error',
       title: 'Title text',
@@ -395,7 +374,7 @@ is not provided, it will be defaulted to 'Default'.
 * Component: The `body` argument is the name of the component class to be rendered as the content 
 of the toast.
   ```typescript
-  import {BodyOutputType} from 'angular2-toaster/angular2-toaster';
+  import {BodyOutputType} from 'angular2-toaster';
   
   @Component({
     selector: 'dynamic-component',
@@ -446,6 +425,31 @@ this.toasterService.pop(toast);
 ```
 
 
+# Building the Source
+In order to build Angular2-Toaster for development, you will need to have Git and Node.js installed.
+
+Clone a copy of the repo:
+
+```bash
+git clone https://github.com/stabzs/Angular2-Toaster.git
+```
+
+In the cloned directory, run:
+```bash
+npm install
+```
+
+Run Angular AoT compiler:
+```bash
+npm run build
+```
+
+Run Karma test instance with coverage report:
+```bash
+npm run test
+```
+
+
 ## Animations
 Animations will be included at a later point in time.
 
@@ -458,7 +462,7 @@ Rewritten from https://github.com/jirikavi/AngularJS-Toaster
 Inspired by http://codeseven.github.io/toastr/demo.html.
 
 ## Copyright
-Copyright © 2016 Stabzs.
+Copyright © 2016-2017 Stabzs.
 
 
 ## Licence
