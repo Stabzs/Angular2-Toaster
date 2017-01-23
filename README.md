@@ -35,6 +35,27 @@ npm install angular2-toaster
 ```
 
 
+## Import Library
+
+### Import via SystemJS
+Within the `map` property of the `systemjs.config` file, add mappings for angular, rxjs 
+(which is a dependency), and the angular2-toaster bundled umd file:
+
+```javascript
+map: {
+      // angular bundles
+      '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+      // ...
+      // other libraries
+      'rxjs':  'npm:rxjs',
+      'angular2-toaster': 'npm:angular2-toaster/bundles/angular2-toaster.umd.js'
+```
+
+### Import via Webpack
+Simply follow the `Getting Started` instructions to import the library.
+
+
+
 ## Getting Started With Default Configuration - NgModule (Recommended):
 ```typescript
 import {NgModule, Component} from '@angular/core';
