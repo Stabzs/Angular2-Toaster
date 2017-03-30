@@ -1,4 +1,6 @@
+.npmignore
 .travis.yml
+CHANGELOG.md
 demo
 test
 coverage
@@ -11,3 +13,4 @@ karma.coverage.js
 lib/*.spec.*
 src/node_modules
 debug.log
+config/**
