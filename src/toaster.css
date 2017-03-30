@@ -116,6 +116,8 @@ button.toast-close-button {
 #toast-container.toast-bottom-center{
   width: 100%;
   pointer-events: none;
+  left: 0;
+  right: 0;
 }
 #toast-container.toast-center > div,
 #toast-container.toast-top-center > div,
