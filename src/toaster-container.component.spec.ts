@@ -1,6 +1,6 @@
 import {Component, NgModule} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
-import {ComponentFixture} from '@angular/core/testing/component_fixture';
+import {ComponentFixture} from '@angular/core/testing';
 
 import {Toast, ClickHandler} from './toast';
 import {ToasterService} from './toaster.service';

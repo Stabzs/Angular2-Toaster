@@ -1,3 +1,19 @@
+# 3.0.0 (2017-3-30)
+### BREAKING CHANGES
+* **angular2-toaster:** The library's Angular dependencies have been pinned to a minimum version of 
+4.0.0 for common, compiler, and core.
+
+### Features
+* **angular2-toaster:** The library has been recompiled against the 4.0.1 version of the Ahead of 
+Time Angular compiler, resulting in smaller bundled UMD files.  This allows for faster downloading 
+and bootstrapping of the library. 
+Closes [#106](https://github.com/Stabzs/Angular2-Toaster/issues/106).
+
+### Bug Fixes
+* **toaster.css:** Center-positioned postionClasses now properly align in the middle of the page. 
+Closes [#104](https://github.com/Stabzs/Angular2-Toaster/issues/104).
+
+
 # 2.0.0 (2016-12-21)
 ### BREAKING CHANGES
 * **angular2-toaster:** The library has been converted to a UMD Format to mirror @angular packages 
