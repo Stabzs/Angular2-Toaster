@@ -10,12 +10,13 @@ export interface Toast {
     onShowCallback?: OnActionCallback;
     onHideCallback?: OnActionCallback;
     timeout?: number;
-    timeoutId?: number;
+    timeoutId?: number|null;
     bodyOutputType?: BodyOutputType;
     clickHandler?: ClickHandler;
     showCloseButton?: boolean;
     closeHtml?: string;
-    toasterConfig? : ToasterConfig
+    toasterConfig? : ToasterConfig;
+    data? : any;
 }
 
 export interface ClickHandler {

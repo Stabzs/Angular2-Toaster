@@ -12,6 +12,7 @@
         "rootDir": ".",
         "sourceMap": true,
         "inlineSources": true,
+        "strictNullChecks": true,
         "target": "es5"
     },
     "files": [

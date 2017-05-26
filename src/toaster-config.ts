@@ -1,7 +1,7 @@
 import {BodyOutputType} from './bodyOutputType';
 
 export class ToasterConfig implements IToasterConfig {
-    limit: number;
+    limit?: number|null;
     tapToDismiss: boolean;
     showCloseButton: boolean|Object;
     closeHtml: string;
@@ -17,12 +17,12 @@ export class ToasterConfig implements IToasterConfig {
     // 'toast-top-left', 'toast-top-center', 'toast-top-right',
     // 'toast-bottom-left', 'toast-bottom-center', 'toast-bottom-right',
     positionClass: string;
-    animationClass: string;
     titleClass: string;
     messageClass: string;
+    animation: string;
     preventDuplicates: boolean;
     mouseoverTimerStop: boolean;
-    toastContainerId: number;
+    toastContainerId?: number|null;
 
     constructor(configOverrides?: IToasterConfig) {
         configOverrides = configOverrides || {};
@@ -50,9 +50,9 @@ export class ToasterConfig implements IToasterConfig {
         this.bodyTemplate = configOverrides.bodyTemplate || 'toasterBodyTmpl.html';
         this.defaultTypeClass = configOverrides.defaultTypeClass || 'toast-info';
         this.positionClass = configOverrides.positionClass || 'toast-top-right';
-        this.animationClass = configOverrides.animationClass || '';
         this.titleClass = configOverrides.titleClass || 'toast-title';
         this.messageClass = configOverrides.messageClass || 'toast-message';
+        this.animation = configOverrides.animation || '';
         this.preventDuplicates = configOverrides.preventDuplicates != null ? configOverrides.preventDuplicates : false;
         this.mouseoverTimerStop = configOverrides.mouseoverTimerStop != null ? configOverrides.mouseoverTimerStop : false;
         this.toastContainerId = configOverrides.toastContainerId != null ? configOverrides.toastContainerId : null;
@@ -60,7 +60,7 @@ export class ToasterConfig implements IToasterConfig {
 }
 
 export interface IToasterConfig {
-    limit?: number;
+    limit?: number|null;
     tapToDismiss?: boolean;
     showCloseButton?: boolean|Object;
     closeHtml?: string;
@@ -76,10 +76,10 @@ export interface IToasterConfig {
     // 'toast-top-left', 'toast-top-center', 'toast-top-right',
     // 'toast-bottom-left', 'toast-bottom-center', 'toast-bottom-right',
     positionClass?: string;
-    animationClass?: string;
     titleClass?: string;
     messageClass?: string;
+    animation?: string;
     preventDuplicates?: boolean;
     mouseoverTimerStop?: boolean;
-    toastContainerId?: number;
+    toastContainerId?: number|null;
 }
