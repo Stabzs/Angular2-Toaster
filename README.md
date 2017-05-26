@@ -1,13 +1,16 @@
 # Angular2-Toaster
 
-**angular2-toaster** is an asynchronous, non-blocking, Ahead of Time Compilation-supported Angular2 Toaster Notification library 
+**angular2-toaster** is an asynchronous, non-blocking, Ahead of Time Compilation-supported Angular Toaster Notification library 
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
 [![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600)](https://www.npmjs.com/package/angular2-toaster)
 [![npm](https://img.shields.io/npm/dt/angular2-toaster.svg)](https://www.npmjs.com/package/angular2-toaster)
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=3.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=4.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
+
+Version ^4.0.0 now supports `@angular/animations`, which is a breaking change.  Please read both 
+the `Getting Started` and `Animations` sections before upgrading.
 
 # Demo
 A dynamic Angular and Typescript demo can be found at 
@@ -59,11 +62,12 @@ Simply follow the `Getting Started` instructions to import the library.
 ## Getting Started With Default Configuration - NgModule (Recommended):
 ```typescript
 import {NgModule, Component} from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import {Root} from './root.component'
 
 @NgModule({
-    imports: [ToasterModule],
+    imports: [BrowserAnimationsModule, ToasterModule],
     declarations: [Root],
     providers: [],
     bootstrap: [Root]
@@ -94,10 +98,12 @@ export class Root {
 
 ```typescript
 import {Component} from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterContainerComponent, ToasterService} from 'angular2-toaster';
 
 @Component({
     selector: 'root',
+    imports: [BrowserAnimationsModule],
     directives: [ToasterContainerComponent],
     providers: [ToasterService],
     template: `
@@ -124,10 +130,12 @@ bootstrap(Root);
 
 ```typescript
 import {Component} from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster';
 
 @Component({
     selector: 'root',
+    imports: [BrowserAnimationsModule],
     directives: [ToasterContainerComponent],
     providers: [ToasterService],
     template: `
@@ -197,7 +205,56 @@ this.toasterService.clear(toast.toastId, toast.toastContainerId);
 ```
 
 
+## Animations
+Starting with version `4.0.0` and greater, Animation configuration is required, as described in the 
+`Getting Started` section.
+
+To add animations: 
+
+- Install the `@angular/animations` npm package via 
+`npm install @angular/animations`.
+- Add the `BrowserAnimationsModule` to your root module
+
+    ```typescript
+    import {NgModule, Component} from '@angular/core';
+    import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+    import {ToasterModule} from 'angular2-toaster';
+    
+    @NgModule({
+        imports: [BrowserAnimationsModule, ToasterModule],
+        ...
+    ```
+
+If you want to avoid bringing in an additional module solely for the sake of animations, you can 
+explicitly configure `angular2-toaster` to ignore animations.  To do so, import the 
+`NoopAnimationsModule` instead:
+
+```typescript
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {ToasterModule} from 'angular2-toaster';
+    
+@NgModule({
+    imports: [NoopAnimationsModule, ToasterModule],
+    ...
+```
+
+Angular Animations require [browsers](http://caniuse.com/#feat=web-animation) that support the [Web Animations Standard](https://w3c.github.io/web-animations/).
+
+If you need to target a non-supported browser, a [polyfill](https://github.com/web-animations/web-animations-js) is required.
+
+
 # Configurable Options
+### Animations
+There are five animation styles that can be applied via the toasterconfig `animation` property: 
+'fade', 'flyLeft', 'flyRight', 'slideDown', and 'slideUp'.  Any other value will disable animations.
+
+```typescript
+template: 
+    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+
+public toasterconfig : ToasterConfig = 
+    new ToasterConfig({animation: 'fade'});
+```
 
 ### Limit
 Limit is defaulted to null, meaning that there is no maximum number of toasts that are defined 
@@ -470,9 +527,6 @@ Run Karma test instance with coverage report:
 npm run test
 ```
 
-
-## Animations
-Animations will be included at a later point in time.
 
 ## Author
 [Stabzs](stabzssoftware@gmail.com)

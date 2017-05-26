@@ -2,14 +2,16 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2015",
+    "module": "es2015",
     "moduleResolution": "node",
+    "lib": ["es6", "dom"],
     "removeComments": true,
     "sourceMap": true,
-    "declaration": true
+    "allowJs": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "bundles"
   ]
 }

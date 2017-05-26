@@ -1,36 +1,98 @@
-import {Component, Input, ChangeDetectorRef} from '@angular/core';
-import {ToasterConfig} from './toaster-config';
-import {ToasterService, IClearWrapper} from './toaster.service';
-import {Toast} from './toast';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { ToasterConfig } from './toaster-config';
+import { ToasterService, IClearWrapper } from './toaster.service';
+import { Toast } from './toast';
 
 @Component({
     selector: 'toaster-container',
     template: `
-        <div id="toast-container" [ngClass]="[toasterconfig.positionClass, toasterconfig.animationClass]" class="ng-animate">
+        <div id="toast-container" [ngClass]="[toasterconfig.positionClass]">
             <div toastComp *ngFor="let toast of toasts" class="toast" [toast]="toast"
+                [@toastState]="toasterconfig.animation" 
                 [iconClass]="toasterconfig.iconClasses[toast.type]" 
                 [ngClass]="toasterconfig.typeClasses[toast.type]"
                 (click)="click(toast)" (clickEvent)="childClick($event)" 
                 (mouseover)="stopTimer(toast)" (mouseout)="restartTimer(toast)">
             </div>
         </div>
-        `//,
+        `,
     // TODO: use styleUrls once Angular 2 supports the use of relative paths
     // https://github.com/angular/angular/issues/2383
     //styleUrls: ['./toaster.css']
+    animations: [
+        trigger('toastState', [
+            state('flyRight, flyLeft, slideDown, slideUp, fade', style({ opacity: 1, transform: 'translate(0,0)' })),
+            transition('void => flyRight', [
+                style({
+                    opacity: 0, transform: 'translateX(100%)'
+                }),
+                animate('0.25s ease-in')
+            ]),
+            transition('flyRight => void', [
+                animate('0.25s 10ms ease-out', style({
+                    opacity: 0, transform: 'translateX(100%)'
+                }))
+            ]),
+            transition('void => flyLeft', [
+                style({
+                    opacity: 0, transform: 'translateX(-100%)'
+                }),
+                animate('0.25s ease-in')
+            ]),
+            transition('flyLeft => void', [
+                animate('0.25s 10ms ease-out', style({
+                    opacity: 0, transform: 'translateX(-100%)'
+                }))
+            ]),
+            transition('void => slideDown', [
+                style({
+                    opacity: 0, transform: 'translateY(-200%)'
+                }),
+                animate('0.3s ease-in')
+            ]),
+            transition('slideDown => void', [
+                animate('0.3s 10ms ease-out', style({
+                    opacity: 0, transform: 'translateY(200%)'
+                }))
+            ]),
+            transition('void => slideUp', [
+                style({
+                    opacity: 0, transform: 'translateY(200%)'
+                }),
+                animate('0.3s ease-in')
+            ]),
+            transition('slideUp => void', [
+                animate('0.3s 10ms ease-out', style({
+                    opacity: 0, transform: 'translateY(-200%)'
+                }))
+            ]),
+            transition('void => fade', [
+                style({
+                    opacity: 0,
+                }),
+                animate('0.3s ease-in')
+            ]),
+            transition('fade => void', [
+                animate('0.3s 10ms ease-out', style({
+                    opacity: 0,
+                }))
+            ])
+        ]),
+    ]
 })
 
 export class ToasterContainerComponent {
     private addToastSubscriber: any;
     private clearToastsSubscriber: any;
     private toasterService: ToasterService;
-    
+
     @Input() toasterconfig: ToasterConfig;
 
     public toasts: Toast[] = [];
 
 
-    constructor(toasterService: ToasterService, private ref : ChangeDetectorRef) {
+    constructor(toasterService: ToasterService, private ref: ChangeDetectorRef) {
         this.toasterService = toasterService;
     }
 
@@ -59,7 +121,7 @@ export class ToasterContainerComponent {
             }
         }
     }
-    
+
     childClick($event: any) {
         this.click($event.value.toast, $event.value.isCloseButton);
     }
@@ -147,7 +209,7 @@ export class ToasterContainerComponent {
     }
 
     private configureTimer(toast: Toast) {
-        var timeout = (typeof toast.timeout === "number") 
+        var timeout = (typeof toast.timeout === "number")
             ? toast.timeout : this.toasterconfig.timeout;
 
         if (typeof timeout === "object") timeout = timeout[toast.type];
@@ -202,7 +264,7 @@ export class ToasterContainerComponent {
     }
 
     ngOnDestroy() {
-        if(this.addToastSubscriber) { this.addToastSubscriber.unsubscribe(); }
-        if(this.clearToastsSubscriber) { this.clearToastsSubscriber.unsubscribe(); }
+        if (this.addToastSubscriber) { this.addToastSubscriber.unsubscribe(); }
+        if (this.clearToastsSubscriber) { this.clearToastsSubscriber.unsubscribe(); }
     }
 }

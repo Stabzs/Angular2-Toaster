@@ -10,7 +10,7 @@ export interface Toast {
     onShowCallback?: OnActionCallback;
     onHideCallback?: OnActionCallback;
     timeout?: number;
-    timeoutId?: number;
+    timeoutId?: number|null;
     bodyOutputType?: BodyOutputType;
     clickHandler?: ClickHandler;
     showCloseButton?: boolean;
