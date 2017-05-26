@@ -9,7 +9,7 @@ import {ToasterConfig} from './toaster-config';
 import {BodyOutputType} from './bodyOutputType';
 import {ToasterModule} from '../angular2-toaster';
 import {BrowserModule} from '@angular/platform-browser';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Mock component for bootstrapping <toaster-container></toaster-container>
 @Component({
@@ -27,7 +27,7 @@ export class TestComponent {
     public toasterconfig2: ToasterConfig = new ToasterConfig({ showCloseButton: true, tapToDismiss: false, timeout: 0, toastContainerId: 2 });
 }
 @NgModule({
-    imports: [ToasterModule, BrowserAnimationsModule, NoopAnimationsModule],
+    imports: [ToasterModule, BrowserAnimationsModule],
     declarations: [TestComponent]
 })
 export class TestComponentModule {}
@@ -72,7 +72,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, BrowserModule, BrowserAnimationsModule, NoopAnimationsModule]
+            imports: [ToasterModule, BrowserModule, BrowserAnimationsModule]
         });
 
         fixture = TestBed.createComponent<TestComponent>(TestComponent);
@@ -490,8 +490,10 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         expect(toasterContainer.toasts.length).toBe(1);
 
         setTimeout(() => {
-            expect(toasterContainer.toasts.length).toBe(0);
-            expect(toast.timeoutId).toBeNull();
+            fixture.whenStable().then(() => {
+                expect(toasterContainer.toasts.length).toBe(0);
+                expect(toast.timeoutId).toBeNull();
+            });
         }, 2);
     });
 
@@ -611,6 +613,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         toasterContainer.ngOnInit();
 
         let toast: Toast = { type: 'info', toastContainerId: 1 };
+        
         toasterService.pop(toast);
 
         expect(toasterContainer.toasts.length).toBe(1);
@@ -650,13 +653,49 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 });
 
 
+describe('ToasterContainerComponent with sync ToasterService', () => {
+    let toasterService: ToasterService,
+        toasterContainer: ToasterContainerComponent,
+        fixture: ComponentFixture<TestComponent>;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestComponent],
+            imports: [ToasterModule, BrowserModule, BrowserAnimationsModule]
+        });
+
+        fixture = TestBed.createComponent<TestComponent>(TestComponent);
+        toasterContainer = fixture.debugElement.children[0].componentInstance;
+        toasterService = fixture.componentInstance.toasterService;
+        return fixture;
+    });
+
+    it('addToast does not populate data if not not defined', () => {
+        toasterContainer.toasterconfig = new ToasterConfig();
+        toasterContainer.ngOnInit();
+        let toast: Toast = { type: 'info' };
+
+        toasterService.pop(toast);
+        expect(toasterContainer.toasts[0].data).toBeUndefined();
+    });
+
+    it('addToast sets data if type number', () => {
+        toasterContainer.toasterconfig = new ToasterConfig();
+        toasterContainer.ngOnInit();
+        let toast: Toast = { type: 'info', data: 1 };
+
+        toasterService.pop(toast);
+        expect(toasterContainer.toasts[0].data).toBe(1);
+    });
+});
+
 describe('ToasterContainerComponent when included as a component', () => {
     let fixture: ComponentFixture<TestComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, TestDynamicComponentModule, BrowserAnimationsModule, NoopAnimationsModule]
+            imports: [ToasterModule, TestDynamicComponentModule, BrowserAnimationsModule]
         });
 
         fixture = TestBed.createComponent<TestComponent>(TestComponent);
@@ -902,7 +941,7 @@ describe('Multiple ToasterContainerComponent components', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, TestDynamicComponentModule, BrowserAnimationsModule, NoopAnimationsModule]
+            imports: [ToasterModule, TestDynamicComponentModule, BrowserAnimationsModule]
         });
         TestBed.overrideComponent(TestComponent,
             {
@@ -964,7 +1003,7 @@ describe('ToasterContainerComponent when included as a component with bindings',
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, TestBoundDynamicComponentModule, BrowserAnimationsModule, NoopAnimationsModule]
+            imports: [ToasterModule, TestBoundDynamicComponentModule, BrowserAnimationsModule]
         });
 
         fixture = TestBed.createComponent<TestComponent>(TestComponent);

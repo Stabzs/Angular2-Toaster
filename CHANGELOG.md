@@ -9,6 +9,10 @@ Closes [#95](https://github.com/Stabzs/Angular2-Toaster/issues/95).
 * **angular2-toaster:** `angular2-toaster` is now compiled with the `strictNullChecks` flag on by
 default.
 
+* **toast.ts:** A `data:any` property has been added to the toast instance.  This allows for data 
+to be attached to a toast instance, accessible within an associated component.  Closes 
+[#112](https://github.com/Stabzs/Angular2-Toaster/issues/112).
+
 * **tslint:** Added tslint to support cleaning up the style of the library and added initial 
 cleanup changes.
 
@@ -20,6 +24,7 @@ Closes [#111](https://github.com/Stabzs/Angular2-Toaster/issues/111)
 
 ### DOCUMENTATION
 * **README:**  The documentation has been expanded to support the new animation feature.
+
 * **demos:** Cleaned up the `webpack` demo and added a simple `angular-cli` example.
 
 
