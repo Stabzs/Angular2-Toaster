@@ -7,7 +7,7 @@
   "typings": "angular2-toaster.d.ts",
   "scripts": {
     "start": "npm run test && http-server -c-1 -o -p 8875 .",
-    "prebuild": "rimraf ./dist",
+    "prebuild": "rimraf ./dist && npm run lint",
     "build": "node_modules/.bin/ngc -p ./tsconfig-aot.json && npm run rollup",
     "rollup": "node_modules/.bin/rollup -c ./config/rollup.config.js && npm run uglify",
     "uglify": "node_modules/.bin/uglifyjs ./dist/bundles/angular2-toaster.umd.js -o ./dist/bundles/angular2-toaster.umd.min.js && npm run copy",

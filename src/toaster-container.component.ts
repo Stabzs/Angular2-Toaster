@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ToasterConfig } from './toaster-config';
 import { ToasterService, IClearWrapper } from './toaster.service';
@@ -9,17 +9,17 @@ import { Toast } from './toast';
     template: `
         <div id="toast-container" [ngClass]="[toasterconfig.positionClass]">
             <div toastComp *ngFor="let toast of toasts" class="toast" [toast]="toast"
-                [@toastState]="toasterconfig.animation" 
-                [iconClass]="toasterconfig.iconClasses[toast.type]" 
+                [@toastState]="toasterconfig.animation"
+                [iconClass]="toasterconfig.iconClasses[toast.type]"
                 [ngClass]="toasterconfig.typeClasses[toast.type]"
-                (click)="click(toast)" (clickEvent)="childClick($event)" 
+                (click)="click(toast)" (clickEvent)="childClick($event)"
                 (mouseover)="stopTimer(toast)" (mouseout)="restartTimer(toast)">
             </div>
         </div>
         `,
     // TODO: use styleUrls once Angular 2 supports the use of relative paths
     // https://github.com/angular/angular/issues/2383
-    //styleUrls: ['./toaster.css']
+    // styleUrls: ['./toaster.css']
     animations: [
         trigger('toastState', [
             state('flyRight, flyLeft, slideDown, slideUp, fade', style({ opacity: 1, transform: 'translate(0,0)' })),
@@ -82,7 +82,7 @@ import { Toast } from './toast';
     ]
 })
 
-export class ToasterContainerComponent {
+export class ToasterContainerComponent implements OnInit, OnDestroy {
     private addToastSubscriber: any;
     private clearToastsSubscriber: any;
     private toasterService: ToasterService;
@@ -106,12 +106,12 @@ export class ToasterContainerComponent {
     // event handlers
     click(toast: Toast, isCloseButton?: boolean) {
         if (this.toasterconfig.tapToDismiss || (toast.showCloseButton && isCloseButton)) {
-            var removeToast = true;
+            let removeToast = true;
             if (toast.clickHandler) {
-                if (typeof toast.clickHandler === "function") {
+                if (typeof toast.clickHandler === 'function') {
                     removeToast = toast.clickHandler(toast, isCloseButton);
                 } else {
-                    console.log("The toast click handler is not a callable function.");
+                    console.log('The toast click handler is not a callable function.');
                     return false;
                 }
             }
@@ -161,7 +161,7 @@ export class ToasterContainerComponent {
         toast.toasterConfig = this.toasterconfig;
 
         if (toast.toastContainerId && this.toasterconfig.toastContainerId
-            && toast.toastContainerId !== this.toasterconfig.toastContainerId) return;
+            && toast.toastContainerId !== this.toasterconfig.toastContainerId) { return };
 
         if (!toast.type) {
             toast.type = this.toasterconfig.defaultTypeClass;
@@ -175,10 +175,10 @@ export class ToasterContainerComponent {
             }
         }
 
-        if (toast.showCloseButton === null || typeof toast.showCloseButton === "undefined") {
-            if (typeof this.toasterconfig.showCloseButton === "object") {
+        if (toast.showCloseButton === null || typeof toast.showCloseButton === 'undefined') {
+            if (typeof this.toasterconfig.showCloseButton === 'object') {
                 toast.showCloseButton = this.toasterconfig.showCloseButton[toast.type];
-            } else if (typeof this.toasterconfig.showCloseButton === "boolean") {
+            } else if (typeof this.toasterconfig.showCloseButton === 'boolean') {
                 toast.showCloseButton = <boolean>this.toasterconfig.showCloseButton;
             }
         }
@@ -209,10 +209,10 @@ export class ToasterContainerComponent {
     }
 
     private configureTimer(toast: Toast) {
-        var timeout = (typeof toast.timeout === "number")
+        let timeout = (typeof toast.timeout === 'number')
             ? toast.timeout : this.toasterconfig.timeout;
 
-        if (typeof timeout === "object") timeout = timeout[toast.type];
+        if (typeof timeout === 'object') { timeout = timeout[toast.type] };
         if (timeout > 0) {
             toast.timeoutId = window.setTimeout(() => {
                 this.ref.markForCheck();
@@ -226,27 +226,27 @@ export class ToasterContainerComponent {
     }
 
     private removeToast(toast: Toast) {
-        var index = this.toasts.indexOf(toast);
-        if (index < 0) return;
+        const index = this.toasts.indexOf(toast);
+        if (index < 0) { return };
 
         this.toasts.splice(index, 1);
         if (toast.timeoutId) {
             window.clearTimeout(toast.timeoutId);
             toast.timeoutId = null;
         }
-        if (toast.onHideCallback) toast.onHideCallback(toast);
+        if (toast.onHideCallback) { toast.onHideCallback(toast); }
         this.toasterService._removeToastSubject.next({ toastId: toast.toastId, toastContainerId: toast.toastContainerId });
     }
 
     private removeAllToasts() {
-        for (var i = this.toasts.length - 1; i >= 0; i--) {
+        for (let i = this.toasts.length - 1; i >= 0; i--) {
             this.removeToast(this.toasts[i]);
         }
     }
 
     private clearToasts(clearWrapper: IClearWrapper) {
-        let toastId = clearWrapper.toastId;
-        let toastContainerId = clearWrapper.toastContainerId;
+        const toastId = clearWrapper.toastId;
+        const toastContainerId = clearWrapper.toastContainerId;
 
         if (toastContainerId === null || typeof toastContainerId === 'undefined') {
             this.clearToastsAction(toastId);
