@@ -8,12 +8,12 @@ import { ToasterService } from './toaster.service';
 @NgModule({
     imports: [CommonModule],
     declarations: [
-        ToastComponent, 
+        ToastComponent,
         ToasterContainerComponent
     ],
     providers: [ToasterService],
     exports: [
-        ToasterContainerComponent, 
+        ToasterContainerComponent,
         ToastComponent
     ]
 })

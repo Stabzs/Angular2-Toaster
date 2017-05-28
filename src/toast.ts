@@ -15,14 +15,9 @@ export interface Toast {
     clickHandler?: ClickHandler;
     showCloseButton?: boolean;
     closeHtml?: string;
-    toasterConfig? : ToasterConfig;
-    data? : any;
+    toasterConfig?: ToasterConfig;
+    data?: any;
 }
 
-export interface ClickHandler {
-    (toast: Toast, isCloseButton?: boolean) : boolean
-}
-
-export interface OnActionCallback {
-    (toast: Toast) : void
-}
+export type ClickHandler = (toast: Toast, isCloseButton?: boolean) => boolean;
+export type OnActionCallback = (toast: Toast) => void;
