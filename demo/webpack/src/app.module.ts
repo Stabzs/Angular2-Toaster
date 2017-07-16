@@ -19,6 +19,7 @@ import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
+
 import { ToasterModule } from 'angular2-toaster';
 
 import { AppComponent } from './app.component';
@@ -27,8 +28,10 @@ import { AppComponent } from './app.component';
 @NgModule({
     declarations: [AppComponent],
     bootstrap: [AppComponent],
-    imports: [BrowserModule,
+    imports: [
+        BrowserModule,
         BrowserAnimationsModule,
-        ToasterModule]
+        ToasterModule
+    ]
 })
 export class AppModule { }
