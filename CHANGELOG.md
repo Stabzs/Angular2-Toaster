@@ -1,3 +1,10 @@
+# 4.0.1 (2017-7-16)
+* **toast-container.component:** The setTimeout call now runs outside of Angular and is patched on 
+reentry with an `ngZone.run()` call.  This should provide better performance overall and should 
+make protractor testing easier.  Closes 
+[#120](https://github.com/Stabzs/Angular2-Toaster/issues/120).
+
+
 # 4.0.0 (2017-5-25)
 ### BREAKING CHANGES
 * **angular2-toaster:** Explicit animation configuration is now required for the library.

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ToasterConfig } from './toaster-config';
 import { ToasterService, IClearWrapper } from './toaster.service';
@@ -92,7 +92,7 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
     public toasts: Toast[] = [];
 
 
-    constructor(toasterService: ToasterService, private ref: ChangeDetectorRef) {
+    constructor(toasterService: ToasterService, private ref: ChangeDetectorRef, private ngZone: NgZone) {
         this.toasterService = toasterService;
     }
 
@@ -214,10 +214,14 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
 
         if (typeof timeout === 'object') { timeout = timeout[toast.type] };
         if (timeout > 0) {
-            toast.timeoutId = window.setTimeout(() => {
-                this.ref.markForCheck();
-                this.removeToast(toast);
-            }, timeout);
+            this.ngZone.runOutsideAngular(() => {
+                toast.timeoutId = window.setTimeout(() => {
+                    this.ngZone.run(() => {
+                        this.ref.markForCheck();
+                        this.removeToast(toast);
+                    });
+                }, timeout);
+            });
         }
     }
 
