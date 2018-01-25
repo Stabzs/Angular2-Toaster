@@ -37,9 +37,9 @@
     "url": "https://github.com/stabzs/Angular2-Toaster/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/core": "^4.0.0",
+    "@angular/common": "^4.0.0 || ^5.0.0",
+    "@angular/compiler": "^4.0.0 || ^5.0.0",
+    "@angular/core": "^4.0.0 || ^5.0.0",
     "rxjs": "^5.0.0-beta.11"
   },
   "devDependencies": {
