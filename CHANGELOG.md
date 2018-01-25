@@ -1,3 +1,7 @@
+# 4.0.2 (2018-01-24)
+### FEATURES
+* **angular2-toaster:** Update Angular dependencies to support 5.x.x versions.  Thanks @isaacplmann!
+
 # 4.0.1 (2017-7-16)
 * **toast-container.component:** The setTimeout call now runs outside of Angular and is patched on 
 reentry with an `ngZone.run()` call.  This should provide better performance overall and should 

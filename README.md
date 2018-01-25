@@ -3,10 +3,10 @@
 **angular2-toaster** is an asynchronous, non-blocking, Ahead of Time Compilation-supported Angular Toaster Notification library 
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
-[![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600?cachebust=true)](https://www.npmjs.com/package/angular2-toaster)
-[![npm](https://img.shields.io/npm/dt/angular2-toaster.svg?cachebust=true)](https://www.npmjs.com/package/angular2-toaster)
+[![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600?cachedbust=true)](https://www.npmjs.com/package/angular2-toaster)
+[![npm](https://img.shields.io/npm/dt/angular2-toaster.svg?cachedbust=true)](https://www.npmjs.com/package/angular2-toaster)
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=4.0.1)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=4.0.2)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
 
 Version ^4.0.0 now supports `@angular/animations`, which is a breaking change.  Please read both 
