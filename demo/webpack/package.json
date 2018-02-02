@@ -10,30 +10,31 @@
   "author": "Stabzs",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "2.3.2",
-    "webpack": "2.5.0",
-    "webpack-dev-server": "2.4.5"
+    "typescript": "2.7.1",
+    "webpack": "3.10.0",
+    "webpack-dev-server": "2.11.1"
   },
   "dependencies": {
-    "@angular/animations": "4.1.0",
-    "@angular/common": "4.1.0",
-    "@angular/compiler": "4.1.0",
-    "@angular/compiler-cli": "4.1.0",
-    "@angular/core": "4.1.0",
-    "@angular/platform-browser": "4.1.0",
-    "@angular/platform-browser-dynamic": "4.1.0",
-    "@angular/platform-server": "4.1.0",
-    "rxjs": "5.2.0",
+    "@angular/animations": "5.2.3",
+    "@angular/common": "5.2.3",
+    "@angular/compiler": "5.2.3",
+    "@angular/compiler-cli": "5.2.3",
+    "@angular/core": "5.2.3",
+    "@angular/platform-browser": "5.2.3",
+    "@angular/platform-browser-dynamic": "5.2.3",
+    "@angular/platform-server": "5.2.3",
+    "angular2-toaster": "4.0.2",
+    "rxjs": "5.5.6",
     "@types/jasmine": "2.5.47",
     "@types/node": "7.0.12",
-    "awesome-typescript-loader": "3.1.2",
+    "awesome-typescript-loader": "3.4.1",
     "core-js": "2.4.1",
     "reflect-metadata": "0.1.10",
     "source-map-loader": "0.2.0",
     "ts-helpers": "1.1.2",
-    "ts-loader": "2.0.3",
-    "typescript": "2.3.2",
-    "webpack": "2.3.2",
+    "ts-loader": "3.4.0",
+    "typescript": "2.7.1",
+    "webpack": "3.10.0",
     "zone.js": "0.8.5"
-  }  
+  }
 }
