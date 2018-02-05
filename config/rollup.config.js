@@ -1,7 +1,9 @@
 export default {
     entry: './dist/angular2-toaster.js',
-    dest: './dist/bundles/angular2-toaster.umd.js',
-    format: 'umd',
+    output: {
+        file: 'dist/bundles/angular2-toaster.umd.js',
+        format: 'umd'
+    },
     moduleName: 'angular2toaster',
     external: [
         '@angular/core',

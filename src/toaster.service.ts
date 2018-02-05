@@ -1,10 +1,20 @@
 import {Injectable} from '@angular/core';
 import {Toast} from './toast';
+import {IClearWrapper} from './clearWrapper';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/share';
 import {Observer} from 'rxjs/Observer';
 import {Subject} from 'rxjs/Subject';
 
+// http://stackoverflow.com/questions/26501688/a-typescript-guid-class
+class Guid {
+    static newGuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0, v = c === 'x' ? r : ( r & 0x3 | 0x8 );
+            return v.toString(16);
+        });
+    }
+}
 
 @Injectable()
 export class ToasterService {
@@ -50,7 +60,6 @@ export class ToasterService {
         return toast;
     }
 
-
     /**
      * Asynchronously create and show a new toast instance.
      *
@@ -69,7 +78,6 @@ export class ToasterService {
         return this.addToast;
     }
 
-
     /**
      * Clears a toast by toastId and/or toastContainerId.
      *
@@ -83,20 +91,5 @@ export class ToasterService {
         };
 
         this._clearToasts.next(clearWrapper)
-    }
-}
-
-export interface IClearWrapper {
-    toastId?: string;
-    toastContainerId?: number;
-}
-
-// http://stackoverflow.com/questions/26501688/a-typescript-guid-class
-class Guid {
-    static newGuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            const r = Math.random() * 16 | 0, v = c === 'x' ? r : ( r & 0x3 | 0x8 );
-            return v.toString(16);
-        });
     }
 }

@@ -1,5 +1,30 @@
 import {BodyOutputType} from './bodyOutputType';
 
+export interface IToasterConfig {
+    limit?: number|null;
+    tapToDismiss?: boolean;
+    showCloseButton?: boolean|Object;
+    closeHtml?: string;
+    newestOnTop?: boolean;
+    timeout?: number|Object;
+    typeClasses?: Object;
+    iconClasses?: Object;
+    bodyOutputType?: BodyOutputType;
+    bodyTemplate?: string;
+    defaultTypeClass?: string;
+    // Options (see CSS):
+    // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-center',
+    // 'toast-top-left', 'toast-top-center', 'toast-top-right',
+    // 'toast-bottom-left', 'toast-bottom-center', 'toast-bottom-right',
+    positionClass?: string;
+    titleClass?: string;
+    messageClass?: string;
+    animation?: string;
+    preventDuplicates?: boolean;
+    mouseoverTimerStop?: boolean;
+    toastContainerId?: number|null;
+}
+
 export class ToasterConfig implements IToasterConfig {
     limit?: number|null;
     tapToDismiss: boolean;
@@ -57,29 +82,4 @@ export class ToasterConfig implements IToasterConfig {
         this.mouseoverTimerStop = configOverrides.mouseoverTimerStop != null ? configOverrides.mouseoverTimerStop : false;
         this.toastContainerId = configOverrides.toastContainerId != null ? configOverrides.toastContainerId : null;
     }
-}
-
-export interface IToasterConfig {
-    limit?: number|null;
-    tapToDismiss?: boolean;
-    showCloseButton?: boolean|Object;
-    closeHtml?: string;
-    newestOnTop?: boolean;
-    timeout?: number|Object;
-    typeClasses?: Object;
-    iconClasses?: Object;
-    bodyOutputType?: BodyOutputType;
-    bodyTemplate?: string;
-    defaultTypeClass?: string;
-    // Options (see CSS):
-    // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-center',
-    // 'toast-top-left', 'toast-top-center', 'toast-top-right',
-    // 'toast-bottom-left', 'toast-bottom-center', 'toast-bottom-right',
-    positionClass?: string;
-    titleClass?: string;
-    messageClass?: string;
-    animation?: string;
-    preventDuplicates?: boolean;
-    mouseoverTimerStop?: boolean;
-    toastContainerId?: number|null;
 }
