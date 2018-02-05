@@ -10,7 +10,8 @@
     "prebuild": "rimraf ./dist && npm run lint",
     "build": "node_modules/.bin/ngc -p ./tsconfig-aot.json && npm run rollup",
     "rollup": "node_modules/.bin/rollup -c ./config/rollup.config.js && npm run uglify",
-    "uglify": "node_modules/.bin/uglifyjs ./dist/bundles/angular2-toaster.umd.js -o ./dist/bundles/angular2-toaster.umd.min.js && npm run copy",
+    "uglify": "node_modules/.bin/uglifyjs ./dist/bundles/angular2-toaster.umd.js -o ./dist/bundles/angular2-toaster.umd.min.js && npm run sass",
+    "sass": "node_modules/.bin/node-sass --output-style=expanded toaster.scss src/toaster.css && npm run copy",
     "copy": "cpx package.json dist && cpx LICENSE dist && cpx README.md dist && cpx ./src/toaster.css dist",
     "lint": "node_modules/.bin/tslint -c tslint.json 'src/**/*.ts'",
     "test": "karma start karma.conf.js"
@@ -69,6 +70,7 @@
     "karma-remap-coverage": "~0.1.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "2.0.3",
+    "node-sass": "^4.7.2",
     "reflect-metadata": "0.1.10",
     "remap-istanbul": "0.8.3",
     "rimraf": "2.5.4",
