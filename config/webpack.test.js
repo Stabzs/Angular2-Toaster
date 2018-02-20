@@ -18,7 +18,7 @@ module.exports = {
      * Do not change, leave as is or it wont work.
      * See: https://github.com/webpack/karma-webpack#source-maps
      */
-    devtool: 'source-map',
+    devtool: 'inline- source-map',
 
     resolve: {
         extensions: ['.ts', '.js'],

@@ -9,7 +9,7 @@ import {ToasterConfig} from './toaster-config';
 import {BodyOutputType} from './bodyOutputType';
 import {ToasterModule} from '../angular2-toaster';
 import {BrowserModule} from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // Mock component for bootstrapping <toaster-container></toaster-container>
 @Component({
@@ -29,7 +29,7 @@ export class TestComponent {
     }
 }
 @NgModule({
-    imports: [ToasterModule, BrowserAnimationsModule],
+    imports: [ToasterModule.forRoot(), BrowserAnimationsModule],
     declarations: [TestComponent]
 })
 export class TestComponentModule {}
@@ -42,6 +42,7 @@ export class TestComponentModule {}
 })
 export class TestDynamicComponent { }
 @NgModule({
+    imports: [ToasterModule.forChild()],
     bootstrap: [TestDynamicComponent],
     declarations: [TestDynamicComponent]
 })
@@ -74,7 +75,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, BrowserModule, BrowserAnimationsModule]
+            imports: [ToasterModule.forRoot(), BrowserModule, BrowserAnimationsModule]
         });
 
         fixture = TestBed.createComponent<TestComponent>(TestComponent);
@@ -220,14 +221,16 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         expect(toasterContainer.toasterconfig.mouseoverTimerStop).toBe(true);
         expect(toast).toBeDefined();
-        expect(toast.timeoutId).toBeDefined();
-
+        
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(1);
+        
         toasterContainer.stopTimer(toast);
-        expect(toast.timeoutId).toBeNull();
+        expect((map.size)).toBe(0);
     });
 
     it('stopTimer should not clear timer if mouseOverTimerStop is false', () => {
-        toasterContainer.toasterconfig = new ToasterConfig({ timeout: 100 });
+        toasterContainer.toasterconfig = new ToasterConfig({ timeout: 2 });
         toasterContainer.ngOnInit();
 
         toasterService.pop('success', 'test', 'test');
@@ -235,10 +238,17 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         expect(toasterContainer.toasterconfig.mouseoverTimerStop).toBe(false);
         expect(toast).toBeDefined();
-        expect(toast.timeoutId).toBeDefined();
+        
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(1);
 
         toasterContainer.stopTimer(toast);
-        expect(toast.timeoutId).toBeDefined();
+        
+        expect((map.size)).toBe(1);
+
+        setTimeout(() => {
+            expect((map.size)).toBe(0);
+        }, 2)
     });
 
     it('stopTimer should not clear timer if mouseOverTimerStop is true and timeout is 0', () => {
@@ -250,11 +260,13 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         expect(toasterContainer.toasterconfig.mouseoverTimerStop).toBe(true);
         expect(toast).toBeDefined();
-        expect(toast.timeout).toBeUndefined();
-        expect(toast.timeoutId).toBeUndefined();
+        
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(0);
 
         toasterContainer.stopTimer(toast);
-        expect(toast.timeoutId).toBeUndefined();
+        
+        expect((map.size)).toBe(0);
     });
 
     it('restartTimer should restart timer if mouseOverTimerStop is true', () => {
@@ -266,10 +278,12 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         expect(toasterContainer.toasterconfig.mouseoverTimerStop).toBe(true);
         expect(toast).toBeDefined();
-        expect(toast.timeoutId).toBeDefined();
+        
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(1);
 
         toasterContainer.restartTimer(toast);
-        expect(toast.timeoutId).toBeDefined();
+        expect((map.size)).toBe(1);
     });
 
     it('restartTimer should not restart timer if mouseOverTimerStop is true and timeoutId is undefined', () => {
@@ -281,10 +295,12 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         expect(toasterContainer.toasterconfig.mouseoverTimerStop).toBe(true);
         expect(toast).toBeDefined();
-        expect(toast.timeoutId).toBeUndefined();
+        
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(0);
 
         toasterContainer.restartTimer(toast);
-        expect(toast.timeoutId).toBeUndefined();
+        expect((map.size)).toBe(0);
     });
 
     it('restartTimer should not restart timer if mouseOverTimerStop is false', () => {
@@ -296,12 +312,14 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         expect(toasterContainer.toasterconfig.mouseoverTimerStop).toBe(false);
         expect(toast).toBeDefined();
-        expect(toast.timeoutId).toBeDefined();
+        
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(1);
 
         toasterContainer.restartTimer(toast);
 
         setTimeout(() => {
-            expect(toast.timeoutId).toBeNull();
+            expect((map.size)).toBe(0);
         }, 2)
     });
 
@@ -314,11 +332,13 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         expect(toasterContainer.toasterconfig.mouseoverTimerStop).toBe(false);
         expect(toast).toBeDefined();
-        expect(toast.timeoutId).toBeUndefined();
+        
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(0);
 
-        toast.timeoutId = null;
         toasterContainer.restartTimer(toast);
         expect(toasterContainer.toasts.length).toBe(0);
+        expect((map.size)).toBe(0);
     });
 
     it('addToast should not add toast if toasterContainerId is provided and it does not match', () => {
@@ -487,13 +507,15 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         toasterContainer.ngOnInit();
         const toast = toasterService.pop('success');
 
-        expect(toast.timeoutId).toBeDefined();
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(1);
+        
         expect(toasterContainer.toasts.length).toBe(1);
 
         setTimeout(() => {
             fixture.whenStable().then(() => {
                 expect(toasterContainer.toasts.length).toBe(0);
-                expect(toast.timeoutId).toBeNull();
+                expect((map.size)).toBe(0);
             });
         }, 2);
     });
@@ -515,8 +537,12 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         const toast: Toast = { type: 'success' };
         const poppedToast = toasterService.pop(toast);
 
-        expect(poppedToast.timeoutId).toBeDefined();
-        expect((<any>(poppedToast.timeoutId)).data.delay).toBe(1);
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(1);
+
+        const delay = (<any>map.get(toast.toastId)).data.delay;
+
+        expect(delay).toBe(1);
     });
 
     it('addToast will not register timeout if toast.timeout is undefined and toasterconfig.timeout is 0', () => {
@@ -542,8 +568,10 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         const infoToast = toasterContainer.toasts.filter(t => t.type === 'info')[0];
         const successToast = toasterContainer.toasts.filter(t => t.type === 'success')[0];
 
-        expect(infoToast.timeoutId).toBeDefined();
-        expect(successToast.timeoutId).toBeUndefined();
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+
+        expect(map.get(infoToast.toastId)).toBeDefined();
+        expect(map.get(successToast.toastId)).toBeUndefined();
     });
 
     it('removeToast will not remove the toast if it is not found in the toasters array', () => {
@@ -651,6 +679,27 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         toastIds = null;
         valuesSoFar = null;
     });
+
+    it('toastIdOrDefault should return empty string if toast.toastId is null', () => {
+        let toast: Toast = { type: 'info', toastId: null };
+        const toastId = toasterContainer['toastIdOrDefault'](toast);
+
+        expect(toastId).toBe('');
+    });
+
+    it('toastIdOrDefault should return empty string if toast.toastId is undefined', () => {
+        let toast: Toast = { type: 'info', toastId: undefined };
+        const toastId = toasterContainer['toastIdOrDefault'](toast);
+
+        expect(toastId).toBe('');
+    });
+
+    it('toastIdOrDefault should return empty string if toast.toastId is empty string', () => {
+        let toast: Toast = { type: 'info', toastId: '' };
+        const toastId = toasterContainer['toastIdOrDefault'](toast);
+
+        expect(toastId).toBe('');
+    });
 });
 
 
@@ -662,7 +711,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, BrowserModule, BrowserAnimationsModule]
+            imports: [ToasterModule.forRoot(), BrowserModule, BrowserAnimationsModule]
         });
 
         fixture = TestBed.createComponent<TestComponent>(TestComponent);
@@ -696,7 +745,7 @@ describe('ToasterContainerComponent when included as a component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, TestDynamicComponentModule, BrowserAnimationsModule]
+            imports: [ToasterModule.forRoot(), TestDynamicComponentModule, BrowserAnimationsModule]
         });
 
         fixture = TestBed.createComponent<TestComponent>(TestComponent);
@@ -942,7 +991,7 @@ describe('Multiple ToasterContainerComponent components', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, TestDynamicComponentModule, BrowserAnimationsModule]
+            imports: [ToasterModule.forRoot(), TestDynamicComponentModule, BrowserAnimationsModule]
         });
         TestBed.overrideComponent(TestComponent,
             {
@@ -1004,7 +1053,7 @@ describe('ToasterContainerComponent when included as a component with bindings',
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TestComponent],
-            imports: [ToasterModule, TestBoundDynamicComponentModule, BrowserAnimationsModule]
+            imports: [ToasterModule.forRoot(), TestBoundDynamicComponentModule, BrowserAnimationsModule]
         });
 
         fixture = TestBed.createComponent<TestComponent>(TestComponent);

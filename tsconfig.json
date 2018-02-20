@@ -14,6 +14,9 @@
     "types": [ "jasmine", "node" ],
     "lib": ["es2015", "dom"]
   },
+  "paths": {
+    "@angular/*": ["node_modules/@angular/*"]
+  },
   "include": [
     "angular2-toaster.ts",
     "src/**/*"

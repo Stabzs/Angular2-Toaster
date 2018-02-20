@@ -1,13 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ToasterModule } from 'angular2-toaster';
-
+import { SharedModule } from "./shared/shared.module";
 import { AppComponent } from './app.component';
-
+import { RoutesModule } from "./routes/routes.module";
+import { LayoutModule } from "./layout/layout.module";
+import { ToasterModule } from '@angular2-toaster/angular2-toaster';
 
 @NgModule({
   declarations: [
@@ -15,10 +13,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule,
     BrowserAnimationsModule,
-    ToasterModule
+    LayoutModule,
+    ToasterModule.forRoot(),
+    SharedModule.forRoot(),
+    RoutesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

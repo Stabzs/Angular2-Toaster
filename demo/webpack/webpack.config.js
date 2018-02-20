@@ -5,7 +5,10 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-      extensions: ['.webpack.js', '.web.js', '.ts',  '.js']
+      extensions: ['.webpack.js', '.web.js', '.ts',  '.js'],
+      alias: {
+        'angular2-toaster': "../../../dist"
+      }
   },
   module: {
       loaders: [
