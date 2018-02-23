@@ -229,8 +229,11 @@ button.toast-close-button {
     width: 11em;
   }
   #toast-container .toast-close-button {
-    right: -0.2em;
+    right: -0.1em;
     top: -0.2em;
+  }
+  .toast-content {
+    width: 94%;
   }
 }
 @media all and (min-width: map-get($toaster-breakpoints, "small") + 1px) and (max-width: map-get($toaster-breakpoints, "medium")) {
@@ -239,37 +242,16 @@ button.toast-close-button {
     width: 18em;
   }
   #toast-container .toast-close-button {
-    right: -0.2em;
+    right: -0.1em;
     top: -0.2em;
-}
+  }
+  .toast-content {
+    width: 94%;
+  }
 }
 @media all and (min-width: map-get($toaster-breakpoints, "medium") + 1px) and (max-width: map-get($toaster-breakpoints, "large")) {
   #toast-container > div {
     padding: 15px 15px 15px 50px;
     width: 25em;
   }
-}
-
- /*
-  * AngularJS-Toaster
-  * Version 0.3
- */
-:not(.no-enter)#toast-container > div.ng-enter,
-:not(.no-leave)#toast-container > div.ng-leave
-{ 
-    -webkit-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-} 
-
-:not(.no-enter)#toast-container > div.ng-enter.ng-enter-active, 
-:not(.no-leave)#toast-container > div.ng-leave {
-    opacity: 0.8;
-}
-
-:not(.no-leave)#toast-container > div.ng-leave.ng-leave-active,
-:not(.no-enter)#toast-container > div.ng-enter {
-    opacity: 0;
 }

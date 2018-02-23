@@ -277,10 +277,10 @@ button.toast-close-button {
     width: 94%;
   }
 }
+
 @media all and (min-width: 481px) and (max-width: 768px) {
   #toast-container > div {
     padding: 15px 15px 15px 50px;
     width: 25em;
   }
 }
-

@@ -11,7 +11,8 @@ export class HomeComponent {
   constructor(public toasterService: ToasterService) {}
 
   homeConfig: IToasterConfig = new ToasterConfig({
-    animation: 'fade', newestOnTop: false, positionClass: 'toast-bottom-center', toastContainerId: 4
+    animation: 'fade', newestOnTop: false, 
+    positionClass: 'toast-bottom-center', toastContainerId: 4
   });
 
   popToast() {

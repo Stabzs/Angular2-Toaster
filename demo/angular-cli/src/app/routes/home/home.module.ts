@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { ToasterModule } from '@angular2-toaster/angular2-toaster';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent }
+    { path: '', component: HomeComponent } 
 ];
 
 @NgModule({

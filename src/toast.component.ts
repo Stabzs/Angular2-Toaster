@@ -10,8 +10,8 @@ import {BodyOutputType} from './bodyOutputType';
     template: `
         <i class="toaster-icon" [ngClass]="iconClass"></i>
         <div class="toast-content">
-            <div [ngClass]="toast.toasterConfig?.titleClass">{{toast.title}}</div>
-            <div [ngClass]="toast.toasterConfig?.messageClass" [ngSwitch]="toast.bodyOutputType">
+            <div [ngClass]="titleClass">{{toast.title}}</div>
+            <div [ngClass]="messageClass" [ngSwitch]="toast.bodyOutputType">
                 <div *ngSwitchCase="bodyOutputType.Component" #componentBody></div>
                 <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="toast.body"></div>
                 <div *ngSwitchCase="bodyOutputType.Default">{{toast.body}}</div>
@@ -26,6 +26,8 @@ export class ToastComponent implements OnInit, AfterViewInit {
 
     @Input() toast: Toast;
     @Input() iconClass: string;
+    @Input() titleClass: string;
+    @Input() messageClass: string;
     @ViewChild('componentBody', { read: ViewContainerRef }) componentBody: ViewContainerRef;
 
     safeCloseHtml: SafeHtml;

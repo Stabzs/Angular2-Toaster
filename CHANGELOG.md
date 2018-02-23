@@ -1,3 +1,20 @@
+# 5.0.0-alpha.1 (2018-02-22)
+### FEATURES
+* **angular2-toaster:** The toaster.css is now generated via SCSS.  Thanks to @bastienmoulia for his 
+hard (and patient) work on this feature!
+
+* **demos:** `angular-cli` project updated to include better examples around multi-container 
+instances.
+
+### BUG FIXES
+* **toaster-container.component:** The container's config is no longer copied onto the toast 
+instance.  Instead, titleClass and messageClass have been moved to input properties so that 
+individual containers can uniquely style these properties for the same toast instance being 
+broadcasted to multiple containers.  The `toasterconfig` property has been removed from 
+`Toast` as a result to clean up the intent of the `Toast` interface.  Closes 
+[#144](https://github.com/Stabzs/Angular2-Toaster/issues/144).
+
+
 # 5.0.0-alpha.1 (2018-02-04)
 ### BREAKING CHANGES
 * **angular2-toaster:** The library's Angular dependencies have been pinned to a minimum version of 

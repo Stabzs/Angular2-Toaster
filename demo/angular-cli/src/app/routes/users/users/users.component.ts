@@ -11,7 +11,12 @@ export class UsersComponent implements OnInit {
   constructor(public toasterService: ToasterService) {}
 
   config: IToasterConfig = new ToasterConfig({
-    animation: 'fade', newestOnTop: false, positionClass: 'toast-top-center', toastContainerId: 3
+    animation: 'fade', 
+    newestOnTop: false, 
+    positionClass: 'toast-top-center', 
+    toastContainerId: 3, 
+    titleClass: 'title-2',
+    timeout: 0
   });
 
   popToast() {

@@ -12,15 +12,14 @@ import { Toast } from './toast';
             <div toastComp *ngFor="let toast of toasts" class="toast" [toast]="toast"
                 [@toastState]="toasterconfig.animation"
                 [iconClass]="toasterconfig.iconClasses[toast.type]"
+                [titleClass]="toasterconfig.titleClass"
+                [messageClass]="toasterconfig.messageClass"
                 [ngClass]="toasterconfig.typeClasses[toast.type]"
                 (click)="click(toast)" (clickEvent)="childClick($event)"
                 (mouseover)="stopTimer(toast)" (mouseout)="restartTimer(toast)">
             </div>
         </div>
         `,
-    // TODO: use styleUrls once Angular 2 supports the use of relative paths
-    // https://github.com/angular/angular/issues/2383
-    // styleUrls: ['./toaster.css']
     animations: [
         trigger('toastState', [
             state('flyRight, flyLeft, slideDown, slideUp, fade', style({ opacity: 1, transform: 'translate(0,0)' })),
@@ -147,7 +146,7 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
             if (!timeoutId) {
                 this.configureTimer(toast);
             }
-        } else if (!timeoutId) {
+        } else if (!timeoutId && this.toasterconfig.timeout) {
             this.removeToast(toast);
         }
     }
@@ -165,8 +164,6 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
     }
 
     private addToast(toast: Toast) {
-        toast.toasterConfig = this.toasterconfig;
-
         if (toast.toastContainerId && this.toasterconfig.toastContainerId
             && toast.toastContainerId !== this.toasterconfig.toastContainerId) { return };
 

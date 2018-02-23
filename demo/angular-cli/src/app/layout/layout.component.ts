@@ -11,7 +11,9 @@ export class LayoutComponent implements OnInit {
     constructor() { console.log('layout constructor called') }
 
     layoutConfig: IToasterConfig = new ToasterConfig({
-        animation: 'fade', newestOnTop: false, positionClass: 'toast-top-right', toastContainerId: 2
+        animation: 'fade', newestOnTop: false, 
+        positionClass: 'toast-top-right', toastContainerId: 2,
+        timeout: 0
     });
 
     ngOnInit() {}

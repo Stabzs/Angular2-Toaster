@@ -8,6 +8,8 @@ import { ToasterConfig, IToasterConfig } from '@angular2-toaster/angular2-toaste
 })
 export class AppComponent { 
   appConfig: IToasterConfig = new ToasterConfig({
-    animation: 'fade', newestOnTop: false, positionClass: 'toast-top-left', toastContainerId: 1, timeout: 0, showCloseButton: true
+    animation: 'fade', newestOnTop: false, positionClass: 'toast-top-left', 
+    toastContainerId: 1, timeout: 0, showCloseButton: true, 
+    titleClass: 'title-1'
   });
 }

@@ -323,7 +323,34 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         }, 2)
     });
 
-    it('restartTimer should remove toast if mouseOverTimerStop is false and timeoutId is null', () => {
+    it('restartTimer should remove toast if mouseOverTimerStop is false and timeoutId is null and timeout has value', () => {
+        toasterContainer.toasterconfig = new ToasterConfig({ timeout: 1000 });
+        toasterContainer.ngOnInit();
+
+        toasterService.pop('success', 'test', 'test');
+        const toast = toasterContainer.toasts[0];
+
+        expect(toasterContainer.toasterconfig.mouseoverTimerStop).toBe(false);
+        expect(toast).toBeDefined();
+        
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(1);
+
+        toasterContainer.stopTimer(toast);
+        expect(toasterContainer.toasts.length).toBe(1);
+
+        map.delete(toast.toastId);
+
+        expect((map.size)).toBe(0);
+        expect(toasterContainer.toasts.length).toBe(1);
+
+        toasterContainer.restartTimer(toast);
+            
+        expect(toasterContainer.toasts.length).toBe(0);
+        expect((map.size)).toBe(0);
+    });
+
+    it('restartTimer should not remove toast if mouseOverTimerStop is false and timeoutId is null and toast is sticky', () => {
         toasterContainer.toasterconfig = new ToasterConfig({ timeout: 0 });
         toasterContainer.ngOnInit();
 
@@ -337,7 +364,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         expect((map.size)).toBe(0);
 
         toasterContainer.restartTimer(toast);
-        expect(toasterContainer.toasts.length).toBe(0);
+        expect(toasterContainer.toasts.length).toBe(1);
         expect((map.size)).toBe(0);
     });
 
