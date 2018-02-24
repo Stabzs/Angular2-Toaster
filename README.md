@@ -3,14 +3,14 @@
 **angular2-toaster** is an asynchronous, non-blocking, Ahead of Time Compilation-supported Angular Toaster Notification library 
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
-[![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600?cachedbust=true)](https://www.npmjs.com/package/angular2-toaster)
-[![npm](https://img.shields.io/npm/dt/angular2-toaster.svg?cachedbust=true)](https://www.npmjs.com/package/angular2-toaster)
+[![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600?cached=true)](https://www.npmjs.com/package/angular2-toaster)
+[![npm](https://img.shields.io/npm/dt/angular2-toaster.svg?cached=true)](https://www.npmjs.com/package/angular2-toaster)
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=4.0.2)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=5.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
 
-Version ^4.0.0 now supports `@angular/animations`, which is a breaking change.  Please read both 
-the `Getting Started` and `Animations` sections before upgrading.
+Version ^ 5.0.0 requires either `.forRoot()` or `.forChild()` `ToasterModule` inclusion.  Please 
+read the 5.x.x release notes the `Getting Started` section before upgraded.
 
 # Demo
 A dynamic Angular and Typescript demo can be found at 
@@ -31,10 +31,19 @@ npm install angular2-toaster
 ```html
 <link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/toaster.css" />
 ```
+or
+```html
+<link rel="stylesheet" type="text/css" href="/node_modules/angular2-toaster/toaster.min.css" />
+```
 
 ### Import CSS with Sass or Less
 ```scss
 @import 'node_modules/angular2-toaster/toaster';
+```
+
+### Compile the Library's SCSS
+```scss
+@import 'node_modules/angular2-toaster/src/toaster';
 ```
 
 
@@ -67,9 +76,8 @@ import {ToasterModule, ToasterService} from 'angular2-toaster';
 import {Root} from './root.component'
 
 @NgModule({
-    imports: [BrowserAnimationsModule, ToasterModule],
+    imports: [BrowserAnimationsModule, ToasterModule.forRoot()],
     declarations: [Root],
-    providers: [],
     bootstrap: [Root]
 })
 
@@ -92,9 +100,11 @@ export class Root {
     }
 }
 ```
+`ToasterModule.forRoot()` is recommended for most applications as it will guarantee a single instance of the ToasterService, ensuring that all recipient containers observe the same ToasterService events.
 
+For subsequent inclusions, use `ToasterModule.forChild()` to provide the `ToasterContainerComponent` only, ensuring that `ToasterService` is still held as a singleton at the root.
 
-## Getting Started with Default Configuration - Manual Component Inclusion:
+## Getting Started with Default Configuration - Manual Component Inclusion (obsolete >= 5.0.0):
 
 ```typescript
 import {Component} from '@angular/core';
@@ -131,15 +141,13 @@ bootstrap(Root);
 ```typescript
 import {Component} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular2-toaster';
 
 @Component({
     selector: 'root',
-    imports: [BrowserAnimationsModule],
-    directives: [ToasterContainerComponent],
-    providers: [ToasterService],
+    imports: [BrowserAnimationsModule, ToasterModule.forRoot()],
     template: `
-        <toaster-container [toasterconfig]="toasterconfig">
+        <toaster-container [toasterconfig]="config">
         </toaster-container>
         <button (click)="popToast()">pop toast</button>`
 })
@@ -151,7 +159,7 @@ class Root {
         this.toasterService = toasterService;    
     }
     
-    public toasterconfig : ToasterConfig = 
+    public config: ToasterConfig = 
         new ToasterConfig({
             showCloseButton: true, 
             tapToDismiss: false, 
@@ -250,9 +258,9 @@ There are five animation styles that can be applied via the toasterconfig `anima
 
 ```typescript
 template: 
-    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-public toasterconfig : ToasterConfig = 
+public config: ToasterConfig = 
     new ToasterConfig({animation: 'fade'});
 ```
 
@@ -264,9 +272,9 @@ To change this behavior, pass a "limit" option to the config:
 
 ```typescript
 template: 
-    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-public toasterconfig : ToasterConfig = 
+public config: ToasterConfig = 
     new ToasterConfig({limit: 5});
 ```
 
@@ -277,9 +285,9 @@ that if set to false, the toast will only be dismissed if the close button is de
 
 ```typescript
 template: 
-    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-public toasterconfig : ToasterConfig = 
+public config: ToasterConfig = 
     new ToasterConfig({tapToDismiss: false});
 ```
 
@@ -291,9 +299,9 @@ The Close Button's visibility can be configured at three different levels:
 
     ```typescript
     template: 
-        `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+        `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-    public toasterconfig : ToasterConfig = 
+    public config: ToasterConfig = 
         new ToasterConfig({showCloseButton: true});
     ```
 
@@ -302,9 +310,9 @@ By passing the close-button configuration as an object instead of a boolean, you
 
     ```typescript
     template: 
-        `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+        `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-    public toasterconfig : ToasterConfig = 
+    public config: ToasterConfig = 
         new ToasterConfig({
             showCloseButton: { 'warning': true, 'error': false }
         });
@@ -337,9 +345,9 @@ The close button html can be overridden either globally or per toast call.
 
     ```typescript
     template: 
-        `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+        `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-    public toasterconfig : ToasterConfig = 
+    public config: ToasterConfig = 
         new ToasterConfig({
             closeHtml: '<button>Close</button>'
         });
@@ -365,9 +373,9 @@ If changed to false via the config, toasts will be added to the bottom of other 
 
 ```typescript
 template: 
-    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-public toasterconfig : ToasterConfig = 
+public config: ToasterConfig = 
     new ToasterConfig({newestOnTop: false});
 ```
 
@@ -383,9 +391,9 @@ The timeout can be configured at three different levels:
 * Globally in the config for all toast types:
   ```typescript
   template: 
-    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-  public toasterconfig : ToasterConfig = 
+  public config: ToasterConfig = 
         new ToasterConfig({timeout: 2000});
   ```
 
@@ -395,9 +403,9 @@ behavior an info-class type should have.
 
   ```
   template: 
-    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-  public toasterconfig : ToasterConfig = 
+  public config: ToasterConfig = 
       new ToasterConfig({timeout: {error:1000});
   ```
 If a type is not defined and specified, a timeout will not be applied, making the toast "sticky".
@@ -421,9 +429,9 @@ This can be overriden via the container's config.
 
 ```typescript
 template: 
-    `<toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
 
-public toasterconfig : ToasterConfig = 
+public config: ToasterConfig = 
     new ToasterConfig({mouseoverTimerStop: false});
 ```
 

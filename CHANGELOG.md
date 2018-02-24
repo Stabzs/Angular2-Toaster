@@ -1,9 +1,65 @@
+# 5.0.0 (2018-02-24)
+* **angular2-toaster:** Full release of 5.x.x functionality.  See CHANGELOG below for details.
+Closes #144, #129, #142, #139 and #128.
+
+
+# 5.0.0-alpha.1 (2018-02-22)
+### FEATURES
+* **angular2-toaster:** The toaster.css is now generated via SCSS.  Thanks to @bastienmoulia for his 
+hard (and patient) work on this feature!
+
+* **demos:** `angular-cli` project updated to include better examples around multi-container 
+instances.
+
+### BUG FIXES
+* **toaster-container.component:** The container's config is no longer copied onto the toast 
+instance.  Instead, titleClass and messageClass have been moved to input properties so that 
+individual containers can uniquely style these properties for the same toast instance being 
+broadcasted to multiple containers.  The `toasterconfig` property has been removed from 
+`Toast` as a result to clean up the intent of the `Toast` interface.  Closes 
+[#144](https://github.com/Stabzs/Angular2-Toaster/issues/144).
+
+
+# 5.0.0-alpha.1 (2018-02-04)
+### BREAKING CHANGES
+* **angular2-toaster:** The library's Angular dependencies have been pinned to a minimum version of 
+5.0.0 for common, compiler, and core and RxJS has been pinned to a minimum of 5.4.2 due to defects 
+in lower RxJS versions.
+
+* **toaster.module:** `ToasterModule` now exposes both `forRoot` and `forChild` methods to ensure 
+that `ToasterService` is always provided as a singleton instance.  `ToasterModule` should always be 
+called with `forRoot` in the root of the application and subsequently called with `forChild` in 
+additional "per component" container injections.  Closes 
+[#129](https://github.com/Stabzs/Angular2-Toaster/issues/129).
+
+### FEATURES
+* **angular2-toaster:** A `toaster.min.css` file inclusion has been added.  Closes 
+[#142](https://github.com/Stabzs/Angular2-Toaster/issues/142).
+
+* **demos:** Rebuilt the `angular-cli` demo to pull from local pathing to allow for better local 
+examples.
+
+### BUG FIXES
+* **toaster.css:** The close button is now properly responsive and no longer overflows its 
+boundaries at collapsed resolutions.  Closes 
+[#139](https://github.com/Stabzs/Angular2-Toaster/issues/139).
+
+* **angular2-toaster:** Optimized builds now work as intended.  Closes
+[#128](https://github.com/Stabzs/Angular2-Toaster/issues/128).
+
+* **toaster-container.component:** If the same toast was broadcast to multiple containers, the 
+removal of the timeout for a toast in one container would affect all other timeouts for all 
+other containers for that toast instance.  Timeout Ids are now tracked internally in each container 
+to ensure that each container's toast instance is tracked individually.
+
+
 # 4.0.2 (2018-01-24)
 ### FEATURES
 * **angular2-toaster:** Update Angular dependencies to support 5.x.x versions.  Thanks @isaacplmann!
 
+
 # 4.0.1 (2017-7-16)
-* **toast-container.component:** The setTimeout call now runs outside of Angular and is patched on 
+* **toaster-container.component:** The setTimeout call now runs outside of Angular and is patched on 
 reentry with an `ngZone.run()` call.  This should provide better performance overall and should 
 make protractor testing easier.  Closes 
 [#120](https://github.com/Stabzs/Angular2-Toaster/issues/120).

@@ -22,6 +22,9 @@
         "node_modules",
         "bundles"
     ],
+    "build": {
+        "preserveSymlinks": true
+    },
     "angularCompilerOptions": {
         "strictMetadataEmit": true,
         "skipTemplateCodegen": true

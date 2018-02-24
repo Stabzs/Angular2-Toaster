@@ -1,7 +1,8 @@
 import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ToasterConfig } from './toaster-config';
-import { ToasterService, IClearWrapper } from './toaster.service';
+import { ToasterService} from './toaster.service';
+import { IClearWrapper } from './clearWrapper';
 import { Toast } from './toast';
 
 @Component({
@@ -11,15 +12,14 @@ import { Toast } from './toast';
             <div toastComp *ngFor="let toast of toasts" class="toast" [toast]="toast"
                 [@toastState]="toasterconfig.animation"
                 [iconClass]="toasterconfig.iconClasses[toast.type]"
+                [titleClass]="toasterconfig.titleClass"
+                [messageClass]="toasterconfig.messageClass"
                 [ngClass]="toasterconfig.typeClasses[toast.type]"
                 (click)="click(toast)" (clickEvent)="childClick($event)"
                 (mouseover)="stopTimer(toast)" (mouseout)="restartTimer(toast)">
             </div>
         </div>
         `,
-    // TODO: use styleUrls once Angular 2 supports the use of relative paths
-    // https://github.com/angular/angular/issues/2383
-    // styleUrls: ['./toaster.css']
     animations: [
         trigger('toastState', [
             state('flyRight, flyLeft, slideDown, slideUp, fade', style({ opacity: 1, transform: 'translate(0,0)' })),
@@ -87,10 +87,11 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
     private clearToastsSubscriber: any;
     private toasterService: ToasterService;
 
+    private timeoutIds = new Map<string, number>();
+
     @Input() toasterconfig: ToasterConfig;
 
     public toasts: Toast[] = [];
-
 
     constructor(toasterService: ToasterService, private ref: ChangeDetectorRef, private ngZone: NgZone) {
         this.toasterService = toasterService;
@@ -128,19 +129,24 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
 
     stopTimer(toast: Toast) {
         if (this.toasterconfig.mouseoverTimerStop) {
-            if (toast.timeoutId) {
-                window.clearTimeout(toast.timeoutId);
-                toast.timeoutId = null;
+            const toastId = this.toastIdOrDefault(toast);
+            const timeoutId = this.timeoutIds.get(toastId);
+
+            if (timeoutId) {
+                window.clearTimeout(timeoutId);
+                this.timeoutIds.delete(toastId);
             }
         }
     }
 
     restartTimer(toast: Toast) {
+        const timeoutId = this.timeoutIds.get(this.toastIdOrDefault(toast));
+
         if (this.toasterconfig.mouseoverTimerStop) {
-            if (!toast.timeoutId) {
+            if (!timeoutId) {
                 this.configureTimer(toast);
             }
-        } else if (toast.timeoutId === null) {
+        } else if (!timeoutId && this.toasterconfig.timeout) {
             this.removeToast(toast);
         }
     }
@@ -158,8 +164,6 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
     }
 
     private addToast(toast: Toast) {
-        toast.toasterConfig = this.toasterconfig;
-
         if (toast.toastContainerId && this.toasterconfig.toastContainerId
             && toast.toastContainerId !== this.toasterconfig.toastContainerId) { return };
 
@@ -215,12 +219,14 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
         if (typeof timeout === 'object') { timeout = timeout[toast.type] };
         if (timeout > 0) {
             this.ngZone.runOutsideAngular(() => {
-                toast.timeoutId = window.setTimeout(() => {
+                const timeoutId = window.setTimeout(() => {
                     this.ngZone.run(() => {
                         this.ref.markForCheck();
                         this.removeToast(toast);
                     });
                 }, timeout);
+
+                this.timeoutIds.set(this.toastIdOrDefault(toast), timeoutId);
             });
         }
     }
@@ -233,13 +239,17 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
         const index = this.toasts.indexOf(toast);
         if (index < 0) { return };
 
+        const toastId = this.toastIdOrDefault(toast);
+        const timeoutId = this.timeoutIds.get(toastId);
+
         this.toasts.splice(index, 1);
-        if (toast.timeoutId) {
-            window.clearTimeout(toast.timeoutId);
-            toast.timeoutId = null;
+
+        if (timeoutId) {
+            window.clearTimeout(timeoutId);
+            this.timeoutIds.delete(toastId);
         }
         if (toast.onHideCallback) { toast.onHideCallback(toast); }
-        this.toasterService._removeToastSubject.next({ toastId: toast.toastId, toastContainerId: toast.toastContainerId });
+        this.toasterService._removeToastSubject.next({ toastId: toastId, toastContainerId: toast.toastContainerId });
     }
 
     private removeAllToasts() {
@@ -265,6 +275,10 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
         } else {
             this.removeAllToasts();
         }
+    }
+
+    private toastIdOrDefault(toast: Toast) {
+        return toast.toastId || '';
     }
 
     ngOnDestroy() {

@@ -20,7 +20,7 @@ import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
 
-import { ToasterModule } from 'angular2-toaster';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 
 import { AppComponent } from './app.component';
 

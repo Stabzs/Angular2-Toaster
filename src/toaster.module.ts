@@ -4,17 +4,29 @@ import { ToastComponent } from './toast.component';
 import { ToasterContainerComponent } from './toaster-container.component';
 import { ToasterService } from './toaster.service';
 
-
 @NgModule({
     imports: [CommonModule],
     declarations: [
         ToastComponent,
         ToasterContainerComponent
     ],
-    providers: [ToasterService],
     exports: [
         ToasterContainerComponent,
         ToastComponent
     ]
 })
-export class ToasterModule { }
+export class ToasterModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: ToasterModule,
+            providers: [ToasterService, ToasterContainerComponent]
+        }
+    }
+
+    static forChild(): ModuleWithProviders {
+        return {
+            ngModule: ToasterModule,
+            providers: [ToasterContainerComponent]
+        }
+    }
+ }
