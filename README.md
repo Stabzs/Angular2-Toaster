@@ -3,8 +3,8 @@
 **angular2-toaster** is an asynchronous, non-blocking, Ahead of Time Compilation-supported Angular Toaster Notification library 
 largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-Toaster).
 
-[![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600?cached=true)](https://www.npmjs.com/package/angular2-toaster)
-[![npm](https://img.shields.io/npm/dt/angular2-toaster.svg?cached=true)](https://www.npmjs.com/package/angular2-toaster)
+[![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600?cachedbadge=true)](https://www.npmjs.com/package/angular2-toaster)
+[![npm](https://img.shields.io/npm/dt/angular2-toaster.svg?cachedbadge=true)](https://www.npmjs.com/package/angular2-toaster)
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
 [![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=5.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
