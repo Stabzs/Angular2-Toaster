@@ -12,6 +12,10 @@ largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-T
 Version ^ 5.0.0 requires either `.forRoot()` or `.forChild()` `ToasterModule` inclusion.  Please 
 read the 5.x.x release notes the `Getting Started` section before upgraded.
 
+Version ^4.0.0 now supports @angular/animations, which is a breaking change. 
+Please read both the Getting Started and Animations sections before upgrading.
+
+
 # Demo
 A dynamic Angular and Typescript demo can be found at 
 [this plunker](http://plnkr.co/edit/hkENUhos6q9fhiOHprXO?p=preview).
