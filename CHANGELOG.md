@@ -1,3 +1,8 @@
+# 5.0.0 (2018-02-24)
+* **angular2-toaster:** Full release of 5.x.x functionality.  See CHANGELOG below for details.
+Closes #144, #129, #142, #139 and #128.
+
+
 # 5.0.0-alpha.1 (2018-02-22)
 ### FEATURES
 * **angular2-toaster:** The toaster.css is now generated via SCSS.  Thanks to @bastienmoulia for his 
