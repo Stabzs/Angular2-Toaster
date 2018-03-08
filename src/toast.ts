@@ -2,7 +2,7 @@ import {BodyOutputType} from './bodyOutputType';
 import {ToasterConfig} from './toaster-config';
 
 export interface Toast {
-    type: ToastType;
+    type: string;
     title?: string;
     body?: any;
     toastId?: string;
@@ -18,6 +18,5 @@ export interface Toast {
     data?: any;
 }
 
-export type ToastType = 'info' | 'wait' | 'warning' | 'success' | 'error' | string;
 export type ClickHandler = (toast: Toast, isCloseButton?: boolean) => boolean;
 export type OnActionCallback = (toast: Toast) => void;
