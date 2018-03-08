@@ -1,5 +1,4 @@
 import {BodyOutputType} from './bodyOutputType';
-import {ToastType} from './toast';
 
 export interface IToasterConfig {
     limit?: number|null;
@@ -8,8 +7,8 @@ export interface IToasterConfig {
     closeHtml?: string;
     newestOnTop?: boolean;
     timeout?: number|Object;
-    typeClasses?: { [key: ToastType]: string };
-    iconClasses?: { [key: ToastType]: string };
+    typeClasses?: Object;
+    iconClasses?: Object;
     bodyOutputType?: BodyOutputType;
     bodyTemplate?: string;
     defaultTypeClass?: string;
@@ -33,8 +32,8 @@ export class ToasterConfig implements IToasterConfig {
     closeHtml: string;
     newestOnTop: boolean;
     timeout: number|Object;
-    typeClasses: { [key: ToastType]: string };
-    iconClasses: { [key: ToastType]: string };
+    typeClasses: Object;
+    iconClasses: Object;
     bodyOutputType: BodyOutputType;
     bodyTemplate: string;
     defaultTypeClass: string;
