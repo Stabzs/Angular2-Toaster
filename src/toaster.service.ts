@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Toast} from './toast';
+import {Toast, ToastType} from './toast';
 import {IClearWrapper} from './clearWrapper';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/share';
@@ -41,13 +41,13 @@ export class ToasterService {
     /**
      * Synchronously create and show a new toast instance.
      *
-     * @param {(string | Toast)} type The type of the toast, or a Toast object.
+     * @param {(string | Toast)} type The type of the toast (error/info/wait/success/warning), or a Toast object.
      * @param {string=} title The toast title.
      * @param {string=} body The toast body.
      * @returns {Toast}
      *          The newly created Toast instance with a randomly generated GUID Id.
      */
-    pop(type: string | Toast, title?: string, body?: string): Toast {
+    pop(type: ToastType | Toast, title?: string, body?: string): Toast {
         const toast = typeof type === 'string' ? { type: type, title: title, body: body } : type;
 
         toast.toastId = Guid.newGuid();
@@ -63,14 +63,14 @@ export class ToasterService {
     /**
      * Asynchronously create and show a new toast instance.
      *
-     * @param {(string | Toast)} type The type of the toast, or a Toast object.
+     * @param {(string | Toast)} type The type of the toast (error/info/wait/success/warning), or a Toast object.
      * @param {string=} title The toast title.
      * @param {string=} body The toast body.
      * @returns {Observable<Toast>}
      *          A hot Observable that can be subscribed to in order to receive the Toast instance
      *          with a randomly generated GUID Id.
      */
-    popAsync(type: string | Toast, title?: string, body?: string): Observable<Toast> {
+    popAsync(type: ToastType | Toast, title?: string, body?: string): Observable<Toast> {
         setTimeout(() => {
             this.pop(type, title, body);
         }, 0);
