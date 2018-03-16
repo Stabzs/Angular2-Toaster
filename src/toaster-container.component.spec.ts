@@ -442,8 +442,9 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         expect(successToast.showCloseButton).toBeUndefined();
     });
 
-    it('addToast uses toast.showCloseButton if defined', () => {
-        toasterContainer.toasterconfig = new ToasterConfig({ showCloseButton: '' });
+    it('addToast uses toast.showCloseButton if defined as an empty string', () => {
+        toasterContainer.toasterconfig = new ToasterConfig({ showCloseButton: false });
+        (<any>toasterContainer.toasterconfig.showCloseButton) = '';
         toasterContainer.ngOnInit();
         const toast: Toast = { type: 'info' };
 

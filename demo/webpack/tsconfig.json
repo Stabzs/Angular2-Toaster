@@ -2,16 +2,22 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2015",
+    "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "lib": ["es6", "dom"],
+    "lib": ["es2015", "dom"],
     "removeComments": true,
     "sourceMap": true,
-    "allowJs": true
+    "allowJs": true,
+    "noImplicitAny": true
   },
   "exclude": [
     "node_modules",
     "bundles"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "fullTemplateTypeCheck": true
+  }
 }

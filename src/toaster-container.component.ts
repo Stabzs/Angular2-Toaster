@@ -99,7 +99,7 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.registerSubscribers();
-        if (this.toasterconfig === null || typeof this.toasterconfig === 'undefined') {
+        if (this.isNullOrUndefined(this.toasterconfig)) {
             this.toasterconfig = new ToasterConfig();
         }
     }
@@ -179,7 +179,7 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
             }
         }
 
-        if (toast.showCloseButton === null || typeof toast.showCloseButton === 'undefined') {
+        if (this.isNullOrUndefined(toast.showCloseButton)) {
             if (typeof this.toasterconfig.showCloseButton === 'object') {
                 toast.showCloseButton = this.toasterconfig.showCloseButton[toast.type];
             } else if (typeof this.toasterconfig.showCloseButton === 'boolean') {
@@ -262,7 +262,7 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
         const toastId = clearWrapper.toastId;
         const toastContainerId = clearWrapper.toastContainerId;
 
-        if (toastContainerId === null || typeof toastContainerId === 'undefined') {
+        if (this.isNullOrUndefined(toastContainerId)) {
             this.clearToastsAction(toastId);
         } else if (toastContainerId === this.toasterconfig.toastContainerId) {
             this.clearToastsAction(toastId);
@@ -279,6 +279,10 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
 
     private toastIdOrDefault(toast: Toast) {
         return toast.toastId || '';
+    }
+
+    private isNullOrUndefined(value: any): boolean {
+        return value === null || typeof value === 'undefined';
     }
 
     ngOnDestroy() {

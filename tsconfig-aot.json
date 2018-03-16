@@ -7,7 +7,7 @@
         "module": "es2015",
         "moduleResolution": "node",
         "noImplicitAny": true,
-        "suppressImplicitAnyIndexErrors": true,
+        "suppressImplicitAnyIndexErrors": false,
         "outDir": "dist",
         "rootDir": ".",
         "sourceMap": true,
@@ -27,6 +27,7 @@
     },
     "angularCompilerOptions": {
         "strictMetadataEmit": true,
-        "skipTemplateCodegen": true
+        "skipTemplateCodegen": true,
+        "fullTemplateTypeCheck": true
     }
 }

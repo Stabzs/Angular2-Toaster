@@ -1,3 +1,17 @@
+# 5.0.1 (2018-03-16)
+### BUG FIXES
+* **toaster-container.component:** Typescript compilation was failing for implicit any conversions 
+for object typings for the configuration of showCloseButton, timeout, iconClasses and typeClasses. 
+The type arguments have been strengthened to make more rigid compilation happy.  This should not 
+affect anyone who was not abusing the expected typed arguments.
+Closes [#150](https://github.com/Stabzs/Angular2-Toaster/issues/150).
+Closes [#148](https://github.com/Stabzs/Angular2-Toaster/issues/148).
+
+### FEATURES
+* **demos:** The webpack demo has been rebuilt against `angular2-toaster@5.0.0` and webpack 4.
+Closes [#147](https://github.com/Stabzs/Angular2-Toaster/issues/147).
+
+
 # 5.0.0 (2018-02-24)
 * **angular2-toaster:** Full release of 5.x.x functionality.  See CHANGELOG below for details.
 Closes #144, #129, #142, #139 and #128.

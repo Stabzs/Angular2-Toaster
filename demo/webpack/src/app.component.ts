@@ -1,9 +1,3 @@
-// declare var require;
-// import 'reflect-metadata';
-// require('zone.js/dist/zone');
-// require('zone.js/dist/long-stack-trace-zone');
-
-
 import {NgModule, Component} from '@angular/core';
 import { ToasterService, IToasterConfig, ToasterConfig } from 'angular2-toaster';
 
