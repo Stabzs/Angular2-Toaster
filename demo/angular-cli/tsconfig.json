@@ -26,7 +26,13 @@
       "@angular/platform-browser": ["../../../node_modules/@angular/platform-browser"],
       "@angular/platform-browser-dynamic": ["../../../node_modules/@angular/platform-browser-dynamic"],
       "@angular/router": ["../../../node_modules/@angular/router"],
-      "@angular/http": ["../../../node_modules/@angular/http"]
+      "@angular/http": ["../../../node_modules/@angular/http"],
+      "@angular/cli": ["../../../node_modules/@angular/cli"]
     }
+  },
+  "angularCompilerOptions": {
+      "strictMetadataEmit": true,
+      "skipTemplateCodegen": true,
+      "fullTemplateTypeCheck": true
   }
 }
