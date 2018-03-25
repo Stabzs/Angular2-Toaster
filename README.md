@@ -295,6 +295,27 @@ public config: ToasterConfig =
     new ToasterConfig({tapToDismiss: false});
 ```
 
+
+### Container Position
+There are nine pre-built toaster container position configurations:
+
+```
+'toast-top-full-width', 'toast-bottom-full-width', 'toast-center',
+'toast-top-left', 'toast-top-center', 'toast-top-right',
+'toast-bottom-left', 'toast-bottom-center', 'toast-bottom-right'
+```
+
+By default, `'toast-top-right'` will be used.  You can specify an override (or your own custom position class that correlates to your CSS) via the `positionClass` property:
+
+```typescript
+template: 
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
+
+public config: ToasterConfig = 
+    new ToasterConfig({positionClass: 'toast-top-left'});
+```
+
+
 ### Close Button
 
 The Close Button's visibility can be configured at three different levels:
