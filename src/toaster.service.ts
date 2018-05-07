@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Toast} from './toast';
 import {IClearWrapper} from './clearWrapper';
-import {Observable} from 'rxjs/Observable';
+import {Observable, Subject, Observer} from 'rxjs';
 import 'rxjs/add/operator/share';
-import {Observer} from 'rxjs/Observer';
-import {Subject} from 'rxjs/Subject';
 
 // http://stackoverflow.com/questions/26501688/a-typescript-guid-class
 class Guid {
@@ -26,7 +24,7 @@ export class ToasterService {
 
     removeToast: Observable<IClearWrapper>;
     /** @internal */
-    _removeToastSubject: Subject<IClearWrapper>
+    _removeToastSubject: Subject<IClearWrapper>;
 
     /**
      * Creates an instance of ToasterService.
