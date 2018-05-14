@@ -50,7 +50,9 @@ export class ToasterService {
     pop(type: string | Toast, title?: string, body?: string): Toast {
         const toast = typeof type === 'string' ? { type: type, title: title, body: body } : type;
 
-        toast.toastId = Guid.newGuid();
+        if (!toast.toastId) {
+            toast.toastId = Guid.newGuid();
+        }
 
         if (!this._addToast) {
             throw new Error('No Toaster Containers have been initialized to receive toasts.');
