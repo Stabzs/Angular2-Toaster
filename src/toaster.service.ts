@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Toast} from './toast';
 import {IClearWrapper} from './clearWrapper';
 import {Observable, Subject, Observer} from 'rxjs';
-import 'rxjs/add/operator/share';
+import {share} from 'rxjs/operators'
 
 // http://stackoverflow.com/questions/26501688/a-typescript-guid-class
 class Guid {
@@ -30,10 +30,10 @@ export class ToasterService {
      * Creates an instance of ToasterService.
      */
     constructor() {
-        this.addToast = new Observable<Toast>((observer: any) => this._addToast = observer).share();
-        this.clearToasts = new Observable<IClearWrapper>((observer: any) => this._clearToasts = observer).share();
-        this._removeToastSubject = new Subject<IClearWrapper>()
-        this.removeToast = this._removeToastSubject.share();
+        this.addToast = new Observable<Toast>((observer: any) => this._addToast = observer).pipe(share());
+        this.clearToasts = new Observable<IClearWrapper>((observer: any) => this._clearToasts = observer).pipe(share());
+        this._removeToastSubject = new Subject<IClearWrapper>();
+        this.removeToast = this._removeToastSubject.pipe(share());
     }
 
     /**
