@@ -146,7 +146,7 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
             if (!timeoutId) {
                 this.configureTimer(toast);
             }
-        } else if (!timeoutId && this.toasterconfig.timeout) {
+        } else if (toast.timeout !== 0 && !timeoutId && this.toasterconfig.timeout) {
             this.removeToast(toast);
         }
     }

@@ -1,3 +1,15 @@
+# 5.1.0 (2018-05-19)
+### FEATURES
+* **toaster.service:** If a toastId is provided, that toastId is used instead of auto-generating 
+a toastId.  Thanks to @sherlock1982 for his work on 
+[#158](https://github.com/Stabzs/Angular2-Toaster/pull/158).
+
+### BUG FIXES
+* **toaster-container.component:** Mouseover functionality would incorrectly remove a toast when
+the toast's timeout was set to 0 and the container's configuration was set to a value other than 
+0.  Closes [#164](https://github.com/Stabzs/Angular2-Toaster/issues/164).
+
+
 # 5.0.1 (2018-03-16)
 ### BUG FIXES
 * **toaster-container.component:** Typescript compilation was failing for implicit any conversions 
