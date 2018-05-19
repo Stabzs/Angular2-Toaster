@@ -27,7 +27,8 @@
       "@angular/platform-browser-dynamic": ["../../../node_modules/@angular/platform-browser-dynamic"],
       "@angular/router": ["../../../node_modules/@angular/router"],
       "@angular/http": ["../../../node_modules/@angular/http"],
-      "@angular/cli": ["../../../node_modules/@angular/cli"]
+      "@angular/cli": ["../../../node_modules/@angular/cli"],
+      "@angular-devkit/build-angular": ["../../../node_modules/@angular-devkit/build-angular"]
     }
   },
   "angularCompilerOptions": {

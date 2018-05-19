@@ -6,10 +6,10 @@ import { ToasterConfig, IToasterConfig } from '@angular2-toaster/angular2-toaste
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent { 
-  appConfig: IToasterConfig = new ToasterConfig({
-    animation: 'fade', newestOnTop: false, positionClass: 'toast-top-left', 
-    toastContainerId: 1, timeout: 0, showCloseButton: true, 
-    titleClass: 'title-1'
+export class AppComponent {
+    appConfig: IToasterConfig = new ToasterConfig({
+    animation: 'fade', newestOnTop: false, positionClass: 'toast-top-left',
+      toastContainerId: 1, timeout: 0, showCloseButton: true,
+      titleClass: 'title-1'
   });
 }
