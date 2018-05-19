@@ -1,7 +1,6 @@
 import {Component, NgModule} from '@angular/core';
-import {TestBed} from '@angular/core/testing';
+import {TestBed, tick, fakeAsync} from '@angular/core/testing';
 import {ComponentFixture} from '@angular/core/testing';
-
 import {Toast, ClickHandler} from './toast';
 import {ToasterService} from './toaster.service';
 import {ToasterContainerComponent} from './toaster-container.component';
@@ -303,7 +302,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         expect((map.size)).toBe(0);
     });
 
-    it('restartTimer should not restart timer if mouseOverTimerStop is false', () => {
+    it('restartTimer should not restart timer if mouseOverTimerStop is false', fakeAsync(() => {
         toasterContainer.toasterconfig = new ToasterConfig({ timeout: 1 });
         toasterContainer.ngOnInit();
 
@@ -318,10 +317,46 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         toasterContainer.restartTimer(toast);
 
-        setTimeout(() => {
-            expect((map.size)).toBe(0);
-        }, 2)
-    });
+        // should not remove toast because a timeout is inherited from
+        // toasterconfig.
+        // should not restart timer because mouseOverTimerStop is set 
+        // to false.
+        expect(toasterContainer.toasts.length).toBe(1);
+
+        fixture.detectChanges();
+        tick(2);
+
+        expect((map.size)).toBe(0);
+        expect(toasterContainer.toasts.length).toBe(0);
+    }));
+
+    it('restartTimer should not restart timer if mouseOverTimerStop is false and toast.timeout is 0', fakeAsync(() => {
+        toasterContainer.toasterconfig = new ToasterConfig({ timeout: 1, toastContainerId: 53 });
+        toasterContainer.ngOnInit();
+
+        const toastToPop: Toast = { type: 'success', timeout: 0, toastContainerId: 53 };
+        toasterService.pop(toastToPop);
+        const toast = toasterContainer.toasts[0];
+
+        expect(toasterContainer.toasterconfig.mouseoverTimerStop).toBe(false);
+        expect(toast).toBeDefined();
+        expect(toast.timeout).toBe(0);
+        
+        let map = (<Map<string, number>>toasterContainer['timeoutIds']);
+        expect((map.size)).toBe(0);
+
+        toasterContainer.restartTimer(toast);
+
+        // should not remove toast because a timeout of 0 is applied directly
+        // to the toast instance and the toast should be fully sticky.
+        expect(toasterContainer.toasts.length).toBe(1);
+
+        fixture.detectChanges();
+        tick(2);
+
+        expect((map.size)).toBe(0);
+        expect(toasterContainer.toasts.length).toBe(1);
+    }));
 
     it('restartTimer should remove toast if mouseOverTimerStop is false and timeoutId is null and timeout has value', () => {
         toasterContainer.toasterconfig = new ToasterConfig({ timeout: 1000 });
@@ -389,11 +424,11 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
     });
 
     it('addToast should not add toast if preventDuplicates and the same toastId exists', () => {
-        toasterContainer.toasterconfig = new ToasterConfig({ preventDuplicates: true });
+        toasterContainer.toasterconfig = new ToasterConfig({ preventDuplicates: true, toastContainerId: 30 });
         toasterContainer.ngOnInit();
-        const toast: Toast = { type: 'info' };
+        const toast: Toast = { type: 'info', toastContainerId: 30 };
         toasterService.pop(toast);
-
+        
         expect(toasterContainer.toasts.length).toBe(1);
         toasterService.pop(toast);
         expect(toasterContainer.toasts.length).toBe(1);
@@ -541,10 +576,8 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         expect(toasterContainer.toasts.length).toBe(1);
 
         setTimeout(() => {
-            fixture.whenStable().then(() => {
-                expect(toasterContainer.toasts.length).toBe(0);
-                expect((map.size)).toBe(0);
-            });
+            expect(toasterContainer.toasts.length).toBe(0);
+            expect((map.size)).toBe(0);
         }, 2);
     });
 
@@ -665,20 +698,6 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         expect(toasterContainer.toasts.length).toBe(0);
     });
 
-    it('clearToasts will not clear toasts from specified container if toastContainerId does not match', () => {
-        toasterContainer.toasterconfig = new ToasterConfig({ toastContainerId: 1 });
-        toasterContainer.ngOnInit();
-
-        const toast: Toast = { type: 'info', toastContainerId: 1 };
-
-        toasterService.pop(toast);
-
-        expect(toasterContainer.toasts.length).toBe(1);
-
-        toasterService.clear(null, 2);
-        expect(toasterContainer.toasts.length).toBe(1);
-    });
-
     it('createGuid should create unique Guids', () => {
         toasterContainer.toasterconfig = new ToasterConfig({ toastContainerId: 1 });
         toasterContainer.ngOnInit();
@@ -728,6 +747,16 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         expect(toastId).toBe('');
     });
+
+    it('should use toast.toastId parameter if passed', () => {
+        toasterContainer.ngOnInit();
+
+        let toast: Toast = { type: 'success', title: '', body: '', toastId: '12345' };
+        toasterService.pop(toast);
+
+        expect(toasterContainer.toasts.length).toBe(1);
+        expect(toasterContainer.toasts[0].toastId).toBe('12345');
+    });
 });
 
 
@@ -764,6 +793,20 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
 
         toasterService.pop(toast);
         expect(toasterContainer.toasts[0].data).toBe(1);
+    });
+
+    it('clearToasts will not clear toasts from specified container if toastContainerId does not match', () => {
+        toasterContainer.toasterconfig = new ToasterConfig({ toastContainerId: 1 });
+        toasterContainer.ngOnInit();
+
+        const toast: Toast = { type: 'info', toastContainerId: 1 };
+
+        toasterService.pop(toast);
+
+        expect(toasterContainer.toasts.length).toBe(1);
+
+        toasterService.clear(null, 2);
+        expect(toasterContainer.toasts.length).toBe(1);
     });
 });
 
