@@ -1,3 +1,9 @@
+# 6.0.0 (2018-05-19)
+### FEATURES 
+* **angular2-toaster:** Full release of 6.0.0 functionality.  Pins the library to 6.0.0 versions of Angular and RxJS.
+Closes [#161](https://github.com/Stabzs/Angular2-Toaster/issues/161).
+
+
 # 5.1.0 (2018-05-19)
 ### FEATURES
 * **toaster.service:** If a toastId is provided, that toastId is used instead of auto-generating 
