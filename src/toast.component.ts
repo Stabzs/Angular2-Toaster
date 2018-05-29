@@ -13,7 +13,7 @@ import {BodyOutputType} from './bodyOutputType';
             <div [ngClass]="titleClass">{{toast.title}}</div>
             <div [ngClass]="messageClass" [ngSwitch]="toast.bodyOutputType">
                 <div *ngSwitchCase="bodyOutputType.Component" #componentBody></div>
-                <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="toast.body"></div>
+                <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="safeBodyHtml"></div>
                 <div *ngSwitchCase="bodyOutputType.Default">{{toast.body}}</div>
             </div>
         </div>
@@ -31,6 +31,7 @@ export class ToastComponent implements OnInit, AfterViewInit {
     @ViewChild('componentBody', { read: ViewContainerRef }) componentBody: ViewContainerRef;
 
     safeCloseHtml: SafeHtml;
+    safeBodyHtml: SafeHtml;
 
     public bodyOutputType = BodyOutputType;
 
@@ -46,6 +47,9 @@ export class ToastComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         if (this.toast.closeHtml) {
             this.safeCloseHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.closeHtml);
+        }
+        if (this.toast.bodyOutputType === BodyOutputType.TrustedHtml) {
+            this.safeBodyHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.body);
         }
     }
 

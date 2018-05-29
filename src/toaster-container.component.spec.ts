@@ -508,6 +508,25 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         expect(toasterContainer.toasts[0]).toBe(toast4);
     });
 
+    it('addToast will not populate body with TrustedHtml if body is null', () => {
+        toasterContainer.toasterconfig = new ToasterConfig();
+        toasterContainer.ngOnInit();
+        const testSvg = '<svg width="400" height="110"><rect width="300" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)"></rect></svg>';
+
+        const toast1: Toast = { 
+            type: 'info',
+            title: '1',
+            body: testSvg,
+            bodyOutputType: BodyOutputType.TrustedHtml 
+        };
+
+        toasterService.pop(toast1);
+        fixture.detectChanges();
+
+        const closeButtonEle = fixture.nativeElement.querySelector('.toast-message');
+        expect(closeButtonEle.innerHTML).toContain(testSvg);
+    });
+
     it('addToast will not populate safeCloseHtml if closeHtml is null', () => {
         toasterContainer.toasterconfig = new ToasterConfig();
         toasterContainer.toasterconfig.closeHtml = null;
