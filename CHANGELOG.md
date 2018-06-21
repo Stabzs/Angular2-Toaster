@@ -1,7 +1,15 @@
+# 6.1.0 (2018-06-21)
+### FEATURES
+* **toaster-container.component:** Added bypassSecurityTrustHtml support for the body parameter 
+for the `TrustedHtml` body output type.  Thanks to @TGNC for making the change.  
+
+### DOCUMENTATION
+* **readme:** Documented ErrorHandler cases.  Closes [#169](https://github.com/Stabzs/Angular2-Toaster/issues/169).
+
 # 6.0.0 (2018-05-19)
 ### FEATURES 
-* **angular2-toaster:** Full release of 6.0.0 functionality.  Pins the library to 6.0.0 versions of Angular and RxJS.
-Closes [#161](https://github.com/Stabzs/Angular2-Toaster/issues/161).
+* **angular2-toaster:** Full release of 6.0.0 functionality.  Pins the library to 6.0.0 versions 
+of Angular and RxJS. Closes [#161](https://github.com/Stabzs/Angular2-Toaster/issues/161).
 
 
 # 5.1.0 (2018-05-19)
@@ -12,8 +20,8 @@ a toastId.  Thanks to @sherlock1982 for his work on
 
 ### BUG FIXES
 * **toaster-container.component:** Mouseover functionality would incorrectly remove a toast when
-the toast's timeout was set to 0 and the container's configuration was set to a value other than 
-0.  Closes [#164](https://github.com/Stabzs/Angular2-Toaster/issues/164).
+the toast's timeout was set to 0 and the container's configuration was set to a value other than 0.  
+Closes [#164](https://github.com/Stabzs/Angular2-Toaster/issues/164).
 
 
 # 5.0.1 (2018-03-16)
