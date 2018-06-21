@@ -6,7 +6,7 @@ largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-T
 [![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600?caching=true)](https://www.npmjs.com/package/angular2-toaster)
 [![npm](https://img.shields.io/npm/dt/angular2-toaster.svg?caching=true)](https://www.npmjs.com/package/angular2-toaster)
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=6.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=6.1.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
 
 Version ^5.0.0 requires either `.forRoot()` or `.forChild()` `ToasterModule` inclusion.  Please 
@@ -560,6 +560,32 @@ Run Karma test instance with coverage report:
 npm run test
 ```
 
+# Frequently Asked Questions and Issues
+## I get the `No Toaster Containers have been initialized to receive toasts.` error
+
+You have not properly initialized a toaster container instance before trying to publish a toast. 
+Make sure that you have rendered the `toaster-container` component and that you are importing 
+the `ToasterModule` with `ToasterModule.forRoot()`.
+
+## Toasts are not displayed when popped from an error handler
+The `handleError` function is executed outsize of an Angular zone.  You need to 
+explicitly tell Angular to run the pop call within the context of a zone.
+
+```TypeScript
+export class AppErrorHandler implements ErrorHandler {
+    constructor(
+        private toasterService: ToasterService,
+        private ngZone : NgZone) { }
+
+    handleError(error: any): void {
+        this.ngZone.run(() => {
+            this.toasterService.pop('error', "Error", error);
+        });  
+    }
+}
+```
+(See this great [Stack Overflow Answer]( https://stackoverflow.com/questions/44975477/angular2-ng-toasty-errorhandler) for more details).
+
 
 ## Author
 [Stabzs](stabzssoftware@gmail.com)
@@ -570,7 +596,7 @@ Rewritten from https://github.com/jirikavi/AngularJS-Toaster
 Inspired by http://codeseven.github.io/toastr/demo.html.
 
 ## Copyright
-Copyright © 2016-2017 Stabzs.
+Copyright © 2016-2018 Stabzs.
 
 
 ## Licence
