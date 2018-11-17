@@ -224,7 +224,7 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
                         this.ref.markForCheck();
                         this.removeToast(toast);
                     });
-                }, timeout);
+                }, <number>timeout);
 
                 this.timeoutIds.set(this.toastIdOrDefault(toast), timeoutId);
             });
