@@ -620,9 +620,10 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         let map = (<Map<string, number>>toasterContainer['timeoutIds']);
         expect((map.size)).toBe(1);
 
-        const delay = (<any>map.get(toast.toastId)).data.delay;
+        const delay = (map.get(toast.toastId));
 
-        expect(delay).toBe(1);
+        expect(delay).toBeDefined();
+        expect(delay).toBeGreaterThan(0);
     });
 
     it('addToast will not register timeout if toast.timeout is undefined and toasterconfig.timeout is 0', () => {
