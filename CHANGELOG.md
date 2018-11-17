@@ -1,3 +1,9 @@
+# 7.0.0 (2018-11-17)
+### FEATURES 
+* **angular2-toaster:** Full release of 7.0.0 functionality.  Pins the library to 7.0.0 versions 
+of Angular. Closes [#181](https://github.com/Stabzs/Angular2-Toaster/issues/181).
+
+
 # 6.1.0 (2018-06-21)
 ### FEATURES
 * **toaster-container.component:** Added bypassSecurityTrustHtml support for the body parameter 
@@ -5,6 +11,7 @@ for the `TrustedHtml` body output type.  Thanks to @TGNC for making the change.
 
 ### DOCUMENTATION
 * **readme:** Documented ErrorHandler cases.  Closes [#169](https://github.com/Stabzs/Angular2-Toaster/issues/169).
+
 
 # 6.0.0 (2018-05-19)
 ### FEATURES 
