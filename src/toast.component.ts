@@ -1,9 +1,9 @@
-import {Component, Input, Output, ViewChild, ViewContainerRef, EventEmitter,
-    ComponentFactoryResolver, ChangeDetectorRef, OnInit, AfterViewInit
+import {
+    Component, Input, Output, ViewChild, ViewContainerRef, EventEmitter,
+    ComponentFactoryResolver, ChangeDetectorRef, AfterViewInit
 } from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {Toast} from './toast';
-import {BodyOutputType} from './bodyOutputType';
+import { Toast } from './toast';
+import { BodyOutputType } from './bodyOutputType';
 
 @Component({
     selector: '[toastComp]',
@@ -13,16 +13,16 @@ import {BodyOutputType} from './bodyOutputType';
             <div [ngClass]="titleClass">{{toast.title}}</div>
             <div [ngClass]="messageClass" [ngSwitch]="toast.bodyOutputType">
                 <div *ngSwitchCase="bodyOutputType.Component" #componentBody></div>
-                <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="safeBodyHtml"></div>
+                <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="toast.body | sanitizeHtml"></div>
                 <div *ngSwitchCase="bodyOutputType.Default">{{toast.body}}</div>
             </div>
         </div>
         <div class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click($event, toast)"
-            [innerHTML]="safeCloseHtml">
+            [innerHTML]="toast.closeHtml | sanitizeHtml">
         </div>`
 })
 
-export class ToastComponent implements OnInit, AfterViewInit {
+export class ToastComponent implements AfterViewInit {
 
     @Input() toast: Toast;
     @Input() iconClass: string;
@@ -30,28 +30,15 @@ export class ToastComponent implements OnInit, AfterViewInit {
     @Input() messageClass: string;
     @ViewChild('componentBody', { read: ViewContainerRef }) componentBody: ViewContainerRef;
 
-    safeCloseHtml: SafeHtml;
-    safeBodyHtml: SafeHtml;
-
     public bodyOutputType = BodyOutputType;
 
     @Output()
     public clickEvent = new EventEmitter();
 
     constructor(
-      private sanitizer: DomSanitizer,
-      private componentFactoryResolver: ComponentFactoryResolver,
-      private changeDetectorRef: ChangeDetectorRef
-    ) {}
-
-    ngOnInit() {
-        if (this.toast.closeHtml) {
-            this.safeCloseHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.closeHtml);
-        }
-        if (this.toast.bodyOutputType === BodyOutputType.TrustedHtml) {
-            this.safeBodyHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.body);
-        }
-    }
+        private componentFactoryResolver: ComponentFactoryResolver,
+        private changeDetectorRef: ChangeDetectorRef
+    ) { }
 
     ngAfterViewInit() {
         if (this.toast.bodyOutputType === this.bodyOutputType.Component) {
@@ -65,7 +52,7 @@ export class ToastComponent implements OnInit, AfterViewInit {
     click(event: MouseEvent, toast: Toast) {
         event.stopPropagation();
         this.clickEvent.emit({
-            value : { toast: toast, isCloseButton: true}
+            value: { toast: toast, isCloseButton: true }
         });
     }
 }
