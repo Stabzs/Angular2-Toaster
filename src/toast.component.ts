@@ -28,7 +28,7 @@ export class ToastComponent implements OnInit, AfterViewInit {
     @Input() iconClass: string;
     @Input() titleClass: string;
     @Input() messageClass: string;
-    @ViewChild('componentBody', { read: ViewContainerRef }) componentBody: ViewContainerRef;
+    @ViewChild('componentBody', { read: ViewContainerRef, static: false }) componentBody: ViewContainerRef;
 
     safeCloseHtml: SafeHtml;
     safeBodyHtml: SafeHtml;

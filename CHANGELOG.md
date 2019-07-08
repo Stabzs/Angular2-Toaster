@@ -1,3 +1,8 @@
+# 8.0.0
+### FEATURES
+* **angular2-toaster:** Full release of 8.0.0 functionality.  Pins the library to 8.0.0 versions
+of Angular. Closes [#188](https://github.com/Stabzs/Angular2-Toaster/issues/188).
+
 # 7.0.0 (2018-11-17)
 ### FEATURES 
 * **angular2-toaster:** Full release of 7.0.0 functionality.  Pins the library to 7.0.0 versions 
