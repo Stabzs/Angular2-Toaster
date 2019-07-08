@@ -78,12 +78,12 @@
     "karma-remap-coverage": "~0.1.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "3.0.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.12.0",
     "reflect-metadata": "0.1.10",
     "remap-istanbul": "0.10.1",
     "rimraf": "2.5.4",
     "rollup": "0.55.3",
-    "rxjs": "^6.1.0",
+    "rxjs": "^6.5.2",
     "source-map-loader": "0.2.3",
     "ts-helpers": "1.1.2",
     "tslint": "~5.18.0",
@@ -91,6 +91,6 @@
     "typings": "2.1.0",
     "uglify-js": "3.3.9",
     "uglifycss": "0.0.27",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.29"
   }
 }
