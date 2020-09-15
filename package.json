@@ -1,6 +1,6 @@
 {
-  "name": "angular2-toaster-sgu",
-  "version": "10.0.0",
+  "name": "angular2-toaster",
+  "version": "8.0.0",
   "description": "An Angular Toaster Notification library based on AngularJS-Toaster",
   "main": "bundles/angular2-toaster.umd.js",
   "module": "angular2-toaster.js",
