@@ -20,6 +20,12 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
+    customLaunchers: {
+      ChromeCI: {
+        base: `${process.env['TRAVIS'] ? 'ChromeHeadless' : 'Chrome'}`,
+        flags: process.env['TRAVIS'] ? ['--no-sandbox'] : [],
+      },
+    },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,

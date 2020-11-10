@@ -11,6 +11,6 @@ before_install:
 install: 
   - npm install
 script:
-  - karma start
+  - ng test angular2-toaster --watch=false --code-coverage
 after_script:
   - "cat ./coverage/lcov-report/lcov | ./node_modules/coveralls/bin/coveralls.js"
