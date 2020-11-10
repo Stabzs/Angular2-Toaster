@@ -47,7 +47,7 @@ or
 
 ### Compile the Library's SCSS
 ```scss
-@import 'node_modules/angular2-toaster/src/toaster';
+@import 'node_modules/angular2-toaster/toaster';
 ```
 
 
@@ -256,6 +256,19 @@ If you need to target a non-supported browser, a [polyfill](https://github.com/w
 
 
 # Configurable Options
+### Toast Types
+By default, five toast types are defined: 'error, 'info', 'wait', 'success', and 'warning'.
+
+The default options can be overridden by passing a mapping object to the config, where the key corresponds to the toast type and the value corresponds to a custom style:
+
+```typescript
+template: 
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
+
+public config: ToasterConfig = 
+    new ToasterConfig({typeClasses: {'partial-success': '.toaster-partial-success' }});
+```
+
 ### Animations
 There are five animation styles that can be applied via the toasterconfig `animation` property: 
 'fade', 'flyLeft', 'flyRight', 'slideDown', and 'slideUp'.  Any other value will disable animations.
@@ -596,7 +609,7 @@ Rewritten from https://github.com/jirikavi/AngularJS-Toaster
 Inspired by http://codeseven.github.io/toastr/demo.html.
 
 ## Copyright
-Copyright © 2016-2018 Stabzs.
+Copyright © 2016-2020 Stabzs.
 
 
 ## Licence
