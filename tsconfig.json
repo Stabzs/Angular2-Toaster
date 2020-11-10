@@ -1,42 +1,25 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
-    "moduleResolution": "node",
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
+    "declaration": false,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": false,
-    "declaration": true,
-    "stripInternal": true,
-    "noUnusedLocals": false,
-    "types": [
-      "jasmine",
-      "node"
-    ],
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
     "lib": [
-      "es2015",
+      "es2018",
       "dom"
-    ]
-  },
-  "paths": {
-    "@angular/*": [
-      "node_modules/@angular/*"
-    ]
-  },
-  "include": [
-    "angular2-toaster.ts",
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "bundles"
-  ],
-  "angularCompilerOptions": {
-    "strictMetadataEmit": true,
-    "skipTemplateCodegen": true,
-    "fullTemplateTypeCheck": true
+    ],
+    "paths": {
+      "angular2-toaster": [
+        "dist/angular2-toaster/angular2-toaster",
+        "dist/angular2-toaster"
+      ]
+    }
   }
 }

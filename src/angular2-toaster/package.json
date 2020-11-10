@@ -1,0 +1,35 @@
+{
+  "name": "angular2-toaster",
+  "description": "An Angular Toaster Notification library based on AngularJS-Toaster",
+  "version": "10.0.0",
+  "author": "Stabzs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stabzs/Angular2-Toaster.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stabzs/Angular2-Toaster/issues"
+  },
+  "keywords": [
+    "angular",
+    "angular10",
+    "angularjs-toaster",
+    "angular-toaster",
+    "angular2-toaster",
+    "toast",
+    "toaster",
+    "notification",
+    "growl"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^10.0.0",
+    "@angular/compiler": "^10.0.0",
+    "@angular/core": "^10.0.0",
+    "rxjs": "^6.5.3"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "sideEffects": false
+}

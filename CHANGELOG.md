@@ -1,3 +1,10 @@
+# 10.0.0
+### FEATURES
+* **angular2-toaster:** Full release of 10.0.0 functionality.  Pins the llibrary to 10.0.0 of Angular.
+
+### DOCUMENTATION
+* **README:** Added documentation for toast types and toast type overrides.
+
 # 8.0.0
 ### FEATURES
 * **angular2-toaster:** Full release of 8.0.0 functionality.  Pins the library to 8.0.0 versions
