@@ -29,6 +29,17 @@ export class AppComponent {
     window.setTimeout(() => toast.title = 'Updated Home Title', 1000)
   }
 
+  persistentToast() {
+    this.toasterService.pop({
+      type: 'success', 
+      title: 'Click Me', 
+      body: 'I am sticky',
+      tapToDismiss: false,
+      onClickCallback: (t) => console.log(t.toastId),
+      timeout: 5000
+    });
+  }
+
   ngAfterViewInit() {
     console.log('entering view init');
     const toast: Toast = {

@@ -1,3 +1,16 @@
+# 11.0.0
+### FEATURES
+* **angular2-toaster:** Full release of 11.0.0 functionality.  Pins the llibrary to 11.0.0 of Angular.
+* **toast:** A new `tapToDismiss?: boolean` property has been added to the toast object.  This allows for 
+each individual toast to override the global `tapToDismiss` config.
+Closes [#178](https://github.com/Stabzs/Angular2-Toaster/issues/178).
+
+### BREAKING CHANGES
+* **toast:** Due to the complexity of the `clickHandler` functionality potentially blocking the `tapToDismiss`
+setting based on the `clickHandler`'s boolean response, the `clickHandler` property has been replaced with an 
+`onClickCallback?: OnActionCallback = (toast: Toast) => void;` property.  This property will always be called on 
+toast click, even if `tapToDismiss` is true or if the click originated from the close button.
+
 # 10.0.0
 ### FEATURES
 * **angular2-toaster:** Full release of 10.0.0 functionality.  Pins the llibrary to 10.0.0 of Angular.
