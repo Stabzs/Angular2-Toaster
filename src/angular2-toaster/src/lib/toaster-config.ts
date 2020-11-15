@@ -56,7 +56,7 @@ export class ToasterConfig implements IToasterConfig {
         this.limit = configOverrides.limit || null;
         this.tapToDismiss = configOverrides.tapToDismiss != null ? configOverrides.tapToDismiss : true;
         this.showCloseButton = configOverrides.showCloseButton != null ? configOverrides.showCloseButton : false;
-        this.closeHtml = configOverrides.closeHtml || '<button class="toast-close-button" type="button">&times;</button>';
+        this.closeHtml = configOverrides.closeHtml || '<span>&times;</span>';
         this.newestOnTop = configOverrides.newestOnTop != null ? configOverrides.newestOnTop : true;
         this.timeout = configOverrides.timeout != null ? configOverrides.timeout : 5000;
         this.typeClasses = configOverrides.typeClasses || {

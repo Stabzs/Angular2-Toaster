@@ -14,7 +14,7 @@ export class AppComponent {
   appConfig: IToasterConfig = new ToasterConfig({
     animation: 'fade', newestOnTop: false, positionClass: 'toast-top-right', 
     toastContainerId: 1, timeout: 0, showCloseButton: true, 
-    titleClass: 'title-1'
+    // titleClass: 'title-1'
   });
 
   constructor (public toasterService: ToasterService) { }
@@ -33,10 +33,10 @@ export class AppComponent {
     this.toasterService.pop({
       type: 'success', 
       title: 'Click Me', 
-      body: 'I am sticky',
+      body: 'I am sticky with a really long body let us see what happens',
       tapToDismiss: false,
       onClickCallback: (t) => console.log(t.toastId),
-      timeout: 5000
+      showCloseButton: true
     });
   }
 

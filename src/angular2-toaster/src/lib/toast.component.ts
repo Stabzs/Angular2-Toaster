@@ -9,7 +9,6 @@ import { BodyOutputType } from './bodyOutputType';
 @Component({
     selector: '[toastComp]',
     template: `
-        <i class="toaster-icon" [ngClass]="iconClass"></i>
         <div class="toast-content">
             <div [ngClass]="titleClass">{{toast.title}}</div>
             <div [ngClass]="messageClass" [ngSwitch]="toast.bodyOutputType">
@@ -18,14 +17,13 @@ import { BodyOutputType } from './bodyOutputType';
                 <div *ngSwitchCase="bodyOutputType.Default">{{toast.body}}</div>
             </div>
         </div>
-        <div class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click($event, toast)"
+        <button class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click($event, toast)"
             [innerHTML]="safeCloseHtml">
-        </div>`
+        </button>`
 })
 export class ToastComponent implements OnInit, AfterViewInit {
 
     @Input() toast: Toast;
-    @Input() iconClass: string;
     @Input() titleClass: string;
     @Input() messageClass: string;
     @ViewChild('componentBody', { read: ViewContainerRef, static: false }) componentBody: ViewContainerRef;
