@@ -8,13 +8,15 @@ import { Toast } from './toast';
 @Component({
     selector: 'toaster-container',
     template: `
-        <div id="toast-container" [ngClass]="[toasterconfig.positionClass]">
+        <div class="toast-container" [ngClass]="[toasterconfig.positionClass]">
             <div toastComp *ngFor="let toast of toasts" class="toast" [toast]="toast"
                 [@toastState]="toasterconfig.animation"
-                [iconClass]="toasterconfig.iconClasses[toast.type]"
                 [titleClass]="toasterconfig.titleClass"
                 [messageClass]="toasterconfig.messageClass"
-                [ngClass]="toasterconfig.typeClasses[toast.type]"
+                [ngClass]="[ 
+                    toasterconfig.iconClasses[toast.type],    
+                    toasterconfig.typeClasses[toast.type] 
+                ]"
                 (click)="click(toast)" (clickEvent)="childClick($event)"
                 (mouseover)="stopTimer(toast)" (mouseout)="restartTimer(toast)">
             </div>
