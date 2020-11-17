@@ -11,6 +11,9 @@ Due to larger default viewports for standard mobile devices, the responsive layo
 and they have been removed.  The standard toast width is now fixed at 300px.
 Finally, the styles should be cleaner, more compact for large toasts, and more consistent across content size
 changes.
+* **animations:**  Animations have been rebuilt and enhanced to provide smoother transitions for all animation 
+types.  Thanks to @fidian for the excellent suggestion and examples.
+Closes [#196](https://github.com/Stabzs/Angular2-Toaster/issues/196).
 
 ### BREAKING CHANGES
 * **toast:** Due to the complexity of the `clickHandler` functionality potentially blocking the `tapToDismiss`
@@ -20,6 +23,8 @@ toast click, even if `tapToDismiss` is true or if the click originated from the 
 * **toaster-container.component:** The toaster-container element has changed from an id to a class. Since multiple 
 containers can exist on the same page, using a class for controlling container styles is more semantically 
 appropriate.
+* **toaster.css:** IE support has been dropped and the styles have been ported to a much lighter-weight flexbox 
+pattern.  This will most likely break any custom toast styles.
 
 # 10.0.0
 ### FEATURES

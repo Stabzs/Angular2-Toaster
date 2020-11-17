@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Transitions } from './transitions';
 import { ToasterConfig } from './toaster-config';
 import { ToasterService} from './toaster.service';
 import { IClearWrapper } from './clearWrapper';
@@ -18,70 +18,12 @@ import { Toast } from './toast';
                     toasterconfig.typeClasses[toast.type] 
                 ]"
                 (click)="click(toast)" (clickEvent)="childClick($event)"
-                (mouseover)="stopTimer(toast)" (mouseout)="restartTimer(toast)">
+                (mouseover)="stopTimer(toast)" (mouseout)="restartTimer(toast)"
+            >
             </div>
         </div>
         `,
-    animations: [
-        trigger('toastState', [
-            state('flyRight, flyLeft, slideDown, slideUp, fade', style({ opacity: 1, transform: 'translate(0,0)' })),
-            transition('void => flyRight', [
-                style({
-                    opacity: 0, transform: 'translateX(100%)'
-                }),
-                animate('0.25s ease-in')
-            ]),
-            transition('flyRight => void', [
-                animate('0.25s 10ms ease-out', style({
-                    opacity: 0, transform: 'translateX(100%)'
-                }))
-            ]),
-            transition('void => flyLeft', [
-                style({
-                    opacity: 0, transform: 'translateX(-100%)'
-                }),
-                animate('0.25s ease-in')
-            ]),
-            transition('flyLeft => void', [
-                animate('0.25s 10ms ease-out', style({
-                    opacity: 0, transform: 'translateX(-100%)'
-                }))
-            ]),
-            transition('void => slideDown', [
-                style({
-                    opacity: 0, transform: 'translateY(-200%)'
-                }),
-                animate('0.3s ease-in')
-            ]),
-            transition('slideDown => void', [
-                animate('0.3s 10ms ease-out', style({
-                    opacity: 0, transform: 'translateY(200%)'
-                }))
-            ]),
-            transition('void => slideUp', [
-                style({
-                    opacity: 0, transform: 'translateY(200%)'
-                }),
-                animate('0.3s ease-in')
-            ]),
-            transition('slideUp => void', [
-                animate('0.3s 10ms ease-out', style({
-                    opacity: 0, transform: 'translateY(-200%)'
-                }))
-            ]),
-            transition('void => fade', [
-                style({
-                    opacity: 0,
-                }),
-                animate('0.3s ease-in')
-            ]),
-            transition('fade => void', [
-                animate('0.3s 10ms ease-out', style({
-                    opacity: 0,
-                }))
-            ])
-        ]),
-    ]
+    animations: Transitions
 })
 export class ToasterContainerComponent implements OnInit, OnDestroy {
     private addToastSubscriber: any;
