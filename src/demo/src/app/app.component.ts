@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'demo';
 
   appConfig: IToasterConfig = new ToasterConfig({
-    animation: 'fade', newestOnTop: false, positionClass: 'toast-top-right', 
+    animation: 'fade', newestOnTop: true, positionClass: 'toast-bottom-right', 
     toastContainerId: 1, timeout: 0, showCloseButton: true, 
     // titleClass: 'title-1'
   });
@@ -50,10 +50,10 @@ export class AppComponent {
   }
 
   toto() {
-    console.log('toto button clicked');
+    console.log('todo button clicked');
     const toast: Toast = {
       type: 'success',
-      body: 'I am toto toast'
+      body: 'I am todo toast'
     };
     this.toasterService.pop(toast);
   }

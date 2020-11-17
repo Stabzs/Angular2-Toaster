@@ -558,7 +558,7 @@ describe('ToasterContainerComponent with sync ToasterService', () => {
         fixture.detectChanges();
 
         const closeButtonEle = fixture.nativeElement.querySelector('.toast-close-button');
-        expect(closeButtonEle.innerHTML).toBe('<button class="toast-close-button" type="button">×</button>');
+        expect(closeButtonEle.innerHTML).toBe('<span>×</span>');
     });
 
     it('addToast removes toast from top if !toasterconfig.newestOnTop and limit exceeded', () => {
