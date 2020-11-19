@@ -25,10 +25,34 @@ containers can exist on the same page, using a class for controlling container s
 appropriate.
 * **toaster.css:** IE support has been dropped and the styles have been ported to a much lighter-weight flexbox 
 pattern.  This will most likely break any custom toast styles.
+* **toaster.css:** The Toaster Container element and styles have been moved from an id to a class.  This allows for 
+custom ids to be applied to individual containers and more semantically supports multiple containers on the same page.
+* **toast, toaster.service, toaster-config:** the 'type' parameter has been constrained to the new `ToastType` type 
+instead of string.  If the default types are being used, there will be no impact.  If custom types are being used, 
+the custom types will need a new type that unions `ToastType`.  See the 'Toast Types' section of the README for 
+additional details.  
+    - To more clearly support this change, the `toaster-config.defaultTypeClass` property has been 
+renamed to `defaultToastType` and is now constrained to `ToastType`.
+    - The following toaster-config properties have been updated from type `string` to type `ToastType`:
+        - showCloseButton
+        - typeClasses
+        - iconClasses
+        - defaultToastType
+        - timeout
+* **toaster-container.component:** When providing a custom toast type, overrides must be added via `toaster-config` to 
+both the `typeClasses` and `iconClasses` properties.  If mappings do not exist for both, the toast's type will fall back 
+to `toaster-config.defaultToastType`.
+
+### BUG FIXES
+* **toaster-config:** The default for the `defaultTypeClass` property (now renamed to `defaultToastType`) has been 
+correctly changed to `info` instead of `toast-info` for the fallback case.
+* **toaster.css:** The close button positioning has been corrected.
+Closes [#192](https://github.com/Stabzs/Angular2-Toaster/issues/192).
+
 
 # 10.0.0
 ### FEATURES
-* **angular2-toaster:** Full release of 10.0.0 functionality.  Pins the llibrary to 10.0.0 of Angular.
+* **angular2-toaster:** Full release of 10.0.0 functionality.  Pins the library to 10.0.0 of Angular.
 
 ### DOCUMENTATION
 * **README:** Added documentation for toast types and toast type overrides.

@@ -79,7 +79,7 @@
 
 .toast-close-button, button.toast-close-button {
   align-self: flex-start;
-  padding: 2px 4px;
+  padding: 3px;
   font-size: 23px;
   line-height: 90%;
   font-weight: bold;
@@ -102,6 +102,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.toast-progress-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  background-color: #000000;
+  opacity: 0.4;
 }
 
 /*Additional properties for button version

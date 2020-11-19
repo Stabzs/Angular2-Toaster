@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BodyOutputType } from './bodyOutputType';
+import { ToastType } from './toast';
 
 export interface IToasterConfig {
     limit?: number|null;
     tapToDismiss?: boolean;
-    showCloseButton?: boolean|{ [key: string]: boolean };
+    showCloseButton?: boolean|{ [key in ToastType]?: boolean};
     closeHtml?: string;
     newestOnTop?: boolean;
-    timeout?: number|{ [key: string]: number };
-    typeClasses?: { [key: string]: string };
-    iconClasses?: { [key: string]: string };
+    timeout?: number|{ [key in ToastType]?: number };
+    typeClasses?: { [key in ToastType]?: string };
+    iconClasses?: { [key in ToastType]?: string };
     bodyOutputType?: BodyOutputType;
     bodyTemplate?: string;
-    defaultTypeClass?: string;
+    defaultToastType?: ToastType;
     // Options (see CSS):
     // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-center',
     // 'toast-top-left', 'toast-top-center', 'toast-top-right',
@@ -30,15 +31,15 @@ export interface IToasterConfig {
 export class ToasterConfig implements IToasterConfig {
     limit?: number|null;
     tapToDismiss: boolean;
-    showCloseButton: boolean|{ [key: string]: boolean };
+    showCloseButton: boolean|{ [key in ToastType]?: boolean };
     closeHtml: string;
     newestOnTop: boolean;
-    timeout: number|{ [key: string]: number };
-    typeClasses: { [key: string]: string };
-    iconClasses: { [key: string]: string };
+    timeout: number|{ [key in ToastType]?: number };
+    typeClasses: { [key in ToastType]?: string };
+    iconClasses: { [key in ToastType]?: string };
     bodyOutputType: BodyOutputType;
     bodyTemplate: string;
-    defaultTypeClass: string;
+    defaultToastType: ToastType;
     // Options (see CSS):
     // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-center',
     // 'toast-top-left', 'toast-top-center', 'toast-top-right',
@@ -75,7 +76,7 @@ export class ToasterConfig implements IToasterConfig {
         };
         this.bodyOutputType = configOverrides.bodyOutputType || BodyOutputType.Default;
         this.bodyTemplate = configOverrides.bodyTemplate || 'toasterBodyTmpl.html';
-        this.defaultTypeClass = configOverrides.defaultTypeClass || 'toast-info';
+        this.defaultToastType = configOverrides.defaultToastType || 'info';
         this.positionClass = configOverrides.positionClass || 'toast-top-right';
         this.titleClass = configOverrides.titleClass || 'toast-title';
         this.messageClass = configOverrides.messageClass || 'toast-message';
