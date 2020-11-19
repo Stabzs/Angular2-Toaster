@@ -1,7 +1,7 @@
 import { BodyOutputType } from './bodyOutputType';
 
 export interface Toast {
-    type: string;
+    type: ToastType;
     title?: string;
     body?: any;
     toastId?: string;
@@ -10,12 +10,15 @@ export interface Toast {
     onHideCallback?: OnActionCallback;
     onClickCallback?: OnActionCallback;
     timeout?: number;
-    timeoutId?: number|null;
     bodyOutputType?: BodyOutputType;
     showCloseButton?: boolean;
     closeHtml?: string;
     data?: any;
     tapToDismiss?: boolean;
+    progressBar?: boolean;
+    progressBarDirection?: ProgressBarDirection
 }
 
+export type ToastType = 'success' | 'info' | 'warning' | 'wait' | 'error';
 export type OnActionCallback = (toast: Toast) => void;
+export type ProgressBarDirection = 'decreasing' | 'increasing';

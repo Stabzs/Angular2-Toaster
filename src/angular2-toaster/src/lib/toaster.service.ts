@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Toast } from './toast';
+import { Toast, ToastType } from './toast';
 import { IClearWrapper } from './clearWrapper';
 import { Observable, Subject, Observer } from 'rxjs';
 import { share } from 'rxjs/operators'
@@ -45,7 +45,7 @@ export class ToasterService {
      * @returns {Toast}
      *          The newly created Toast instance with a randomly generated GUID Id.
      */
-    pop(type: string | Toast, title?: string, body?: string): Toast {
+    pop(type: ToastType | Toast, title?: string, body?: string): Toast {
         const toast = typeof type === 'string' ? { type: type, title: title, body: body } : type;
 
         if (!toast.toastId) {
@@ -70,7 +70,7 @@ export class ToasterService {
      *          A hot Observable that can be subscribed to in order to receive the Toast instance
      *          with a randomly generated GUID Id.
      */
-    popAsync(type: string | Toast, title?: string, body?: string): Observable<Toast> {
+    popAsync(type: ToastType | Toast, title?: string, body?: string): Observable<Toast> {
         setTimeout(() => {
             this.pop(type, title, body);
         }, 0);
