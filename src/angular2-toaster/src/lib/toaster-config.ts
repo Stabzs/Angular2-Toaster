@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BodyOutputType } from './bodyOutputType';
 import { ToastType } from './toast';
 
-export const DefaultTypeClasses : { [key in ToastType] } = {
+export const DefaultTypeClasses : { [key in ToastType]? : string } = {
     error: 'toast-error',
     info: 'toast-info',
     wait: 'toast-wait',
@@ -10,7 +10,7 @@ export const DefaultTypeClasses : { [key in ToastType] } = {
     warning: 'toast-warning'
 };
 
-export const DefaultIconClasses : { [key in ToastType] } = {
+export const DefaultIconClasses : { [key in ToastType]? : string } = {
     error: 'icon-error',
     info: 'icon-info',
     wait: 'icon-wait',
