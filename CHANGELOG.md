@@ -4,6 +4,8 @@
 * **toast:** A new `tapToDismiss?: boolean` property has been added to the toast object.  This allows for 
 each individual toast to override the global `tapToDismiss` config.
 Closes [#178](https://github.com/Stabzs/Angular2-Toaster/issues/178).
+* **toast:** A progress bar has been added on a toast-by-toast basis with two progress directions:
+decreasing and increasing.  By default, the progress bar is disabled.
 * **toaster.css:** Styles have been rebuilt around flexbox and have removed IE and webkit-specific prefixes. 
 This allows for more compact css and should make it easier for users to override styles.  It also fixes close 
 button layout issues in Firefox, resolving [#192](https://github.com/Stabzs/Angular2-Toaster/issues/192).
