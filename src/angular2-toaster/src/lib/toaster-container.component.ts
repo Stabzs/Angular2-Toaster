@@ -153,12 +153,10 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
     }
 
     private clearToasts(clearWrapper: IClearWrapper) {
-        const toastId = clearWrapper.toastId;
+        const toastId = clearWrapper.toastId ;
         const toastContainerId = clearWrapper.toastContainerId;
 
-        if (this.isNullOrUndefined(toastContainerId)) {
-            this.clearToastsAction(toastId);
-        } else if (toastContainerId === this.toasterconfig.toastContainerId) {
+        if (this.isNullOrUndefined(toastContainerId) || (toastContainerId === this.toasterconfig.toastContainerId)) {
             this.clearToastsAction(toastId);
         }
     }

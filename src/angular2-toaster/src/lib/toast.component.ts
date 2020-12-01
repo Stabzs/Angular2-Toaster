@@ -15,7 +15,6 @@ import {
     ElementRef,
     Renderer2
 } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Toast } from './toast';
 import { BodyOutputType } from './bodyOutputType';
 import { ToasterConfig } from './toaster-config';
@@ -27,12 +26,12 @@ import { ToasterConfig } from './toaster-config';
             <div [ngClass]="titleClass">{{toast.title}}</div>
             <div [ngClass]="messageClass" [ngSwitch]="toast.bodyOutputType">
                 <div *ngSwitchCase="bodyOutputType.Component" #componentBody></div>
-                <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="safeBodyHtml"></div>
+                <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="toast.body | trustHtml"></div>
                 <div *ngSwitchCase="bodyOutputType.Default">{{toast.body}}</div>
             </div>
         </div>
         <button class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click($event, toast)"
-            [innerHTML]="safeCloseHtml">
+            [innerHTML]="toast.closeHtml | trustHtml">
         </button>
         <div *ngIf="toast.progressBar">
             <div class="toast-progress-bar" [style.width]="progressBarWidth + '%'"></div>
@@ -45,8 +44,6 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() messageClass: string;
     @ViewChild('componentBody', { read: ViewContainerRef, static: false }) componentBody: ViewContainerRef;
 
-    public safeCloseHtml: SafeHtml;
-    public safeBodyHtml: SafeHtml;
     public progressBarWidth: number = -1;
     public bodyOutputType = BodyOutputType;
 
@@ -63,7 +60,6 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
     private removeMouseOverListener: () => void;
 
     constructor(
-      private sanitizer: DomSanitizer,
       private componentFactoryResolver: ComponentFactoryResolver,
       private changeDetectorRef: ChangeDetectorRef,
       private ngZone: NgZone,
@@ -72,13 +68,6 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        if (this.toast.closeHtml) {
-            this.safeCloseHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.closeHtml);
-        }
-        if (this.toast.bodyOutputType === BodyOutputType.TrustedHtml) {
-            this.safeBodyHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.body);
-        }
-
         if (this.toast.progressBar) {
             this.toast.progressBarDirection = this.toast.progressBarDirection || 'decreasing';
         }

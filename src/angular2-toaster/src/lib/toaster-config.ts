@@ -2,6 +2,22 @@ import { Injectable } from '@angular/core';
 import { BodyOutputType } from './bodyOutputType';
 import { ToastType } from './toast';
 
+export const DefaultTypeClasses : { [key in ToastType] } = {
+    error: 'toast-error',
+    info: 'toast-info',
+    wait: 'toast-wait',
+    success: 'toast-success',
+    warning: 'toast-warning'
+};
+
+export const DefaultIconClasses : { [key in ToastType] } = {
+    error: 'icon-error',
+    info: 'icon-info',
+    wait: 'icon-wait',
+    success: 'icon-success',
+    warning: 'icon-warning'
+};
+
 export interface IToasterConfig {
     limit?: number|null;
     tapToDismiss?: boolean;
@@ -60,20 +76,8 @@ export class ToasterConfig implements IToasterConfig {
         this.closeHtml = configOverrides.closeHtml || '<span>&times;</span>';
         this.newestOnTop = configOverrides.newestOnTop != null ? configOverrides.newestOnTop : true;
         this.timeout = configOverrides.timeout != null ? configOverrides.timeout : 5000;
-        this.typeClasses = configOverrides.typeClasses || {
-            error: 'toast-error',
-            info: 'toast-info',
-            wait: 'toast-wait',
-            success: 'toast-success',
-            warning: 'toast-warning'
-        };
-        this.iconClasses = configOverrides.iconClasses || {
-            error: 'icon-error',
-            info: 'icon-info',
-            wait: 'icon-wait',
-            success: 'icon-success',
-            warning: 'icon-warning'
-        };
+        this.typeClasses = configOverrides.typeClasses || DefaultTypeClasses;
+        this.iconClasses = configOverrides.iconClasses || DefaultIconClasses;
         this.bodyOutputType = configOverrides.bodyOutputType || BodyOutputType.Default;
         this.bodyTemplate = configOverrides.bodyTemplate || 'toasterBodyTmpl.html';
         this.defaultToastType = configOverrides.defaultToastType || 'info';

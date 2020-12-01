@@ -286,7 +286,8 @@ describe('ToastComponent', () => {
             component['removeToastTick'] = new Date().getTime() + 75;
 
             component['updateProgressBar']();
-            expect(component.progressBarWidth).toBe(75);
+            expect(component.progressBarWidth).toBeGreaterThan(70);
+            expect(component.progressBarWidth).toBeLessThan(80);
         });
 
         it('should invert progressBarWidth if progressBarDirection is increasing', () => {
@@ -299,7 +300,8 @@ describe('ToastComponent', () => {
             component['removeToastTick'] = new Date().getTime() + 75;
 
             component['updateProgressBar']();
-            expect(component.progressBarWidth).toBe(25);
+            expect(component.progressBarWidth).toBeGreaterThan(20);
+            expect(component.progressBarWidth).toBeLessThan(30);
         });
 
         it('should set progressBarWidth to 0 if offset is less than 0', () => {
