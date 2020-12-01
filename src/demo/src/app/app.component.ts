@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { 
-  ToasterConfig, IToasterConfig, ToasterService, Toast, ToastType
+  ToasterConfig, IToasterConfig, ToasterService, Toast, ToastType, DefaultTypeClasses, DefaultIconClasses
 } from '../../../angular2-toaster/src/public-api';
 
 @Component({
@@ -11,25 +11,14 @@ import {
 export class AppComponent {
   title = 'demo';
 
+  extendedTypeClasses = { ...DefaultTypeClasses, ...{ customtype: 'toast-success' }};
+  extendedIconClasses = { ...DefaultIconClasses, ...{ customtype: 'icon-error' }};
+
   appConfig: IToasterConfig = new ToasterConfig({
     animation: 'fade', newestOnTop: true, positionClass: 'toast-bottom-right', 
     toastContainerId: 1, timeout: 0, showCloseButton: true, // mouseoverTimerStop: true
-    typeClasses: <ExtendedToastType>{
-      customtype: 'toast-success',
-      error: 'toast-error',
-      info: 'toast-info',
-      wait: 'toast-wait',
-      success: 'toast-success',
-      warning: 'toast-warning'
-    }, 
-    iconClasses: <ExtendedToastType>{
-      customtype: 'icon-error',
-      error: 'icon-error',
-      info: 'icon-info',
-      wait: 'icon-wait',
-      success: 'icon-success',
-      warning: 'icon-warning'
-    }
+    typeClasses: <ExtendedToastType>this.extendedTypeClasses, 
+    iconClasses: <ExtendedToastType>this.extendedIconClasses
   });
 
   testConfig: IToasterConfig = new ToasterConfig({
@@ -96,6 +85,10 @@ export class AppComponent {
       progressBar: true
     };
     this.toasterService.pop(toast);
+  }
+
+  clear() {
+    this.toasterService.clear();
   }
 }
 

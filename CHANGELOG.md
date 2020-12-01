@@ -48,6 +48,9 @@ to `toaster-config.defaultToastType`.
 correctly changed to `info` instead of `toast-info` for the fallback case.
 * **toaster.css:** The close button positioning has been corrected.
 Closes [#192](https://github.com/Stabzs/Angular2-Toaster/issues/192).
+* **toast.component:** The `BodyOutputType.TrustedHtml` body content did not properly update on change. A pipe has been 
+added at the suggestion of @rmeshksar to force re-rendering of the content if it changes.  Replaces 
+[#185]](https://github.com/Stabzs/Angular2-Toaster/pull/185).
 
 
 # 10.0.0
