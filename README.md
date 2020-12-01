@@ -8,9 +8,11 @@ largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-T
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
 [![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=8.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
+Version ^11.0.0 has a number of new features, type definitions, and break changesing.  Please review the 
+[CHANGELOG](CHANGELOG.md/#11.0.0) for a list of features and breaking changes before upgrading.
 
 Version ^5.0.0 requires either `.forRoot()` or `.forChild()` `ToasterModule` inclusion.  Please 
-read the 5.x.x release notes and the `Getting Started` section before upgraded.
+read the 5.x.x release notes and the `Getting Started` section before upgrading.
 
 Version ^4.0.0 now supports @angular/animations, which is a breaking change. 
 Please read both the Getting Started and Animations sections before upgrading.
@@ -257,16 +259,47 @@ If you need to target a non-supported browser, a [polyfill](https://github.com/w
 
 # Configurable Options
 ### Toast Types
-By default, five toast types are defined: 'error, 'info', 'wait', 'success', and 'warning'.
+By default, five toast types are defined via the `ToastType` type: 'error, 'info', 'wait', 'success', and 'warning'.
 
-The default options can be overridden by passing a mapping object to the config, where the key corresponds to the toast type and the value corresponds to a custom style:
+The existing toast type configurations can be overridden by passing a mapping object that uses the 
+same type names but overrides the style class:
 
 ```typescript
 template: 
     `<toaster-container [toasterconfig]="config"></toaster-container>`
 
 public config: ToasterConfig = 
-    new ToasterConfig({typeClasses: {'partial-success': '.toaster-partial-success' }});
+    new ToasterConfig({typeClasses: {
+      error: 'custom-toast-error',
+      info: 'custom-toast-info',
+      wait: 'custom-toast-wait',
+      success: 'custom-toast-success',
+      warning: 'custom-toast-warning'
+    }});
+```
+
+In addition, the default options can be overridden, replaced, or expanded, by extending the toast type with a 
+custom type and passing a mapping object to the config, where the key corresponds to the toast type and the 
+value corresponds to a custom class:
+
+**NOTE: When providing a custom type, both the typeClasses and iconClasses objects must be updated.
+In the case where either are not provided, the toast type will fall back to the `defaultToastType` which 
+defaults to `info`.**
+```typescript
+import {DefaultTypeClasses, DefaultIconClasses} from 'angular2-toaster';
+type ExtendedToastType = ('partial-success') & ToastType;
+
+template: 
+    `<toaster-container [toasterconfig]="config"></toaster-container>`
+
+extendedTypeClasses = { ...DefaultTypeClasses, ...{ 'partial-success': 'toast-partial-success' }};
+extendedIconClasses = { ...DefaultIconClasses, ...{ 'partial-success': 'icon-partial-success' }};
+
+public config: ToasterConfig = 
+    new ToasterConfig({
+        typeClasses: <ExtendedToastType>this.extendedTypeClasses,
+        iconClasses: <ExtendedToastType>this.extendedIconClasses
+    });
 ```
 
 ### Animations
@@ -548,6 +581,20 @@ var toast: Toast = {
 this.toasterService.pop(toast);
 ```
 
+### On Click Callback
+An onClick callback function can be attached to each toast instance.  The callback will be invoked upon the toast being 
+clicked, even if the click is the close button.  The callback will be invoked before the toast is removed.
+
+```typescript
+var toast: Toast = {
+  type: 'success',
+  title: 'parent',
+  onClickCallback: (toast) => this.toasterService.pop('success', 'invoked from ' + toast.title + ' onClick callback')  
+};
+
+this.toasterService.pop(toast);
+```
+
 
 # Building the Source
 In order to build Angular2-Toaster for development, you will need to have Git and Node.js installed.
@@ -570,7 +617,7 @@ npm run build
 
 Run Karma test instance with coverage report:
 ```bash
-npm run test
+ng test angular2-toaster --code-coverage
 ```
 
 # Frequently Asked Questions and Issues
