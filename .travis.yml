@@ -13,4 +13,4 @@ install:
 script:
   - ng test angular2-toaster --watch=false --code-coverage
 after_script:
-  - "cat ./coverage/lcov-report/lcov | ./node_modules/coveralls/bin/coveralls.js"
+  - "cat ./coverage/angular2-toaster/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
