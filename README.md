@@ -8,7 +8,7 @@ largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-T
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
 [![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=11.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
-Version ^11.0.0 has a number of new features, type definitions, and break changesing.  Please review the 
+Version ^11.0.0 has a number of new features, type definitions, and breaking changes.  Please review the 
 [CHANGELOG](CHANGELOG.md/#11.0.0) for a list of features and breaking changes before upgrading.
 
 Version ^5.0.0 requires either `.forRoot()` or `.forChild()` `ToasterModule` inclusion.  Please 
