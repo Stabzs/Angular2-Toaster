@@ -6,7 +6,7 @@ largely based off of [AngularJS-Toaster](https://github.com/jirikavi/AngularJS-T
 [![npm](https://img.shields.io/npm/v/angular2-toaster.svg?maxAge=3600?800=true)](https://www.npmjs.com/package/angular2-toaster)
 [![npm](https://img.shields.io/npm/dt/angular2-toaster.svg?cache=true)](https://www.npmjs.com/package/angular2-toaster)
 [![Build Status](https://travis-ci.org/Stabzs/Angular2-Toaster.svg?branch=master)](https://travis-ci.org/Stabzs/Angular2-Toaster)
-[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=8.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Stabzs/Angular2-Toaster/badge.svg?branch=master&b=11.0.0)](https://coveralls.io/github/Stabzs/Angular2-Toaster?branch=master)
 
 Version ^11.0.0 has a number of new features, type definitions, and break changesing.  Please review the 
 [CHANGELOG](CHANGELOG.md/#11.0.0) for a list of features and breaking changes before upgrading.
@@ -553,6 +553,24 @@ of the toast.
   your component.  It is recommended that you expose a public property on your component for type 
   safe access to the toast instance if you need to consume it inside of your component.  
   Mutation of the toast instance is not recommended.
+
+
+### Progress Bar
+A progress bar can be enabled per toast via the `progressBar` property.  If set to true, a progress bar will be 
+displayed that indicates how much time is remaining for the toast before it is automatically dismissed.
+
+The progress bar has two directions: `decreasing` or right-to-left and `increasing`, or left-to-right.  While defaulted 
+to `decreasing`, it can be overridden per toast:
+
+```typescript
+var toast: Toast = {
+  type: 'success',
+  progressBar: true,
+  progressBarDirection: 'increasing'  
+};
+
+this.toasterService.pop(toast);
+```
 
 
 ### On Show Callback
