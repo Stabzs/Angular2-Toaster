@@ -1,8 +1,8 @@
-import { 
+import {
     Component,
-    Input, 
+    Input,
     OnInit,
-    OnDestroy 
+    OnDestroy
 } from '@angular/core';
 import { Transitions } from './transitions';
 import { ToasterConfig } from './toaster-config';
@@ -53,13 +53,16 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
 
     // event handlers
     click(toast: Toast, isCloseButton?: boolean) {
+        const tapToDismiss = !this.isNullOrUndefined(toast.tapToDismiss)
+            ? toast.tapToDismiss
+            : this.toasterconfig.tapToDismiss;
+
+        toast.dismissed = tapToDismiss && !isCloseButton;
+        toast.closed = toast.showCloseButton && isCloseButton;
+
         if (toast.onClickCallback) {
             toast.onClickCallback(toast);
         }
-
-        const tapToDismiss = !this.isNullOrUndefined(toast.tapToDismiss) 
-            ? toast.tapToDismiss
-            : this.toasterconfig.tapToDismiss;
 
         if (tapToDismiss || (toast.showCloseButton && isCloseButton)) {
             this.removeToast(toast);
@@ -97,7 +100,7 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
         if (toast.toastContainerId && this.toasterconfig.toastContainerId
             && toast.toastContainerId !== this.toasterconfig.toastContainerId) { return };
 
-        if (!toast.type 
+        if (!toast.type
             || !this.toasterconfig.typeClasses[toast.type]
             || !this.toasterconfig.iconClasses[toast.type]) {
             toast.type = this.toasterconfig.defaultToastType;
