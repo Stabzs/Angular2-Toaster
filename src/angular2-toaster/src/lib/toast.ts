@@ -16,7 +16,9 @@ export interface Toast {
     data?: any;
     tapToDismiss?: boolean;
     progressBar?: boolean;
-    progressBarDirection?: ProgressBarDirection
+    progressBarDirection?: ProgressBarDirection;
+    dismissed?: boolean;
+    closed?: boolean;
 }
 
 export type ToastType = 'success' | 'info' | 'warning' | 'wait' | 'error';
