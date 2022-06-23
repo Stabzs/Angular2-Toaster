@@ -12,4 +12,5 @@ src/*.ngfactory.ts
 angular2-toaster.d.ts
 demo/webpack/bundle.js
 demo/webpack/bundle.js.map
+.angular
 .DS_Store
