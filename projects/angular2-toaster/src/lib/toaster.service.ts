@@ -17,10 +17,10 @@ class Guid {
 @Injectable({ providedIn: 'root' })
 export class ToasterService {
     addToast: Observable<Toast>;
-    private _addToast: Observer<Toast>;
+    private _addToast?: Observer<Toast>;
 
     clearToasts: Observable<IClearWrapper>;
-    private _clearToasts: Observer<IClearWrapper>;
+    private _clearToasts?: Observer<IClearWrapper>;
 
     removeToast: Observable<IClearWrapper>;
     /** @internal */
@@ -90,6 +90,6 @@ export class ToasterService {
             toastId: toastId, toastContainerId: toastContainerId
         };
 
-        this._clearToasts.next(clearWrapper)
+        this._clearToasts?.next(clearWrapper)
     }
 }

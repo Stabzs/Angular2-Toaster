@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { BodyOutputType } from './bodyOutputType';
 import { ToastType } from './toast';
 
@@ -43,7 +43,6 @@ export interface IToasterConfig {
     toastContainerId?: number|null;
 }
 
-@Injectable()
 export class ToasterConfig implements IToasterConfig {
     limit?: number|null;
     tapToDismiss: boolean;
@@ -68,7 +67,7 @@ export class ToasterConfig implements IToasterConfig {
     mouseoverTimerStop: boolean;
     toastContainerId?: number|null;
 
-    constructor(configOverrides?: IToasterConfig) {
+    constructor(@Optional() configOverrides?: IToasterConfig) {
         configOverrides = configOverrides || {};
         this.limit = configOverrides.limit || null;
         this.tapToDismiss = configOverrides.tapToDismiss != null ? configOverrides.tapToDismiss : true;

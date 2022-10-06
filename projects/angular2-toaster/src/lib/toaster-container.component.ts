@@ -1,11 +1,11 @@
-import { 
+import {
     Component,
-    Input, 
+    Input,
     OnInit,
-    OnDestroy 
+    OnDestroy
 } from '@angular/core';
 import { Transitions } from './transitions';
-import { ToasterConfig } from './toaster-config';
+import { IToasterConfig, ToasterConfig } from './toaster-config';
 import { ToasterService} from './toaster.service';
 import { IClearWrapper } from './clearWrapper';
 import { Toast } from './toast';
@@ -16,12 +16,12 @@ import { Toast } from './toast';
         <div class="toast-container" [ngClass]="[toasterconfig.positionClass]">
             <div toastComp *ngFor="let toast of toasts" class="toast" [toast]="toast"
                 [toasterconfig]="toasterconfig"
-                [@toastState]="toasterconfig.animation"
-                [titleClass]="toasterconfig.titleClass"
-                [messageClass]="toasterconfig.messageClass"
+                [@toastState]="toasterconfig.animation || ''"
+                [titleClass]="toasterconfig.titleClass || ''"
+                [messageClass]="toasterconfig.messageClass || ''"
                 [ngClass]="[
-                    toasterconfig.iconClasses[toast.type],
-                    toasterconfig.typeClasses[toast.type]
+                    toasterconfig.iconClasses?.[toast.type],
+                    toasterconfig.typeClasses?.[toast.type]
                 ]"
                 (click)="click(toast)" (clickEvent)="childClick($event)"
                 (removeToastEvent)="removeToast($event)"
@@ -36,7 +36,7 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
     private clearToastsSubscriber: any;
     private toasterService: ToasterService;
 
-    @Input() toasterconfig: ToasterConfig;
+    @Input() toasterconfig!: IToasterConfig;
 
     public toasts: Toast[] = [];
 
@@ -48,6 +48,8 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
         this.registerSubscribers();
         if (this.isNullOrUndefined(this.toasterconfig)) {
             this.toasterconfig = new ToasterConfig();
+        } else {
+          this.toasterconfig = new ToasterConfig(this.toasterconfig);
         }
     }
 
@@ -57,9 +59,9 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
             toast.onClickCallback(toast);
         }
 
-        const tapToDismiss = !this.isNullOrUndefined(toast.tapToDismiss) 
+        const tapToDismiss = !this.isNullOrUndefined(toast.tapToDismiss)
             ? toast.tapToDismiss
-            : this.toasterconfig.tapToDismiss;
+            : this.toasterconfig?.tapToDismiss;
 
         if (tapToDismiss || (toast.showCloseButton && isCloseButton)) {
             this.removeToast(toast);
@@ -97,10 +99,10 @@ export class ToasterContainerComponent implements OnInit, OnDestroy {
         if (toast.toastContainerId && this.toasterconfig.toastContainerId
             && toast.toastContainerId !== this.toasterconfig.toastContainerId) { return };
 
-        if (!toast.type 
-            || !this.toasterconfig.typeClasses[toast.type]
-            || !this.toasterconfig.iconClasses[toast.type]) {
-            toast.type = this.toasterconfig.defaultToastType;
+        if (!toast.type
+            || !this.toasterconfig.typeClasses?.[toast.type]
+            || !this.toasterconfig.iconClasses?.[toast.type]) {
+            toast.type = this.toasterconfig.defaultToastType || 'success';
         }
 
         if (this.toasterconfig.preventDuplicates && this.toasts.length > 0) {
