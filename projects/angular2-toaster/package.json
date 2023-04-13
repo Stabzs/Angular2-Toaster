@@ -1,15 +1,15 @@
 {
-  "name": "@dkachko/angular2-toaster",
+  "name": "angular2-toaster",
   "description": "An Angular Toaster Notification library based on AngularJS-Toaster",
   "version": "14.0.1",
   "author": "Stabzs",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dkachko/Angular2-Toaster.git"
+    "url": "https://github.com/stabzs/Angular2-Toaster.git"
   },
   "bugs": {
-    "url": "https://github.com/dkachko/Angular2-Toaster/issues"
+    "url": "https://github.com/stabzs/Angular2-Toaster/issues"
   },
   "keywords": [
     "angular",
