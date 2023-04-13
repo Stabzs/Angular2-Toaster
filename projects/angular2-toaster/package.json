@@ -24,9 +24,9 @@
     "growl"
   ],
   "peerDependencies": {
-    "@angular/common": "^15.0.0",
-    "@angular/compiler": "^15.0.0",
-    "@angular/core": "^15.0.0",
+    "@angular/common": "^14.2.0",
+    "@angular/compiler": "^14.2.0",
+    "@angular/core": "^14.2.0",
     "rxjs": "^7.5.0"
   },
   "dependencies": {
