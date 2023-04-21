@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { 
-  ToasterConfig, IToasterConfig, ToasterService, Toast, ToastType, DefaultTypeClasses, DefaultIconClasses
-} from '../../../angular2-toaster/src/public-api';
+import { DefaultIconClasses, DefaultTypeClasses, IToasterConfig, ToasterConfig }
+  from '../../../angular2-toaster/src/lib/toaster-config';
+import { ToasterService } from '../../../angular2-toaster/src/lib/toaster.service';
+import { Toast, ToastType } from '../../../angular2-toaster/src/lib/toast';
+
 
 @Component({
   selector: 'app-root',
@@ -15,14 +17,14 @@ export class AppComponent {
   extendedIconClasses = { ...DefaultIconClasses, ...{ customtype: 'icon-error' }};
 
   appConfig: IToasterConfig = new ToasterConfig({
-    animation: 'fade', newestOnTop: true, positionClass: 'toast-bottom-right', 
+    animation: 'fade', newestOnTop: true, positionClass: 'toast-bottom-right',
     toastContainerId: 1, timeout: 0, showCloseButton: true, // mouseoverTimerStop: true
-    typeClasses: <ExtendedToastType>this.extendedTypeClasses, 
+    typeClasses: <ExtendedToastType>this.extendedTypeClasses,
     iconClasses: <ExtendedToastType>this.extendedIconClasses
   });
 
   testConfig: IToasterConfig = new ToasterConfig({
-    animation: 'fade', newestOnTop: true, positionClass: 'toast-bottom-left', 
+    animation: 'fade', newestOnTop: true, positionClass: 'toast-bottom-left',
     toastContainerId: 1, timeout: 0, showCloseButton: true, mouseoverTimerStop: true,
     typeClasses: <ExtendedToastType>{
       customtype: 'toast-success',
@@ -31,7 +33,7 @@ export class AppComponent {
       wait: 'toast-wait',
       success: 'toast-success',
       warning: 'toast-warning'
-    }, 
+    },
     iconClasses: <ExtendedToastType>{
       customtype: 'icon-error',
       error: 'icon-error',
@@ -47,8 +49,8 @@ export class AppComponent {
 
   popToast() {
     let toast = this.toasterService.pop({
-      type: 'success', 
-      title: 'Home Title', 
+      type: 'success',
+      title: 'Home Title',
       body: 'Home Body'
     });
 
@@ -57,8 +59,8 @@ export class AppComponent {
 
   persistentToast() {
     this.toasterService.popAsync({
-      type: <ExtendedToastType>'customtype', 
-      title: 'Click Me', 
+      type: <ExtendedToastType>'customtype',
+      title: 'Click Me',
       body: 'I am sticky with a really long body let us see what happens',
       tapToDismiss: false,
       onClickCallback: (t) => console.log(t.toastId),
