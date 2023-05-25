@@ -1,7 +1,7 @@
 {
   "name": "angular2-toaster",
   "description": "An Angular Toaster Notification library based on AngularJS-Toaster",
-  "version": "11.0.1",
+  "version": "11.0.2",
   "author": "Stabzs",
   "license": "MIT",
   "repository": {
