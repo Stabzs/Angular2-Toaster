@@ -28,18 +28,6 @@
             "tsConfig": "src/angular2-toaster/tsconfig.spec.json",
             "karmaConfig": "src/angular2-toaster/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/angular2-toaster/tsconfig.lib.json",
-              "src/angular2-toaster/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -140,19 +128,6 @@
               "src/demo/src/styles.scss"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/demo/tsconfig.app.json",
-              "src/demo/tsconfig.spec.json",
-              "src/demo/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         },
         "e2e": {
