@@ -1,3 +1,4 @@
+/.angular/cache
 node_modules
 src/node_modules
 npm-debug.log
@@ -13,3 +14,4 @@ angular2-toaster.d.ts
 demo/webpack/bundle.js
 demo/webpack/bundle.js.map
 .DS_Store
+.idea
