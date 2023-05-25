@@ -26,12 +26,12 @@ import { ToasterConfig } from './toaster-config';
             <div [ngClass]="titleClass">{{toast.title}}</div>
             <div [ngClass]="messageClass" [ngSwitch]="toast.bodyOutputType">
                 <div *ngSwitchCase="bodyOutputType.Component" #componentBody></div>
-                <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="toast.body | trustHtml"></div>
-                <div *ngSwitchCase="bodyOutputType.Default">{{toast.body}}</div>
+                <div *ngSwitchCase="bodyOutputType.TrustedHtml" [innerHTML]="(toast.body ?? '') | trustHtml"></div>
+                <div *ngSwitchCase="bodyOutputType.Default">{{toast.body ?? ''}}</div>
             </div>
         </div>
         <button class="toast-close-button" *ngIf="toast.showCloseButton" (click)="click($event, toast)"
-            [innerHTML]="toast.closeHtml | trustHtml">
+            [innerHTML]="(toast.closeHtml ?? '') | trustHtml">
         </button>
         <div *ngIf="toast.progressBar">
             <div class="toast-progress-bar" [style.width]="progressBarWidth + '%'"></div>
